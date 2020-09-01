@@ -187,6 +187,7 @@ uint32_t eval(int l, int r, bool *success) {
 	if(tokens[now].type == PLUS) return a + b;
 	if(tokens[now].type == STAR) return a * b;
 	if(tokens[now].type == DIV) return a / b;	
+	if(tokens[now].type == MINUS) return a - b;
 	return 0;
 }
 
