@@ -80,7 +80,7 @@ static int cmd_p (char *args) {
 		printf("Bad expression\n");
 		return 0;
 	}
-	printf("Expression %s : %x\n", args, ans);
+	printf("Expression %s : 0x%x\n", args, ans);
 	return 0;
 }
 
