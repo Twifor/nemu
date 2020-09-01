@@ -58,6 +58,13 @@ static int cmd_si(char *args) {
 	return 0;
 }
 
+static int cmd_x(char *args) {
+	if(args == NULL) return 0;
+	printf("%s\n",args);
+	return 0;
+
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -70,7 +77,7 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Continue the execution of the program in N steps", cmd_si },
 	{ "info", "Print all registers", cmd_info },
-
+	{ "x", "Scan the memory", cmd_x },
 	/* TODO: Add more commands */
 
 };
