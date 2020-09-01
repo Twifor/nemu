@@ -171,6 +171,12 @@ uint32_t eval(int l, int r, bool *success) {
 				if(!(*success)) return *success = false;
 				--now;
 				break;
+			default:
+				a = eval(l, now - 1, success);
+				if(!(*success)) return *success = false;
+				b = eval(now + 1, r, success);
+				if(!(*success)) return *success = false;
+				return a - b;
 		}
 	} else {
 		a = eval(l, now - 1, success);
