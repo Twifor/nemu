@@ -38,7 +38,9 @@ static int cmd_q(char *args) {
 
 static int cmd_info(char *args){
 	if(args == NULL) return 0;
-	if(strcmp(args, "r") == 0) {
+	char opt;
+	sscanf(args, " %c", &opt);
+	if(opt == 'r') {
 		printf("%%eax %x\n", cpu.eax);
 		printf("%%ecx %x\n", cpu.ecx);
 		printf("%%edx %x\n", cpu.edx);
@@ -60,10 +62,9 @@ static int cmd_si(char *args) {
 
 static int cmd_x(char *args) {
 	if(args == NULL) return 0;
-	printf("%s\n",args);
-	char *num = strtok(args, " ");
-	char *addr = strtok(NULL, " ");
-	printf("%s\n%s\n",num, addr);
+	uint32_t num, addr;
+	sscanf(args, "%d%d", &num, &addr);
+
 	return 0;
 
 }
