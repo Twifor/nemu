@@ -76,8 +76,6 @@ static bool make_token(char *e) {
 			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
-				for(int j=position;j<position+substr_len;j++)printf("%c",e[j]);
-				printf("\n");
 				Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
@@ -88,12 +86,13 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
 					case NOTYPE:
-						break;							//It's blank!
-					case PLUS:
-						tokens[nr_token++].type = PLUS;	//PLUS
+						break;											//It's blank!				
+					case HEX:case DEC:case REG:
+						strncpy(tokens[nr_token].str, e + position - substr_len, substr_len);//regs or number
+						//WARNING: 32 may be a little small...
+					default:
+						tokens[nr_token++].type = rules[i].token_type;	//other
 						break;
-					
-					default: break;
 					//panic("please implement me");
 				}
 
@@ -115,9 +114,11 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-
+	for(int i=0;i<nr_token;i++){
+		printf("%d %s\n",tokens[i].type,tokens[i].str);
+	}
 	/* TODO: Insert codes to evaluate the expression. */
-	panic("please implement me");
+	//panic("please implement me");
 	return 0;
 }
 
