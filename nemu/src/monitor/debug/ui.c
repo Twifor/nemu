@@ -63,7 +63,7 @@ static int cmd_si(char *args) {
 static int cmd_x(char *args) {
 	if(args == NULL) return 0;
 	uint32_t num, addr;
-	sscanf(args, "%x%x", &num, &addr);
+	sscanf(args, "%d%x", &num, &addr);
 	printf("address 0x%x: 0x%x\n", addr, swaddr_read(addr, num));
 	return 0;
 }
