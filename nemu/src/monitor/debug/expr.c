@@ -22,13 +22,14 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
+	//--Liyh
 	{" +",	NOTYPE},				// spaces
 	{"\\+", PLUS},					// plus
 	{"-", MINUS},					//minus
 	{"\\*", STAR},					//star
 	{"/", DIV},						//div
-	{"\\(", LB},						//lb
-	{"\\)", RB},						//rb
+	{"\\(", LB},					//lb
+	{"\\)", RB},					//rb
 	{"0[xX][0-9a-zA-Z]+", HEX},		//hex
 	{"[0-9]+", DEC},				//dec
 	{"\\$[a-z]+", REG}				//reg
@@ -86,12 +87,12 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
 					case NOTYPE:
-						break;											//It's blank!				
+						break;											//It's blank!	--Liyh				
 					case HEX:case DEC:case REG:
 						strncpy(tokens[nr_token].str, e + position - substr_len, substr_len);//regs or number
-						//WARNING: 32 may be a little small...
+						//WARNING: 32 may be a little small...	--Liyh
 					default:
-						tokens[nr_token++].type = rules[i].token_type;	//other
+						tokens[nr_token++].type = rules[i].token_type;	//other			--Liyh
 						break;
 					//panic("please implement me");
 				}
@@ -109,13 +110,58 @@ static bool make_token(char *e) {
 	return true; 
 }
 
+bool check_parentheses(int l, int r, bool *success) {//Check the parentheses, use stack. --Liyh
+	*success = true;
+	if(l > r) return *success = false;
+	int cnt = 0, flag = 1;		//A simple stack
+	for(int i = l;i <= r; i++){
+		if(tokens[i].type == LB) ++cnt;
+		if(tokens[i].type == RB) --cnt;
+		if(cnt < 0)	return *success = false;//Bad
+		if(i != r && cnt == 0) flag = 0;
+	}
+	if(cnt != 0) return *success = false;
+	return flag;
+}
+
+uint32_t eval(int l, int r, bool *success) {
+	*success = true;
+	if(l > r) {
+		*success = false;	//Bad Expression !!
+		return 0;
+	}
+	if(l == r){				//It's a number or reg, otherwise bad expression
+		uint32_t tmp;
+		if(tokens[l].type == HEX) {
+			sscanf(tokens[l].str, "%x", &tmp);
+			return tmp;
+		}else if(tokens[l].type == DEC) {
+			sscanf(tokens[l].str, "%d", &tmp);
+			return tmp;
+		}else if(tokens[l].type == REG) {
+			return 0;			//Pass....
+		}
+		*success = false;
+		return 0;
+	}
+	bool flag = check_parentheses(l, r, success);
+	if(!success) return 0;		//Bad
+	if(flag) return eval(l + 1, r - 1, success);//OK
+	
+	return 0;
+
+}
+
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
 	}
+	
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
-	return 0;
+	//It's may be a little difficult... --Liyh
+	//Calculate the value!
+	return eval(0, nr_token - 1, success);//call eval to calculate the value of expression e --Liyh
 }
 
