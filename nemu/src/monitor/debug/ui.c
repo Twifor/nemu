@@ -41,15 +41,15 @@ static int cmd_info(char *args){
 	char opt;
 	sscanf(args, " %c", &opt);
 	if(opt == 'r') {
-		printf("%%eax %x\n", cpu.eax);
-		printf("%%ecx %x\n", cpu.ecx);
-		printf("%%edx %x\n", cpu.edx);
-		printf("%%ebx %x\n", cpu.ebx);
-		printf("%%esp %x\n", cpu.esp);
-		printf("%%ebp %x\n", cpu.ebp);
-		printf("%%esi %x\n", cpu.esi);
-		printf("%%edi %x\n", cpu.edi);
-		printf("%%eip %x\n", cpu.eip);
+		printf("%%eax 0x%x\n", cpu.eax);
+		printf("%%ecx 0x%x\n", cpu.ecx);
+		printf("%%edx 0x%x\n", cpu.edx);
+		printf("%%ebx 0x%x\n", cpu.ebx);
+		printf("%%esp 0x%x\n", cpu.esp);
+		printf("%%ebp 0x%x\n", cpu.ebp);
+		printf("%%esi 0x%x\n", cpu.esi);
+		printf("%%edi 0x%x\n", cpu.edi);
+		printf("%%eip 0x%x\n", cpu.eip);
 	}
 	return 0;
 }
