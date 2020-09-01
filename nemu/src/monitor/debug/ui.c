@@ -41,7 +41,7 @@ static int cmd_help(char *args);
 static struct {
 	char *name;
 	char *description;
-	int (*handler) (char *);
+	int (*handler) (char *);	//A pointer (Function)
 } cmd_table [] = {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
@@ -99,7 +99,7 @@ void ui_mainloop() {
 #endif
 
 		int i;
-		for(i = 0; i < NR_CMD; i ++) {
+		for(i = 0; i < NR_CMD; i ++) {	//Brute Force!
 			if(strcmp(cmd, cmd_table[i].name) == 0) {
 				if(cmd_table[i].handler(args) < 0) { return; }
 				break;
