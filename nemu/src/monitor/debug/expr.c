@@ -22,7 +22,6 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	//--Liyh
 	{" +",	NOTYPE},				// spaces
 	{"\\+", PLUS},					// plus
 	{"-", MINUS},					//minus
@@ -87,12 +86,12 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
 					case NOTYPE:
-						break;											//It's blank!	--Liyh				
+						break;											//It's blank!
 					case HEX:case DEC:case REG:
 						strncpy(tokens[nr_token].str, e + position - substr_len, substr_len);//regs or number
-						//WARNING: 32 may be a little small...	--Liyh
+						//WARNING: 32 may be a little small...
 					default:
-						tokens[nr_token++].type = rules[i].token_type;	//other			--Liyh
+						tokens[nr_token++].type = rules[i].token_type;	//other	
 						break;
 					//panic("please implement me");
 				}
@@ -110,7 +109,7 @@ static bool make_token(char *e) {
 	return true; 
 }
 
-bool check_parentheses(int l, int r, bool *success) {//Check the parentheses, use stack. --Liyh
+bool check_parentheses(int l, int r, bool *success) {//Check the parentheses, use stack.
 	*success = true;
 	if(l > r) return *success = false;
 	int cnt = 0, flag = 1;		//A simple stack
@@ -145,11 +144,30 @@ uint32_t eval(int l, int r, bool *success) {
 		return 0;
 	}
 	bool flag = check_parentheses(l, r, success);
-	if(!success) return 0;		//Bad
+	if(!success) return 0;						//Bad
 	if(flag) return eval(l + 1, r - 1, success);//OK
-	
+	//Now we should find the dominant token!
+	int now = -1, type = -1, cnt = 0;
+	for(int i = l; i <= r; i++) {
+		if(tokens[i].type == LB) ++cnt;
+		if(tokens[i].type == RB) --cnt;
+		if(cnt != 0) continue;	//In parentheses, pass
+		if(tokens[i].type == PLUS || tokens[i].type == MINUS) {	//+ or -
+			type = tokens[i].type, now = i;
+		} else if(tokens[i].type == STAR || tokens[i].type == DIV) {	//* or /
+			if(type == -1 || type == STAR || type == DIV) type = tokens[i].type, now = i;
+		}
+	}
+	assert(now != -1);
+	uint32_t a = eval(l, now - 1, success);
+	if(!(*success))return *success = false;
+	uint32_t b = eval(now + 1, r ,success);
+	if(!(*success))return *success = false;
+	if(tokens[now].type == PLUS) return a + b;
+	if(tokens[now].type == MINUS) return a - b;
+	if(tokens[now].type == STAR) return a * b;
+	if(tokens[now].type == DIV) return a / b;	
 	return 0;
-
 }
 
 uint32_t expr(char *e, bool *success) {
@@ -160,8 +178,8 @@ uint32_t expr(char *e, bool *success) {
 	
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
-	//It's may be a little difficult... --Liyh
+	//It's may be a little difficult...
 	//Calculate the value!
-	return eval(0, nr_token - 1, success);//call eval to calculate the value of expression e --Liyh
+	return eval(0, nr_token - 1, success);//call eval to calculate the value of expression e
 }
 
