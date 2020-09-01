@@ -36,8 +36,15 @@ static int cmd_q(char *args) {
 	return -1;
 }
 
+static int cmd_info(char *args){
+	if(strcmp(args, "r") == 0) {
+		printf("%%eax %x\n", cpu.eax);
+
+	}
+	return 0;
+}
+
 static int cmd_si(char *args) {
-	printf("%d\n",atoi(args));
 	if(args == NULL) cpu_exec(1);
 	else cpu_exec(atoi(args));
 	return 0;
@@ -54,6 +61,7 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Continue the execution of the program in N steps", cmd_si },
+	{ "info", "Print all registers", cmd_info },
 
 	/* TODO: Add more commands */
 
