@@ -64,9 +64,8 @@ static int cmd_x(char *args) {
 	if(args == NULL) return 0;
 	uint32_t num, addr;
 	sscanf(args, "%d%d", &num, &addr);
-
+	printf("%x\n", swaddr_read(addr, num));
 	return 0;
-
 }
 
 static int cmd_help(char *args);
