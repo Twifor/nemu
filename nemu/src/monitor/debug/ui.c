@@ -37,7 +37,7 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-	printf("%s\n", args);
+	printf("%p\n",args);
 	return 0;
 	if(args == NULL) cpu_exec(1);
 	else cpu_exec(atoi(args));
@@ -98,7 +98,7 @@ void ui_mainloop() {
 		 * which may need further parsing
 		 */
 		char *args = cmd + strlen(cmd) + 1;
-		printf("%s\n",args);
+//		printf("%s\n",args);
 		if(args >= str_end) {
 			args = NULL;
 		}
