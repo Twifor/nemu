@@ -75,7 +75,12 @@ static int cmd_x(char *args) {
 static int cmd_p (char *args) {
 	if(args == NULL) return 0;
 	bool suc;
-	expr(args, &suc);
+	uint32_t ans = expr(args, &suc);
+	if(!suc) {
+		printf("Bad expression\n");
+		return 0;
+	}
+	printf("Expression %s : %x\n", args, ans);
 	return 0;
 }
 
