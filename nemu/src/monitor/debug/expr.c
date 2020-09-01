@@ -159,12 +159,26 @@ uint32_t eval(int l, int r, bool *success) {
 		}
 	}
 	assert(now != -1);
-	uint32_t a = eval(l, now - 1, success);
-	if(!(*success))return *success = false;
-	uint32_t b = eval(now + 1, r ,success);
-	if(!(*success))return *success = false;
+	//solve "-"
+	uint32_t a, b;
+	if(tokens[now].type == MINUS) {	//It's "-"
+		if(now == l) return -eval(now + 1, r, success);//Just -1
+		switch (tokens[now - 1].type) {
+			case PLUS:case MINUS:case STAR:case DIV://other token
+				a = eval(l, now - 2, success);
+				if(!(*success)) return *success = false;
+				b = -eval(now + 1, r, success);
+				if(!(*success)) return *success = false;
+				--now;
+				break;
+		}
+	} else {
+		a = eval(l, now - 1, success);
+		if(!(*success))return *success = false;
+		b = eval(now + 1, r ,success);
+		if(!(*success))return *success = false;
+	}
 	if(tokens[now].type == PLUS) return a + b;
-	if(tokens[now].type == MINUS) return a - b;
 	if(tokens[now].type == STAR) return a * b;
 	if(tokens[now].type == DIV) return a / b;	
 	return 0;
