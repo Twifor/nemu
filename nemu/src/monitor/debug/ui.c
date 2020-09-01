@@ -62,7 +62,8 @@ static int cmd_x(char *args) {
 	if(args == NULL) return 0;
 	printf("%s\n",args);
 	char *num = strtok(args, " ");
-	printf("%s\n%s\n",num, args);
+	char *addr = strtok(NULL, " ");
+	printf("%s\n%s\n",num, addr);
 	return 0;
 
 }
