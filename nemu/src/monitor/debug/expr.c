@@ -86,9 +86,16 @@ static bool make_token(char *e) {
 				 * of tokens, some extra actions should be performed.
 				 */
 
-			//	switch(rules[i].token_type) {
-			//		default: panic("please implement me");
-			//	}
+				switch(rules[i].token_type) {
+					case NOTYPE:
+						break;							//It's blank!
+					case PLUS:
+						tokens[nr_token++].type = PLUS;	//PLUS
+						break;
+					
+					default: break;
+					//panic("please implement me");
+				}
 
 				break;
 			}
