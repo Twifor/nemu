@@ -37,6 +37,7 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_info(char *args){
+	if(args == NULL) return 0;
 	if(strcmp(args, "r") == 0) {
 		printf("%%eax %x\n", cpu.eax);
 
