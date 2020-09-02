@@ -166,19 +166,18 @@ uint32_t eval(int l, int r, bool *success, int mod) {	//if mod=1, the first toke
 		}
 	}
 	assert(now != -1);
-	int offset = 0;
 	if(tokens[now].type == MINUS) {
 		if(now == l) return eval(l + 1, r, success, 1);
 		switch(tokens[now - 1].type) {
 			case PLUS:case DIV:case MINUS:case STAR:
-				--now, offset = 1;
+				--now;
 			default:;
 		}	
 	}
 	uint32_t a, b;
 	a = eval(l, now - 1, success, mod);
 	if(!(*success))return *success = false;
-	b = eval(now + 1 + offset, r ,success, 0);
+	b = eval(now + 1, r ,success, 0);
 	if(!(*success))return *success = false;
 	if(tokens[now].type == PLUS) return a + b;
 	if(tokens[now].type == STAR) return a * b;
