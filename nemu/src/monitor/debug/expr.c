@@ -154,10 +154,10 @@ int findNeg(int l, int r) {
 		if(i == l) return i;
 		switch(tokens[i - 1].type) {
 			case PLUS:case STAR:case MINUS:case DIV:case EQ:case NOTEQ:case AND:case OR:case NOT:
-				return i;
+				return i;	//It's a neg '-'
 		}
 	}
-	return -1;
+	return -1;				//no neg '-'
 }
 
 uint32_t eval(int l, int r, bool *success) {
