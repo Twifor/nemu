@@ -192,6 +192,7 @@ uint32_t eval(int l, int r, bool *success) {
 		if(!(*success)) return *success = false;
 		if(tokens[l].type == NOT) return !b;
 		if(tokens[l].type == NEG) return -b;
+		if(tokens[l].type == POINTER) return swaddr_read(b, 4);
 		return *success = false;
 	}
 	a = eval(l, now - 1, success);
