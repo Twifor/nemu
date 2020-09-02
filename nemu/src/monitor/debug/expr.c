@@ -8,7 +8,8 @@
 
 const char *DEBUG_P = " +-*/()HDR";
 enum {
-	NOTYPE = 256, PLUS, MINUS, STAR, DIV, LB, RB, HEX, DEC, REG
+	NOTYPE = 256, PLUS, MINUS, STAR, DIV, LB, RB, HEX, DEC, REG,
+	
 
 	/* TODO: Add more token types */
 
@@ -90,14 +91,13 @@ static bool make_token(char *e) {
 						break;											//It's blank!
 					case HEX:case DEC:case REG:
 						strncpy(tokens[nr_token].str, e + position - substr_len, substr_len);//regs or number
-						tokens[nr_token].str[substr_len] = '\0';
+						tokens[nr_token].str[substr_len] = '\0';		//add '\0', it's very important
 						//WARNING: 64 may be a little small...
 					default:
 						tokens[nr_token++].type = rules[i].token_type;	//other	
 						break;
 					//panic("please implement me");
 				}
-
 				break;
 			}
 		}
@@ -165,7 +165,7 @@ uint32_t eval(int l, int r, bool *success) {
 		} else if(tokens[l].type == DEC) {
 			sscanf(tokens[l].str, "%d", &tmp);
 			return tmp;
-		} else if(tokens[l].type == REG) {
+		} else if(tokens[l].type == REG) {	//read register
 			if(strcmp(tokens[l].str + 1, "eax") == 0) return cpu.eax;
 			if(strcmp(tokens[l].str + 1, "ecx") == 0) return cpu.ecx;
 			if(strcmp(tokens[l].str + 1, "edx") == 0) return cpu.edx;
@@ -183,15 +183,15 @@ uint32_t eval(int l, int r, bool *success) {
 	if(!success) return 0;						//Bad
 	if(flag) return eval(l + 1, r - 1, success);//OK, remove parentheses
 	//Now we should find the dominant token
-	int now = -1, type = -1, cnt = 0;
+	int now = -1, type = 0x3f3f3f3f, cnt = 0;
 	for(int i = l; i <= r; i++) {
 		if(tokens[i].type == LB) ++cnt;
 		if(tokens[i].type == RB) --cnt;
 		if(cnt != 0) continue;	//In mathched parentheses, pass
-		if(tokens[i].type == PLUS || tokens[i].type == MINUS) {	//+ or -
-			type = tokens[i].type, now = i;
-		} else if(tokens[i].type == STAR || tokens[i].type == DIV) {	//* or /
-			if(type == -1 || type == STAR || type == DIV) type = tokens[i].type, now = i;
+		switch(tokens[i].type) {
+			case PLUS:case MINUS:case STAR:case DIV:
+				if(type > tokens[i].type) type = tokens[i].type, now = i;
+				break;
 		}
 	}
 	assert(now != -1);
