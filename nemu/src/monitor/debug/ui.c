@@ -83,7 +83,7 @@ static int cmd_p(char *args) {
 	bool suc;
 	uint32_t ans = expr(args, &suc);
 	if(!suc) {
-		printf("\033[0;41mInvalid expression\n\033[0m");
+		printf("\033[0;31mInvalid expression\n\033[0m");
 		return 0;
 	}
 	printf("Expression %s : 0x%x\n", args, ans);
