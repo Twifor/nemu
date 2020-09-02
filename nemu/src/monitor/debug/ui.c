@@ -84,6 +84,13 @@ static int cmd_p(char *args) {
 	return 0;
 }
 
+static int cmd_w(char *args) {
+	if(args == NULL) return 0;
+	int id = insertExpr(args);
+	printf("Add watchpoint %d\n", id);
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -97,7 +104,9 @@ static struct {
 	{ "si", "Continue the execution of the program in N steps", cmd_si },
 	{ "info", "Print all registers", cmd_info },
 	{ "x", "Scan the memory", cmd_x },
-	{ "p", "Calculate the value of expression", cmd_p }
+	{ "p", "Calculate the value of expression", cmd_p },
+	{ "w", "Add a watchpoint", cmd_w },
+	{}
 	/* TODO: Add more commands */
 
 };

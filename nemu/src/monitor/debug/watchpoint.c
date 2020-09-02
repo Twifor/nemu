@@ -5,6 +5,7 @@
 
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
+static int ID = 1;
 
 void init_wp_pool() {
 	int i;
@@ -16,6 +17,53 @@ void init_wp_pool() {
 
 	head = NULL;
 	free_ = wp_pool;
+}
+
+WP* new_wp() {
+	assert(free_ != NULL);
+	WP* ans = free_;
+	free_ = ans->next;
+	ans->next = NULL;
+	return ans;
+}
+
+void wp_free(WP *wp) {
+	wp->next = free_;
+	free_ = wp;
+}
+
+WP* getHead() {
+	return head;
+}
+
+int insertExpr(char *ex) {
+	WP* nd = new_wp();
+	nd->NO = ++ID;
+	strcpy(nd->expr, ex);
+	nd->next = head;
+	head = nd;
+	return ID;
+}
+
+int removeNode(int id) {
+	if(head == NULL) return 0;
+	if(head->NO == id){
+		WP* tmp = head;
+		head = head->next;
+		wp_free(tmp);
+		return 1;
+	}
+	WP* now = head;
+	while(now->next != NULL) {
+		if(now->next->NO == id) {
+			WP* tmp = now->next;
+			now->next = now->next->next;
+			wp_free(tmp);
+			return 1;
+		}
+		now = now->next;
+	}
+	return 0;
 }
 
 /* TODO: Implement the functionality of watchpoint */
