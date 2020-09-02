@@ -72,6 +72,7 @@ static int cmd_x(char *args) {
 	bool suc;
 	while(args[0] == ' ')++args;	//trim
 	while('0' <= args[0] && args[0] <= '9') num = (num << 3) + (num << 1) +(args[0] & 15), ++args;
+	//get number
 	addr = expr(args, &suc);
 	if(!suc) {
 		printf("\033[1;31mInvalid expression\n\033[0m");
