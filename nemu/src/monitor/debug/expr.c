@@ -210,9 +210,12 @@ uint32_t expr(char *e, bool *success) {
 		insertToken(border + 1), tokens[border + 1].type = RB;
 		insertToken(at), tokens[at].type = DEC, strcpy(tokens[at].str, "0");
 		insertToken(at), tokens[at].type = LB;
-		for(int i = 0;i<nr_token;i++)printf("%c",DEBUG_P[tokens[i].type]);
-		printf("\n");
 	}
+	for(int i = 0;i<nr_token;i++){
+		if(tokens[i].type < HEX)printf("%c",DEBUG_P[tokens[i].type]);
+		else printf("%s", tokens[i].str);
+	}	
+	printf("\n");
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	//Calculate the value
