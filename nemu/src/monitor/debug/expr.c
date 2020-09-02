@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, PLUS, MINUS, STAR, DIV,
+	NOTYPE = 0, PLUS, MINUS, STAR, DIV,
 	EQ, NOTEQ, OR, AND,
  	NOT, NEG, POINTER,
 	LB, RB, HEX, DEC, REG,
@@ -17,7 +17,7 @@ enum {
 	/* TODO: Add more token types */
 
 };
-
+const char *PRE = "04455331266600000";	//guess what?
 static struct rule {
 	char *regex;
 	int token_type;
@@ -180,7 +180,7 @@ uint32_t eval(int l, int r, bool *success) {
 		if(tokens[i].type == RB) --cnt;
 		if(cnt != 0) continue;	//In mathched parentheses, pass
 		if(PLUS <= tokens[i].type && tokens[i].type <= POINTER) {
-			if(type >= tokens[i].type) type = tokens[i].type, now = i;
+			if(type >= PRE[tokens[i].type]) type = PRE[tokens[i].type], now = i;
 		}
 	}
 	assert(now != -1);
