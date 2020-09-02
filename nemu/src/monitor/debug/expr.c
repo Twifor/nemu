@@ -185,8 +185,8 @@ uint32_t eval(int l, int r, bool *success) {
 		//so the first token must be NOT or NEG or POINTER
 		b = eval(l + 1, r, success);
 		if(!(*success)) return *success = false;
-		if(tokens[now].type == NOT) return !b;
-		if(tokens[now].type == NEG) return -b;
+		if(tokens[l].type == NOT) return !b;
+		if(tokens[l].type == NEG) return -b;
 		return *success = false;
 	}
 	a = eval(l, now - 1, success);
