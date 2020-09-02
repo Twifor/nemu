@@ -187,7 +187,7 @@ uint32_t eval(int l, int r, bool *success) {
 	uint32_t a, b;
 	//solve '!'
 	if(tokens[now].type >= NOT) {
-		//if type=not, which means other token has been solved
+		//if type>=not, which means other token has been solved
 		//so the first token must be NOT or NEG or POINTER
 		b = eval(l + 1, r, success);
 		if(!(*success)) return *success = false;
