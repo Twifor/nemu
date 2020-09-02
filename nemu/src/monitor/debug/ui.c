@@ -79,7 +79,9 @@ static int cmd_x(char *args) {
 		return 0;
 	}
 	while(num) {
-		printf("address 0x%x: 0x%x\n", addr, swaddr_read(addr, 4));
+		printf("address 0x%x:", addr);
+		for(int i = 0;i < 4; i++)printf(" 0x%x", swaddr_read(addr + i, 1));
+		printf("\n");
 		addr += 4;
 		--num;
 	}
