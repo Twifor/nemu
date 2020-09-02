@@ -134,17 +134,34 @@ int findRightBorder(int l, int r) {
 	return -1;
 }
 
-uint32_t eval(int l, int r, bool *success, int mod) {	//if mod=1, the first token should be mutipled by -1
+void insertToken(int at) {
+	for(int i = nr_token - 1; i >= at; i--) tokens[i + 1] = tokens[i];
+	++nr_token;
+}
+
+int findNeg(int l, int r) {
+	for(int i = l; i <= r ;i++) {
+		if(tokens[i].type != MINUS) continue;
+		if(i == l) return l;
+		switch(tokens[i - 1].type) {
+			case PLUS:case STAR:case MINUS:case DIV:
+				return l;
+		}
+	}
+	return -1;
+}
+
+uint32_t eval(int l, int r, bool *success) {
 	*success = true;
 	if(l > r) return *success = false;// Bad Expression !!
 	if(l == r){				//It's a number or reg, otherwise bad expression
 		uint32_t tmp;
 		if(tokens[l].type == HEX) {
 			sscanf(tokens[l].str, "%x", &tmp);
-			return (mod ? -1 : 1) * tmp;
+			return tmp;
 		}else if(tokens[l].type == DEC) {
 			sscanf(tokens[l].str, "%d", &tmp);
-			return (mod ? -1 : 1) * tmp;
+			return tmp;
 		}else if(tokens[l].type == REG) {
 			return 0;			//Pass....
 		}
@@ -152,7 +169,7 @@ uint32_t eval(int l, int r, bool *success, int mod) {	//if mod=1, the first toke
 	}
 	bool flag = check_parentheses(l, r, success);
 	if(!success) return 0;						//Bad
-	if(flag) return (mod ? -1: 1) * eval(l + 1, r - 1, success, 0);//OK, remove parentheses
+	if(flag) return eval(l + 1, r - 1, success);//OK, remove parentheses
 	//Now we should find the dominant token
 	int now = -1, type = -1, cnt = 0;
 	for(int i = l; i <= r; i++) {
@@ -166,18 +183,10 @@ uint32_t eval(int l, int r, bool *success, int mod) {	//if mod=1, the first toke
 		}
 	}
 	assert(now != -1);
-	if(tokens[now].type == MINUS) {
-		if(now == l) return eval(l + 1, r, success, 1);
-		switch(tokens[now - 1].type) {
-			case PLUS:case DIV:case MINUS:case STAR:
-				--now;
-			default:;
-		}	
-	}
 	uint32_t a, b;
-	a = eval(l, now - 1, success, mod);
+	a = eval(l, now - 1, success);
 	if(!(*success))return *success = false;
-	b = eval(now + 1, r ,success, 0);
+	b = eval(now + 1, r ,success);
 	if(!(*success))return *success = false;
 	if(tokens[now].type == PLUS) return a + b;
 	if(tokens[now].type == STAR) return a * b;
@@ -190,10 +199,19 @@ uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
-	}	
+	}
+	//solve '-'
+	int at;
+	while((at = findNeg(0, nr_token)) != -1) {
+		int border = findRightBorder(at + 1, nr_token);
+		if(border == -1) return *success = false;
+		insertToken(border + 1), tokens[border + 1].type = RB;
+		insertToken(at), tokens[at].type = DEC, strcpy(tokens[at].str, "0");
+		insertToken(at), tokens[at].type = LB;
+	}
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	//Calculate the value
-	return eval(0, nr_token - 1, success, 0);//call eval to calculate the value of expression e
+	return eval(0, nr_token - 1, success);//call eval to calculate the value of expression e
 }
 
