@@ -6,10 +6,11 @@
 #include <sys/types.h>
 #include <regex.h>
 
-const char *DEBUG_P = " +-*/()HDR";
 enum {
-	NOTYPE = 256, PLUS, MINUS, STAR, DIV, LB, RB, HEX, DEC, REG,
-	
+	NOTYPE = 256, PLUS, MINUS, STAR, DIV,
+	EQ, NOTEQ, AND, OR, NOT,
+	LB, RB, HEX, DEC, REG,
+	//WARNING!! NOTEQ first and then NOT !!
 
 	/* TODO: Add more token types */
 
@@ -29,6 +30,11 @@ static struct rule {
 	{"-", MINUS},					//minus
 	{"\\*", STAR},					//star
 	{"/", DIV},						//div
+	{"==", EQ},						//eq
+	{"!=", NOTEQ},					//noteq
+	{"&&", AND},					//and
+	{"\\|\\|", OR},					//or
+	{"!", NOT},						//not
 	{"\\(", LB},					//lb
 	{"\\)", RB},					//rb
 	{"0[xX][0-9a-zA-Z]+", HEX},		//hex
@@ -204,6 +210,11 @@ uint32_t eval(int l, int r, bool *success) {
 	if(tokens[now].type == STAR) return a * b;
 	if(tokens[now].type == DIV) return a / b;	
 	if(tokens[now].type == MINUS) return a - b;
+	if(tokens[now].type == EQ) return a == b;
+	if(tokens[now].type == NOTEQ) return a != b;
+	if(tokens[now].type == AND) return a && b;
+	if(tokens[now].type == OR) return a || b;
+	if(tokens[now].type == NOT) return !b;
 	return 0;
 }
 
