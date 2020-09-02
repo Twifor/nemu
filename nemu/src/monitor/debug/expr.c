@@ -90,6 +90,7 @@ static bool make_token(char *e) {
 						break;											//It's blank!
 					case HEX:case DEC:case REG:
 						strncpy(tokens[nr_token].str, e + position - substr_len, substr_len);//regs or number
+						tokens[nr_token].str[substr_len] = '\0';
 						//WARNING: 64 may be a little small...
 					default:
 						tokens[nr_token++].type = rules[i].token_type;	//other	
