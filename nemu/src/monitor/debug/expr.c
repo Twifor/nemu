@@ -8,7 +8,8 @@
 
 enum {
 	NOTYPE = 256, PLUS, MINUS, STAR, DIV,
-	EQ, NOTEQ, AND, OR, NOT,
+	EQ, NOTEQ, AND, OR,
+ 	NOT, NEG, POINTER,
 	LB, RB, HEX, DEC, REG,
 	//WARNING!! NOTEQ first and then NOT !!
 
@@ -100,7 +101,14 @@ static bool make_token(char *e) {
 						tokens[nr_token].str[substr_len] = '\0';		//add '\0', it's very important
 						//WARNING: 64 may be a little small...
 					default:
-						tokens[nr_token++].type = rules[i].token_type;	//other	
+						if(rules[i].token_type == MINUS) {	//solve minus
+							if(nr_token == 0) tokens[nr_token++].type = NEG;
+							else if(PLUS <= tokens[nr_token - 1].type && tokens[nr_token - 1].type <= POINTER) {
+								tokens[nr_token++].type = NEG;
+							} else tokens[nr_token++].type = MINUS;
+						} else {
+							tokens[nr_token++].type = rules[i].token_type;	//other	
+						}
 						break;
 					//panic("please implement me");
 				}
@@ -130,36 +138,7 @@ bool check_parentheses(int l, int r, bool *success) {//Check the parentheses, us
 	if(cnt != 0) return *success = false;
 	return flag;
 }
-
-int findRightBorder(int l, int r) {
-	if(l > r) return -1;
-	int cnt = 0; //stack
-	for(int i = l; i <= r; i++) {
-		if(tokens[i].type == LB) ++cnt;
-		if(tokens[i].type == RB) --cnt;
-		if(tokens[i].type != RB && tokens[i].type != DEC && tokens[i].type != HEX && tokens[i].type != REG) continue;
-		if(cnt == 0) return i;
-	}
-	return -1;
-}
-
-void insertToken(int at) {
-	for(int i = nr_token - 1; i >= at; i--) tokens[i + 1] = tokens[i];
-	++nr_token;
-}
-
-int findNeg(int l, int r) {
-	for(int i = l; i <= r ;i++) {
-		if(tokens[i].type != MINUS) continue;
-		if(i == l) return i;
-		switch(tokens[i - 1].type) {
-			case PLUS:case STAR:case MINUS:case DIV:case EQ:case NOTEQ:case AND:case OR:case NOT:
-				return i;	//It's a neg '-'
-		}
-	}
-	return -1;				//no neg '-'
-}
-
+	
 uint32_t eval(int l, int r, bool *success) {
 	*success = true;
 	if(l > r) return *success = false;// Bad Expression !!
@@ -194,22 +173,21 @@ uint32_t eval(int l, int r, bool *success) {
 		if(tokens[i].type == LB) ++cnt;
 		if(tokens[i].type == RB) --cnt;
 		if(cnt != 0) continue;	//In mathched parentheses, pass
-		switch(tokens[i].type) {
-			case PLUS:case MINUS:case STAR:case DIV:case EQ:case NOTEQ:case AND:case OR:case NOT:
-				if(type >= tokens[i].type) type = tokens[i].type, now = i;
-				break;
+		if(PLUS <= tokens[i].type && tokens[i].type <= POINTER) {
+			if(type >= tokens[i].type) type = tokens[i].type, now = i;
 		}
 	}
 	assert(now != -1);
 	uint32_t a, b;
 	//solve '!'
-	if(tokens[now].type == NOT) {
+	if(tokens[now].type >= NOT) {
 		//if type=not, which means other token has been solved
-		//so the first token must be NOT
-		if(tokens[l].type != NOT) return *success = false;
+		//so the first token must be NOT or NEG or POINTER
 		b = eval(l + 1, r, success);
 		if(!(*success)) return *success = false;
-		return !b;
+		if(tokens[now].type == NOT) return !b;
+		if(tokens[now].type == NEG) return -b;
+		return *success = false;
 	}
 	a = eval(l, now - 1, success);
 	if(!(*success))return *success = false;
@@ -230,15 +208,6 @@ uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
-	}
-	//solve '-'(neg)
-	int at;
-	while((at = findNeg(0, nr_token - 1)) != -1) {
-		int border = findRightBorder(at + 1, nr_token - 1);
-		if(border == -1) return *success = false;
-		insertToken(border + 1), tokens[border + 1].type = RB;
-		insertToken(at), tokens[at].type = DEC, strcpy(tokens[at].str, "0");
-		insertToken(at), tokens[at].type = LB;
 	}
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
