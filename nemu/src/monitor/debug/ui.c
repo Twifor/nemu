@@ -68,8 +68,15 @@ static int cmd_si(char *args) {
 
 static int cmd_x(char *args) {
 	if(args == NULL) return 0;
-	uint32_t num, addr;
-	sscanf(args, "%d%x", &num, &addr);
+	uint32_t num = 0, addr;
+	bool suc;
+	while(args[0] == ' ')++args;	//trim
+	while('0' <= args[0] && args[0] <= '9') num = (num << 3) + (num << 1) +(args[0] & 15), ++args;
+	addr = expr(args, &suc);
+	if(!suc) {
+		printf("\033[1;31mInvalid expression\n\033[0m");
+		return 0;
+	}
 	while(num) {
 		printf("address 0x%x: 0x%x\n", addr, swaddr_read(addr, 4));
 		addr += 4;
