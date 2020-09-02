@@ -202,7 +202,7 @@ uint32_t expr(char *e, bool *success) {
 	}
 	//solve '-'
 	int at;
-	while((at = findNeg(0, nr_token)) != -1) {
+	while((at = findNeg(0, nr_token - 1)) != -1) {
 		printf("%d\n",at);
 		int border = findRightBorder(at + 1, nr_token);
 		if(border == -1) return *success = false;
