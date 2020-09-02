@@ -220,4 +220,3 @@ uint32_t expr(char *e, bool *success) {
 	//Calculate the value
 	return eval(0, nr_token - 1, success);//call eval to calculate the value of expression e
 }
-
