@@ -202,6 +202,13 @@ uint32_t eval(int l, int r, bool *success) {
 	}
 	assert(now != -1);
 	uint32_t a, b;
+	//solve '!'
+	if(tokens[now].type == NOT) {
+		if(tokens[l].type != NOT) return *success = false;
+		b = eval(l + 1, r, success);
+		if(!(*success)) return *success = false;
+		return !b;
+	}
 	a = eval(l, now - 1, success);
 	if(!(*success))return *success = false;
 	b = eval(now + 1, r ,success);
@@ -214,7 +221,6 @@ uint32_t eval(int l, int r, bool *success) {
 	if(tokens[now].type == NOTEQ) return a != b;
 	if(tokens[now].type == AND) return a && b;
 	if(tokens[now].type == OR) return a || b;
-	if(tokens[now].type == NOT) return !b;
 	return 0;
 }
 
