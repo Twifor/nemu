@@ -201,6 +201,7 @@ uint32_t expr(char *e, bool *success) {
 		return 0;
 	}
 	//solve '-'
+	printf("%d\n",tokens[0].type);
 	int at;
 	while((at = findNeg(0, nr_token - 1)) != -1) {
 		printf("%d\n",at);
