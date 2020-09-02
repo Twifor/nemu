@@ -204,7 +204,7 @@ uint32_t expr(char *e, bool *success) {
 	//solve '-'
 	int at;
 	while((at = findNeg(0, nr_token - 1)) != -1) {
-		int border = findRightBorder(at + 1, nr_token);
+		int border = findRightBorder(at + 1, nr_token - 1);
 		if(border == -1) return *success = false;
 		insertToken(border + 1), tokens[border + 1].type = RB;
 		insertToken(at), tokens[at].type = DEC, strcpy(tokens[at].str, "0");
