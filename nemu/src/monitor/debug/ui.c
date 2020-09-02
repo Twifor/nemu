@@ -94,6 +94,7 @@ static int cmd_p(char *args) {
 		printf("\033[1;31mInvalid expression\n\033[0m");
 		return 0;
 	}
+	//tokens;
 	printf("Expression %s : 0x%x\n", args, ans);
 	return 0;
 }
