@@ -135,7 +135,6 @@ int findRightBorder(int l, int r) {
 }
 
 uint32_t eval(int l, int r, bool *success, int mod) {	//if mod=1, the first token should be mutipled by -1
-	printf("%d %d\n",l ,r);
 	*success = true;
 	if(l > r) return *success = false;// Bad Expression !!
 	if(l == r){				//It's a number or reg, otherwise bad expression
@@ -180,6 +179,8 @@ uint32_t eval(int l, int r, bool *success, int mod) {	//if mod=1, the first toke
 	if(!(*success))return *success = false;
 	b = eval(now + 1, r ,success, 0);
 	if(!(*success))return *success = false;
+	printf("%d %d %d\n",l,now-1,a);
+	printf("%d %d %d\n",now+1,r,b);
 	if(tokens[now].type == PLUS) return a + b;
 	if(tokens[now].type == STAR) return a * b;
 	if(tokens[now].type == DIV) return a / b;	
