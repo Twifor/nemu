@@ -198,11 +198,15 @@ uint32_t eval(int l, int r, bool *success) {
 }
 
 uint32_t expr(char *e, bool *success) {
-	printf("%s\n",e);
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
 	}
+	for(int i = 0;i<nr_token;i++){
+		if(tokens[i].type < HEX)printf("%c",DEBUG_P[tokens[i].type]);
+		else printf("%s", tokens[i].str);
+	}	
+	printf("\n");
 	//solve '-'
 	int at;
 	while((at = findNeg(0, nr_token - 1)) != -1) {
