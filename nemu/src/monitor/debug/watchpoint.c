@@ -72,7 +72,10 @@ int checkNode(WP *nd) {
 	bool suc;
 	uint32_t ans = expr(nd->expr, &suc);
 	if(!suc) return -1;	//fail
-	if(nd->flag == false) nd->flag = true, nd->ans = ans;
+	if(nd->flag == false) {
+		nd->flag = true, nd->ans = ans;
+		return 1;
+	}
 	else if(ans == nd->ans) return 1;
 	return 0;
 }
