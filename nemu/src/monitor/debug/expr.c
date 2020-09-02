@@ -6,8 +6,9 @@
 #include <sys/types.h>
 #include <regex.h>
 
+const char *DEBUG_P = " +-*/()HDR";
 enum {
-	NOTYPE = 256, PLUS, MINUS, STAR, DIV, LB, RB, HEX, DEC, REG
+	NOTYPE, PLUS, MINUS, STAR, DIV, LB, RB, HEX, DEC, REG
 
 	/* TODO: Add more token types */
 
@@ -210,7 +211,7 @@ uint32_t expr(char *e, bool *success) {
 		insertToken(at), tokens[at].type = DEC, strcpy(tokens[at].str, "0");
 		insertToken(at), tokens[at].type = LB;
 	}
-	//for(int i = 0;i<nr_token;i++)printf("%d\n",tokens[i].type);
+	for(int i = 0;i<nr_token;i++)printf("%c\n",DEBUG_P[tokens[i].type]);
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	//Calculate the value
