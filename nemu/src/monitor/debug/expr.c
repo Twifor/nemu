@@ -142,10 +142,10 @@ void insertToken(int at) {
 int findNeg(int l, int r) {
 	for(int i = l; i <= r ;i++) {
 		if(tokens[i].type != MINUS) continue;
-		if(i == l) return l;
+		if(i == l) return i;
 		switch(tokens[i - 1].type) {
 			case PLUS:case STAR:case MINUS:case DIV:
-				return l;
+				return i;
 		}
 	}
 	return -1;
@@ -201,7 +201,6 @@ uint32_t expr(char *e, bool *success) {
 		return 0;
 	}
 	//solve '-'
-	printf("%d\n",tokens[0].type);
 	int at;
 	while((at = findNeg(0, nr_token - 1)) != -1) {
 		printf("%d\n",at);
