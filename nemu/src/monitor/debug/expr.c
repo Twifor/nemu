@@ -204,6 +204,8 @@ uint32_t eval(int l, int r, bool *success) {
 	uint32_t a, b;
 	//solve '!'
 	if(tokens[now].type == NOT) {
+		//if type=not, which means other token has been solved
+		//so the first token must be NOT
 		if(tokens[l].type != NOT) return *success = false;
 		b = eval(l + 1, r, success);
 		if(!(*success)) return *success = false;
@@ -229,6 +231,7 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
+	//solve '-'(neg)
 	int at;
 	while((at = findNeg(0, nr_token - 1)) != -1) {
 		int border = findRightBorder(at + 1, nr_token - 1);
