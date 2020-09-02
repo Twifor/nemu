@@ -73,16 +73,18 @@ void cpu_exec(volatile uint32_t n) {
 		}
 #endif
 		// Now we should check watchpoints.
+		int flag = 0;
 		WP* h = getHead();	//get head node
 		while(h != NULL) {
 			int ans = checkNode(h);
 			if(ans == -1) {
-				printf("\033[1;31mwatchpoint %d : Invalid expression\n\033[0m", h->NO);
+				printf("\033[1;31mwatchpoint %d : Invalid expression\n\033[0m", h->NO), flag = 1;
 			} else if(ans == 0) {
-				printf("\033[1;31mwatchpoint %d failed\n\033[0m", h->NO);
+				printf("\033[1;31mwatchpoint %d failed\n\033[0m", h->NO), flag = 1;
 			}
 			h = h->next;
 		}
+		if(flag) nemu_state = STOP;//stop
 		/* TODO: check watchpoints here. */
 
 #ifdef HAS_DEVICE
