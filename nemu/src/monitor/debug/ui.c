@@ -50,6 +50,12 @@ static int cmd_info(char *args){
 		printf("%%esi 0x%x\n", cpu.esi);
 		printf("%%edi 0x%x\n", cpu.edi);
 		printf("%%eip 0x%x\n", cpu.eip);
+	} else if(opt == 'w') {
+		WP *h = getHead();
+		while(h != NULL) {
+			printf("watchpoint %d : %s\n", h->NO, h->expr);
+			h = h->next;
+		}
 	}
 	return 0;
 }
