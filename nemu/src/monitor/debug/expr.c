@@ -130,6 +130,7 @@ int findRightBorder(int l, int r) {
 	for(int i = l; i <= r; i++) {
 		if(tokens[i].type == LB) ++cnt;
 		if(tokens[i].type == RB) --cnt;
+		if(tokens[i].type != RB && tokens[i].type != DEC && tokens[i].type != HEX && tokens[i].type != REG) continue;
 		if(cnt == 0) return i;
 	}
 	return -1;
