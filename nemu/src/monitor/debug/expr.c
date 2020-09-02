@@ -209,6 +209,7 @@ uint32_t expr(char *e, bool *success) {
 		insertToken(at), tokens[at].type = DEC, strcpy(tokens[at].str, "0");
 		insertToken(at), tokens[at].type = LB;
 	}
+	for(int i = 0;i<nr_token;i++)printf("%d\n",tokens[i].type);
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	//Calculate the value
