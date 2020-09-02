@@ -1,4 +1,5 @@
 #include "monitor/monitor.h"
+#include "monitor/watchpoint.h"
 #include "cpu/helper.h"
 #include <setjmp.h>
 
@@ -71,9 +72,18 @@ void cpu_exec(volatile uint32_t n) {
 			printf("%s\n", asm_buf);
 		}
 #endif
-
+		// Now we should check watchpoints.
+		WP* h = getHead();	//get head node
+		while(h != NULL) {
+			int ans = checkNode(h);
+			if(ans == -1) {
+				printf("watchpoint %d : Invalid expression\n", h->NO);
+			} else if(ans == 0) {
+				printf("watchpoint %d failed\n", h->NO);
+			}
+			h = h->next;
+		}
 		/* TODO: check watchpoints here. */
-
 
 #ifdef HAS_DEVICE
 		extern void device_update();

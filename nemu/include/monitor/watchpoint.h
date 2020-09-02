@@ -7,6 +7,8 @@ typedef struct watchpoint {
 	int NO;
 	struct watchpoint *next;
 	char expr[64];
+	bool flag;
+	uint32_t ans;
 	/* TODO: Add more members if necessary */
 
 } WP;
@@ -21,4 +23,5 @@ int insertExpr(char *ex);
 
 int removeNode(int id);
 
+int checkNode(WP *nd);
 #endif

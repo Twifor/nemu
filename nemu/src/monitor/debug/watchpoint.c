@@ -12,6 +12,7 @@ void init_wp_pool() {
 	for(i = 0; i < NR_WP; i ++) {
 		wp_pool[i].NO = i;
 		wp_pool[i].next = &wp_pool[i + 1];
+		wp_pool[i].flag = false;
 	}
 	wp_pool[NR_WP - 1].next = NULL;
 
@@ -63,6 +64,16 @@ int removeNode(int id) {
 		}
 		now = now->next;
 	}
+	return 0;
+}
+
+int checkNode(WP *nd) {
+	if(nd == NULL) return 1;
+	bool suc;
+	uint32_t ans = expr(nd->expr, &suc);
+	if(!suc) return -1;	//fail
+	if(nd->flag == false) nd->flag = true, nd->ans = ans;
+	else if(ans == nd->ans) return 1;
 	return 0;
 }
 
