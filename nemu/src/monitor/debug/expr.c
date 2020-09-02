@@ -183,6 +183,7 @@ uint32_t eval(int l, int r, bool *success, int mod) {	//if mod=1, the first toke
 	if(tokens[now].type == STAR) return a * b;
 	if(tokens[now].type == DIV) return a / b;	
 	if(tokens[now].type == MINUS) return a - b;
+	assert(0);
 	return 0;
 }
 
