@@ -101,7 +101,7 @@ static int cmd_d(char *args) {
 	if(args == NULL) return 0;
 	int id;
 	sscanf(args, "%d", &id);
-	int ans = removeNode(id);
+	int ans = removeNode(id);//remove a node
 	if(ans == 0) {
 		printf("\033[1;31mWatchpoint %d doesn't exist\n\033[0m", id);
 	} else {
