@@ -101,11 +101,16 @@ static bool make_token(char *e) {
 						tokens[nr_token].str[substr_len] = '\0';		//add '\0', it's very important
 						//WARNING: 64 may be a little small...
 					default:
-						if(rules[i].token_type == MINUS) {	//solve minus
+						if(rules[i].token_type == MINUS) {	//solve neg
 							if(nr_token == 0) tokens[nr_token++].type = NEG;
 							else if(PLUS <= tokens[nr_token - 1].type && tokens[nr_token - 1].type <= POINTER) {
 								tokens[nr_token++].type = NEG;
 							} else tokens[nr_token++].type = MINUS;
+						} else if(rules[i].token_type == STAR) { //solve pointer
+							if(nr_token == 0) tokens[nr_token++].type = POINTER;
+							else if(PLUS <= tokens[nr_token - 1].type && tokens[nr_token - 1].type <= POINTER) {
+								tokens[nr_token++].type = POINTER;
+							} else tokens[nr_token++].type = STAR;
 						} else {
 							tokens[nr_token++].type = rules[i].token_type;	//other	
 						}
