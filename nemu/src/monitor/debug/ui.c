@@ -105,7 +105,7 @@ static int cmd_d(char *args) {
 	if(ans == 0) {
 		printf("Watchpoint %d doesn't exist\n", id);
 	} else {
-		printf("Delete watchpoint %d successfully", id);
+		printf("Delete watchpoint %d successfully\n", id);
 	}
 	return 0;
 }
