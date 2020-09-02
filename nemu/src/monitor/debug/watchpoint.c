@@ -5,7 +5,7 @@
 
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
-static int ID = 1;
+static int ID = 0;
 
 void init_wp_pool() {
 	int i;
