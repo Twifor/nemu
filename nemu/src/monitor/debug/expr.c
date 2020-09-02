@@ -196,7 +196,7 @@ uint32_t eval(int l, int r, bool *success) {
 		if(cnt != 0) continue;	//In mathched parentheses, pass
 		switch(tokens[i].type) {
 			case PLUS:case MINUS:case STAR:case DIV:case EQ:case NOTEQ:case AND:case OR:case NOT:
-				if(type > tokens[i].type) type = tokens[i].type, now = i;
+				if(type >= tokens[i].type) type = tokens[i].type, now = i;
 				break;
 		}
 	}
