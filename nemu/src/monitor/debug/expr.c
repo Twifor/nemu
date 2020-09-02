@@ -104,12 +104,12 @@ static bool make_token(char *e) {
 					default:
 						if(rules[i].token_type == MINUS) {	//solve neg
 							if(nr_token == 0) tokens[nr_token++].type = NEG;
-							else if(PLUS <= tokens[nr_token - 1].type && tokens[nr_token - 1].type <= POINTER) {
+							else if(PLUS <= tokens[nr_token - 1].type && tokens[nr_token - 1].type <= LB) {
 								tokens[nr_token++].type = NEG;
 							} else tokens[nr_token++].type = MINUS;
 						} else if(rules[i].token_type == STAR) { //solve pointer
 							if(nr_token == 0) tokens[nr_token++].type = POINTER;
-							else if(PLUS <= tokens[nr_token - 1].type && tokens[nr_token - 1].type <= POINTER) {
+							else if(PLUS <= tokens[nr_token - 1].type && tokens[nr_token - 1].type <= LB) {
 								tokens[nr_token++].type = POINTER;
 							} else tokens[nr_token++].type = STAR;
 						} else {
