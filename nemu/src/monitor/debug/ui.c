@@ -72,7 +72,7 @@ static int cmd_x(char *args) {
 	return 0;
 }
 
-static int cmd_p (char *args) {
+static int cmd_p(char *args) {
 	if(args == NULL) return 0;
 	bool suc;
 	uint32_t ans = expr(args, &suc);
