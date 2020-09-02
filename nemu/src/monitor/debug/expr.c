@@ -203,13 +203,14 @@ uint32_t expr(char *e, bool *success) {
 	//solve '-'
 	int at;
 	while((at = findNeg(0, nr_token)) != -1) {
+		printf("%d\n",at);
 		int border = findRightBorder(at + 1, nr_token);
 		if(border == -1) return *success = false;
 		insertToken(border + 1), tokens[border + 1].type = RB;
 		insertToken(at), tokens[at].type = DEC, strcpy(tokens[at].str, "0");
 		insertToken(at), tokens[at].type = LB;
 	}
-	for(int i = 0;i<nr_token;i++)printf("%d\n",tokens[i].type);
+	//for(int i = 0;i<nr_token;i++)printf("%d\n",tokens[i].type);
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	//Calculate the value
