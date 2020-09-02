@@ -80,7 +80,7 @@ void cpu_exec(volatile uint32_t n) {
 			if(ans == -1) {
 				printf("\033[1;31mwatchpoint %d : Invalid expression\n\033[0m", h->NO), flag = 1;
 			} else if(ans == 0) {
-				printf("\033[1;31mwatchpoint %d failed\n\033[0m", h->NO), flag = 1;
+				flag = 1;
 			}
 			h = h->next;
 		}

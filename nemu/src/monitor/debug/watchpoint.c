@@ -75,7 +75,9 @@ int checkNode(WP *nd) {
 	bool suc;
 	uint32_t ans = expr(nd->expr, &suc);
 	if(!suc) return -1;	//fail
-	return ans == nd->ans;
+	if(ans == nd->ans) return 1;
+	printf("\033[1;31mIn watchpoint %d, last value is 0x%x, but now is 0x%x\n\033[0m", nd->NO, nd->ans, ans);
+	return 0;
 }
 
 /* TODO: Implement the functionality of watchpoint */
