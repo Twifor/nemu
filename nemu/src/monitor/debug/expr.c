@@ -153,7 +153,7 @@ int findNeg(int l, int r) {
 		if(tokens[i].type != MINUS) continue;
 		if(i == l) return i;
 		switch(tokens[i - 1].type) {
-			case PLUS:case STAR:case MINUS:case DIV:
+			case PLUS:case STAR:case MINUS:case DIV:case EQ:case NOTEQ:case AND:case OR:case NOT:
 				return i;
 		}
 	}
