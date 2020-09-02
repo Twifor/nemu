@@ -12,7 +12,6 @@ void init_wp_pool() {
 	for(i = 0; i < NR_WP; i ++) {
 		wp_pool[i].NO = i;
 		wp_pool[i].next = &wp_pool[i + 1];
-		wp_pool[i].flag = false;
 	}
 	wp_pool[NR_WP - 1].next = NULL;
 
@@ -38,8 +37,12 @@ WP* getHead() {
 }
 
 int insertExpr(char *ex) {
+	bool suc;
+	uint32_t ans = expr(ex, &suc);
+	if(!suc) return -1;
 	WP* nd = new_wp();
 	nd->NO = ++ID;
+	nd->ans = ans;
 	strcpy(nd->expr, ex);
 	nd->next = head;
 	head = nd;
@@ -72,12 +75,7 @@ int checkNode(WP *nd) {
 	bool suc;
 	uint32_t ans = expr(nd->expr, &suc);
 	if(!suc) return -1;	//fail
-	if(nd->flag == false) {
-		nd->flag = true, nd->ans = ans;
-		return 1;
-	}
-	else if(ans == nd->ans) return 1;
-	return 0;
+	return ans == nd->ans;
 }
 
 /* TODO: Implement the functionality of watchpoint */

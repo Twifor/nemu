@@ -104,6 +104,10 @@ static int cmd_p(char *args) {
 static int cmd_w(char *args) {
 	if(args == NULL) return 0;
 	int id = insertExpr(args);
+	if(id == -1) {
+		printf("\033[1;31mInvalid expression\n\033[0m");
+		return 0;
+	}
 	printf("Add watchpoint %d\n", id);
 	return 0;
 }

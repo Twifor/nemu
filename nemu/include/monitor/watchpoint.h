@@ -7,7 +7,6 @@ typedef struct watchpoint {
 	int NO;
 	struct watchpoint *next;
 	char expr[64];
-	bool flag;
 	uint32_t ans;
 	/* TODO: Add more members if necessary */
 
