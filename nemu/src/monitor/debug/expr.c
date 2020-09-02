@@ -181,7 +181,7 @@ uint32_t eval(int l, int r, bool *success, int mod) {	//if mod=1, the first toke
 	if(!(*success))return *success = false;
 	printf("%d %d %d\n",l,now-1,a);
 	printf("%d %d %d\n",now+1,r,b);
-	printf("%d\n",tokens[now].type);
+	printf("%x\n",a/b);
 	if(tokens[now].type == PLUS) return a + b;
 	if(tokens[now].type == STAR) return a * b;
 	if(tokens[now].type == DIV) return a / b;	
