@@ -8,10 +8,11 @@
 
 enum {
 	NOTYPE = 256, PLUS, MINUS, STAR, DIV,
-	EQ, NOTEQ, AND, OR,
+	EQ, NOTEQ, OR, AND,
  	NOT, NEG, POINTER,
 	LB, RB, HEX, DEC, REG,
 	//WARNING!! NOTEQ first and then NOT !!
+	//WARNING!! HEX first and then DEC !!
 
 	/* TODO: Add more token types */
 
