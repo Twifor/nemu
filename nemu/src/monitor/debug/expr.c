@@ -8,7 +8,7 @@
 
 const char *DEBUG_P = " +-*/()HDR";
 enum {
-	NOTYPE, PLUS, MINUS, STAR, DIV, LB, RB, HEX, DEC, REG
+	NOTYPE = 256, PLUS, MINUS, STAR, DIV, LB, RB, HEX, DEC, REG
 
 	/* TODO: Add more token types */
 
@@ -203,11 +203,11 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-	for(int i = 0;i<nr_token;i++){
-		if(tokens[i].type < HEX)printf("%c",DEBUG_P[tokens[i].type]);
-		else printf("%s", tokens[i].str);
-	}	
-	printf("\n");
+	//for(int i = 0;i<nr_token;i++){
+	//	if(tokens[i].type < HEX)printf("%c",DEBUG_P[tokens[i].type]);
+	//	else printf("%s", tokens[i].str);
+	//}	
+	//printf("\n");
 	//solve '-'
 	int at;
 	while((at = findNeg(0, nr_token - 1)) != -1) {
@@ -217,11 +217,11 @@ uint32_t expr(char *e, bool *success) {
 		insertToken(at), tokens[at].type = DEC, strcpy(tokens[at].str, "0");
 		insertToken(at), tokens[at].type = LB;
 	}
-	for(int i = 0;i<nr_token;i++){
-		if(tokens[i].type < HEX)printf("%c",DEBUG_P[tokens[i].type]);
-		else printf("%s", tokens[i].str);
-	}	
-	printf("\n");
+	//for(int i = 0;i<nr_token;i++){
+	//	if(tokens[i].type < HEX)printf("%c",DEBUG_P[tokens[i].type]);
+	//	else printf("%s", tokens[i].str);
+	//}	
+	//printf("\n");
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	//Calculate the value
