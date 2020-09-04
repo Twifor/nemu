@@ -134,8 +134,8 @@ static bool make_token(char *e) {
 bool check_parentheses(int l, int r, bool *success) {//Check the parentheses, use stack.
 	*success = true;
 	if(l > r) return *success = false;
-	int cnt = 0, flag = 1;		//A simple stack
-	for(int i = l;i <= r; i++){
+	int cnt = 0, flag = 1, i;		//A simple stack
+	for(i = l;i <= r; i++){
 		if(tokens[i].type == LB) ++cnt;
 		if(tokens[i].type == RB) --cnt;
 		if(cnt < 0)	return *success = false;//Bad
@@ -174,8 +174,8 @@ uint32_t eval(int l, int r, bool *success) {
 	if(!success) return 0;						//Bad
 	if(flag) return eval(l + 1, r - 1, success);//OK, remove parentheses
 	//Now we should find the dominant token
-	int now = -1, type = 0x3f3f3f3f, cnt = 0;
-	for(int i = l; i <= r; i++) {
+	int now = -1, type = 0x3f3f3f3f, cnt = 0, i;
+	for(i = l; i <= r; i++) {
 		if(tokens[i].type == LB) ++cnt;
 		if(tokens[i].type == RB) --cnt;
 		if(cnt != 0) continue;	//In mathched parentheses, pass
