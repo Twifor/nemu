@@ -35,3 +35,4 @@
 #include "lyh/add.h"
 #include "lyh/cmp.h"
 #include "lyh/sub.h"
+#include "lyh/jmp.h"
