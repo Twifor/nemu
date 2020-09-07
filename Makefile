@@ -56,7 +56,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/wanshu
+USERPROG := obj/testcase/to-lower-case
 ENTRY := $(USERPROG)
 
 entry: $(ENTRY)
