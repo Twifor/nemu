@@ -41,5 +41,5 @@
 #include "lyh/lea.h"
 #include "lyh/adc.h"
 #include "lyh/movzb.h"
-
+#include "lyh/setne.h"
 
