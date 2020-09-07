@@ -8,4 +8,4 @@
 #include "lea-template.h"
 #undef DATA_BYTE
 
-make_helper_v(lea_rm2r)
+make_helper_v(lea_no_rm2r)
