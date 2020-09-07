@@ -3,7 +3,7 @@
 #define instr add
 
 void do_execute() {
-	uint32_t ans = op_dest->val + op_src->val;
+	DATA_TYPE ans = op_dest->val + op_src->val;
 	OPERAND_W(op_dest, ans);
 	concat(updateCPU_, SUFFIX) (ans);
 	int len = (DATA_BYTE << 3) - 1;
