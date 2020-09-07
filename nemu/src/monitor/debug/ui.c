@@ -126,6 +126,19 @@ static int cmd_d(char *args) {
 	return 0;
 }
 
+static int cmd_goto(char *args) {
+	if(args == NULL) return 0;
+	bool suc;
+	uint32_t ans = expr(args, &suc);
+	if(!suc) {
+		printf("\033[1;31mInvalid expression\n\033[0m");
+		return 0;
+	}
+	cpu.eip = ans;
+	printf("Goto address 0x%x successfully\n", ans);
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -142,6 +155,7 @@ static struct {
 	{ "p", "Calculate the value of expression", cmd_p },
 	{ "w", "Add a watchpoint", cmd_w },
 	{ "d", "Delete a watchpoint", cmd_d },
+	{ "goto", "Goto address", cmd_goto },
 	/* TODO: Add more commands */
 
 };
