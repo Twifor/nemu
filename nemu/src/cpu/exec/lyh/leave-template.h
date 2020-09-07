@@ -12,6 +12,7 @@ make_helper(concat(leave_, SUFFIX)) {
 		cpu.gpr[5]._32 = MEM_R(reg_l(R_ESP));//POP
 		reg_l(R_ESP) += 4;
 	}
+	print_asm("leave");
 	return 1;
 }
 
