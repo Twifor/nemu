@@ -3,6 +3,7 @@
 #define instr je
 
 void do_execute() {
+	print_asm_template1();
 	if(cpu.ZF == 1) cpu.eip += op_src->imm;
 }
 
