@@ -7,7 +7,7 @@
 #define decode_i concat(decode_i_, SUFFIX)
 #define decode_a concat(decode_a_, SUFFIX)
 #define decode_r2rm concat(decode_r2rm_, SUFFIX)
-//#define updateCPU concat(updateCPU, SUFFIX)
+#define updateCPU concat(updateCPU, SUFFIX)
 
 void concat(updateCPU_, SUFFIX)(uint32_t result) {
 	int len = (DATA_BYTE << 3) - 1;
