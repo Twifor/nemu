@@ -25,7 +25,15 @@ typedef struct {
 		};
 	};
 	/* Do NOT change the order of the GPRs' definitions. */
-
+	struct {
+		int CF : 1;
+		int PF : 1;
+		int ZF : 1;
+		int SF : 1;
+		int IF : 1;
+		int DF : 1;
+		int OF : 1; 
+	};
 	//uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 
 	swaddr_t eip;

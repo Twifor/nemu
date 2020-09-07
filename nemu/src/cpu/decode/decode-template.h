@@ -7,6 +7,17 @@
 #define decode_i concat(decode_i_, SUFFIX)
 #define decode_a concat(decode_a_, SUFFIX)
 #define decode_r2rm concat(decode_r2rm_, SUFFIX)
+//#define updateCPU concat(updateCPU, SUFFIX)
+
+void concat(updateCPU_, SUFFIX)(uint32_t result) {
+	int len = (DATA_BYTE << 3) - 1;
+	cpu.SF = result >> len;
+    cpu.ZF = !result;
+    result ^= result >>4;
+	result ^= result >>2;
+	result ^= result >>1;
+	cpu.PF = !(result & 1);
+}
 
 /* Ib, Iv */
 make_helper(concat(decode_i_, SUFFIX)) {

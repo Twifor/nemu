@@ -27,3 +27,4 @@
 #include "special/special.h"
 #include "lyh/push.h"
 #include "lyh/call.h"
+#include "lyh/test.h"
