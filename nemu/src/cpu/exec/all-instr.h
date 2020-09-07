@@ -40,4 +40,6 @@
 #include "lyh/leave.h"
 #include "lyh/lea.h"
 #include "lyh/adc.h"
+#include "lyh/movzb.h"
+
 
