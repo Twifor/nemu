@@ -10,6 +10,7 @@ bool getbit(void *buf, int offset){
 	return (((uint8_t *)buf)[byte] & mask) != 0;
 }
 
+/*
 void setbit(void *buf, int offset, bool bit){
 	int byte = offset >> 3;
 	offset &= 7;
@@ -18,6 +19,7 @@ void setbit(void *buf, int offset, bool bit){
 	uint8_t * volatile p = buf + byte;
 	*p = (bit == 0 ? (*p & ~mask) : (*p | mask));
 }
+*/
 
 int main() {
 	uint8_t buf[2];
