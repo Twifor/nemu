@@ -5,7 +5,6 @@
 void do_execute() {
 	cpu.OF = cpu.CF = 0;
 	concat(updateCPU_, SUFFIX)((DATA_TYPE)(op_dest->val & op_src->val));
-	printf("%d %d\n", op_dest->val & op_src->val, cpu.ZF);
 	print_asm_template2();
 }
 
