@@ -25,6 +25,8 @@
 #include "misc/misc.h"
 
 #include "special/special.h"
+
 #include "lyh/push.h"
 #include "lyh/call.h"
 #include "lyh/test.h"
+#include "lyh/je.h"
