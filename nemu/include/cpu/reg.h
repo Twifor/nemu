@@ -26,13 +26,13 @@ typedef struct {
 	};
 	/* Do NOT change the order of the GPRs' definitions. */
 	struct {
-		int CF : 1;
-		int PF : 1;
-		int ZF : 1;
-		int SF : 1;
-		int IF : 1;
-		int DF : 1;
-		int OF : 1; 
+		uint8_t CF : 1;
+		uint8_t PF : 1;
+		uint8_t ZF : 1;
+		uint8_t SF : 1;
+		uint8_t IF : 1;
+		uint8_t DF : 1;
+		uint8_t OF : 1; 
 	};
 	//uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 
