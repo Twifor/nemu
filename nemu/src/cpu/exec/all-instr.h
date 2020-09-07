@@ -37,6 +37,7 @@
 #include "lyh/sub.h"
 #include "lyh/jmp.h"
 #include "lyh/jbe.h"
+#include "lyh/jne.h"
 #include "lyh/leave.h"
 #include "lyh/lea.h"
 #include "lyh/adc.h"
