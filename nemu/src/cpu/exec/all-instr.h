@@ -39,4 +39,5 @@
 #include "lyh/jbe.h"
 #include "lyh/leave.h"
 #include "lyh/lea.h"
+#include "lyh/adc.h"
 
