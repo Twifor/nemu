@@ -34,6 +34,9 @@ game: $(game_BIN)
 
 ##### rules for cleaning the project #####
 
+count:
+	find ./ -name "*.c" -o -name "*.h" |xargs cat|wc -l
+
 clean-nemu:
 	-rm -rf obj/nemu 2> /dev/null
 
@@ -53,7 +56,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/matrix-mul
+USERPROG := obj/testcase/wanshu
 ENTRY := $(USERPROG)
 
 entry: $(ENTRY)
