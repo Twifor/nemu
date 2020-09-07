@@ -30,3 +30,4 @@
 #include "lyh/call.h"
 #include "lyh/test.h"
 #include "lyh/je.h"
+#include "lyh/pop.h"
