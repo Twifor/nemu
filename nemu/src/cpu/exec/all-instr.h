@@ -38,4 +38,5 @@
 #include "lyh/jmp.h"
 #include "lyh/jbe.h"
 #include "lyh/leave.h"
+#include "lyh/lea.h"
 
