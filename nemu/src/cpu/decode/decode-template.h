@@ -8,14 +8,15 @@
 #define decode_a concat(decode_a_, SUFFIX)
 #define decode_r2rm concat(decode_r2rm_, SUFFIX)
 
-void concat(updateCPU_, SUFFIX)(uint32_t result) {
+make_helper(concat(updateCPU_, SUFFIX)) {
 	int len = (DATA_BYTE << 3) - 1;
-	cpu.SF = result >> len;
-    cpu.ZF = !result;
-    result ^= result >>4;
-	result ^= result >>2;
-	result ^= result >>1;
-	cpu.PF = !(result & 1);
+	cpu.SF = eip >> len;
+    cpu.ZF = !eip;
+    eip ^= eip >> 4;
+	eip ^= eip >> 2;
+	eip ^= eip >> 1;
+	cpu.PF = !(eip & 1);
+	return 0;
 }
 
 /* Ib, Iv */
