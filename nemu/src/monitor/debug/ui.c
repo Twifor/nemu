@@ -71,7 +71,7 @@ static int cmd_x(char *args) {
 	uint32_t num = 0, addr;
 	bool suc;
 	while(args[0] == ' ')++args;	//trim
-	while('0' <= args[0] && args[0] <= '9') num = (num << 3) + (num << 1) +(args[0] & 15), ++args;
+	while('0' <= args[0] && args[0] <= '9') num = (num << 3) + (num << 1) + (args[0] & 15), ++args;
 	//get number
 	addr = expr(args, &suc);
 	if(!suc) {
