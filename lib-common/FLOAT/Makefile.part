@@ -10,9 +10,9 @@ $(FLOAT): $(FLOAT_A_OBJ)
 
 # TODO: complete the following rules
 
-$(FLOAT_O): FLOAT.c
-	echo 'assad'
-#	$(CC) -I$(LIB_COMMON_DIR) -o FLOAT.o FLOAT.c
+$(FLOAT_O): lib-common/FLOAT.c
+	mkdir -p obj/lib-common
+	$(TARGETCC) $(FLOAT_CFLAGS_EXTRA) -o $(FLOAT_OBJ) -c lib-common/FLOAT.c -Ilib-common
 
 $(FLOAT_VFPRINTF_O):
 
