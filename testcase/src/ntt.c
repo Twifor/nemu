@@ -62,9 +62,9 @@ void multiple(Pol *ans, Pol *a, Pol *b) {
         if (i > b->l)b->op[i] = 0;
     }
    	NTT(l, a->op, 1);
+	NTT(l, b->op, 1);
 	set_bp();
 	nemu_assert(a->op[0]==1);
-	NTT(l, b->op, 1);
     for (i = 0; i < l; i++)a->op[i] = qMul(a->op[i], b->op[i]);
     NTT(l, a->op, -1);
 	l = qPow(l, MOD - 2), ans->l = a->l + b->l;
