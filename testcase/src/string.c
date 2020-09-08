@@ -29,6 +29,8 @@ int main() {
 	strcpy(str, str1);
 	//set_bp();
 	nemu_assert(strcmp(str, str1) == 0);
+	strcat(str, s[3]);
+	nemu_assert(strcmp(str, s[4]) == 0);
 
 	//nemu_assert(strcmp( strcat(strcpy(str, str1), s[3]), s[4]) == 0);
 
