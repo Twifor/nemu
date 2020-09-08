@@ -60,7 +60,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/ntt
+USERPROG := obj/testcase/integral
 ENTRY := $(USERPROG)
 
 entry: $(ENTRY)
