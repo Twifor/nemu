@@ -1,8 +1,8 @@
 #include "FLOAT.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-	nemu_assert(0);
-	return 0;
+	long long ans = 1ll * a * b;
+	return ans >> 16;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
@@ -23,9 +23,23 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * It is OK not to use the template above, but you should figure
 	 * out another way to perform the division.
 	 */
-
-	nemu_assert(0);
-	return 0;
+	
+	
+	int sign = 1;
+	if (a < 0) sign = -sign, a = -a;
+	if (b < 0) sign = -sign, b = -b;
+	int res = a / b;
+	a = a % b;
+	//you can't just return (a/b)<<16
+	//which will lose last 16 bits
+	int i;
+	for (i = 0; i < 16; i++) 
+	{
+		a <<= 1;
+		res <<= 1;
+		if (a >= b) a -= b, ++res;
+	}
+	return res * sign;
 }
 
 FLOAT f2F(float a) {
@@ -38,14 +52,22 @@ FLOAT f2F(float a) {
 	 * stack. How do you retrieve it to another variable without
 	 * performing arithmetic operations on it directly?
 	 */
+	int b = *(int *)&a;//read float to int, you can't use (int)a
+	int sign = b & 0x80000000;//sign
+	int exp = (b >> 23) & 0xff;//exp
+	int last = b & 0x7fffff;	//get last 23 bits
+	if(exp == 255) return sign ? -0x7fffffff : 0x7fffffff;//inf, ignore NaN
+	if(exp == 0) return 0;//0, ignore another one
+	last |= 1 << 23;
+	exp -= 134;	//guess why?
+	if (exp < 0) last >>= exp;
+	if (exp > 0) last <<= exp;
 
-	nemu_assert(0);
-	return 0;
+	return sign ? -last : last;
 }
 
 FLOAT Fabs(FLOAT a) {
-	nemu_assert(0);
-	return 0;
+	return a < 0 ? -a : a;
 }
 
 /* Functions below are already implemented */
