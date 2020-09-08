@@ -27,7 +27,7 @@ int main() {
 	//set_bp();
 	//nemu_assert(strcmp(str1, s[4]) == 0);
 	strcpy(str, "Hello, World!\n");
-	set_bp();
+	//set_bp();
 	nemu_assert(str[1] == 'e');
 	//nemu_assert(strcmp(str, s[3]) == 0);
 
