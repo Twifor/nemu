@@ -42,6 +42,7 @@
 #include "lyh/jl.h"
 #include "lyh/ja.h"
 #include "lyh/jg.h"
+#include "lyh/js.h"
 #include "lyh/jge.h"
 #include "lyh/clt.h"
 #include "lyh/jne.h"
