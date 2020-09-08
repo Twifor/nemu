@@ -3,7 +3,8 @@
 #define instr adc
 
 void do_execute() {
-	DATA_TYPE ans = op_dest->val + op_src->val + cpu.CF;
+	op_src->val += cpu.CF;
+	DATA_TYPE ans = op_dest->val + op_src->val;
 	OPERAND_W(op_dest, ans);
 	concat(updateCPU_, SUFFIX) (ans);
 	int len = (DATA_BYTE << 3) - 1;
