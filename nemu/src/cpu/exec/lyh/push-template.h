@@ -3,13 +3,13 @@
 #define instr push
 
 void do_execute() {
-	printf("%d\n", DATA_BYTE);
 	if(DATA_BYTE == 2) {	//guess why ?
 		reg_l(R_ESP) -= 2;
 		swaddr_write(reg_l(R_ESP), 2, (DATA_TYPE) op_src->val);
 	} else {
+		if(DATA_BYTE == 1) op_src->val = (int8_t) op_src->val;	//sign-extend
 		reg_l(R_ESP) -= 4;
-		swaddr_write(reg_l(R_ESP), 4, (DATA_TYPE) op_src->val);
+		swaddr_write(reg_l(R_ESP), 4, op_src->val);
 	}
 	print_asm_template1();
 }
