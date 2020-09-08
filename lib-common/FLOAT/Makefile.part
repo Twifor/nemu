@@ -3,6 +3,8 @@
 FLOAT_O := $(FLOAT:.a=.o)
 FLOAT_VFPRINTF_O := $(dir $(FLOAT))FLOAT_vfprintf.o
 
+FLOAT_CFLAGS_EXTRA := -O2 -m32 -fno-builtin
+
 FLOAT_A_OBJ := $(FLOAT_O) $(FLOAT_VFPRINTF_O)
 
 $(FLOAT): $(FLOAT_A_OBJ)
@@ -12,7 +14,7 @@ $(FLOAT): $(FLOAT_A_OBJ)
 
 $(FLOAT_O): lib-common/FLOAT.c
 	mkdir -p obj/lib-common
-	$(TARGETCC) $(FLOAT_CFLAGS_EXTRA) -o $(FLOAT_OBJ) -c lib-common/FLOAT.c -Ilib-common
+	$(CC) $(FLOAT_CFLAGS_EXTRA) -o $(FLOAT_O) -c lib-common/FLOAT.c -Ilib-common
 
 $(FLOAT_VFPRINTF_O):
 
