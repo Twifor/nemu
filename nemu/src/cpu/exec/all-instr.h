@@ -40,6 +40,7 @@
 #include "lyh/jbe.h"
 #include "lyh/jle.h"
 #include "lyh/jl.h"
+#include "lyh/ja.h"
 #include "lyh/jg.h"
 #include "lyh/jge.h"
 #include "lyh/clt.h"
