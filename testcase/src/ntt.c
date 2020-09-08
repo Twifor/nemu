@@ -47,23 +47,10 @@ void NTT(int l, int *c, int type) {
             int w = 1;
             for (k = 0; k < mid; k++, w = qMul(w, wn)) {
                 int x = c[j + k], y = qMul(w, c[j + mid + k]);
-                c[j + k] = (x + y) % MOD, c[j + mid + k] = (x - y) % MOD;
-            }
-        }
-    }
-}
-
-void NTT2(int l, int *c, int type) {
-	int i, mid, j, len, k;
-    for (i = 0; i < l; i++)if (i < tr[i])swap(&c[i], &c[tr[i]]);
-    for (mid = 1; mid < l; mid <<= 1) {
-        int wn = qPow(G, (MOD - 1) / (mid << 1));
-        if (type == -1)wn = qPow(wn, MOD - 2);
-        for (len = mid << 1, j = 0; j < l; j += len) {
-            int w = 1;
-            for (k = 0; k < mid; k++, w = qMul(w, wn)) {
-                int x = c[j + k], y = qMul(w, c[j + mid + k]);
-				set_bp();
+				if(type == -1) {
+					set_bp();
+					nemu_assert(c[1] != 0);
+				}
                 c[j + k] = (x + y) % MOD, c[j + mid + k] = (x - y) % MOD;
             }
         }
@@ -81,7 +68,7 @@ void multiple(Pol *ans, Pol *a, Pol *b) {
    	NTT(l, a->op, 1);
 	NTT(l, b->op, 1);
     for (i = 0; i < l; i++)a->op[i] = qMul(a->op[i], b->op[i]);
-    NTT2(l, a->op, -1);	
+    NTT(l, a->op, -1);
 	
 	l = qPow(l, MOD - 2), ans->l = a->l + b->l;
     for (i = 0; i <= ans->l; i++)ans->op[i] = qMul(ans->op[i], l);
