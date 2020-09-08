@@ -17,6 +17,7 @@ char str[20]="\0";
 
 int main() {
 	strcat(str, "H");
+	set_bp();
 	nemu_assert(str[0]=='H');
 	//nemu_assert(strcmp(s[0], s[2]) == 0);
 	//nemu_assert(strcmp(s[0], s[1]) == -1);
