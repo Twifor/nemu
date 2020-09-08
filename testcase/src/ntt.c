@@ -38,11 +38,13 @@ void swap(int *a, int *b) {
 }
 
 void NTT(int l, int *c, int type) {
+	set_bp();
+	nemu_assert(type != -1);
 	int i, mid, j, len, k;
     for (i = 0; i < l; i++)if (i < tr[i])swap(&c[i], &c[tr[i]]);
     for (mid = 1; mid < l; mid <<= 1) {
         int wn = qPow(G, (MOD - 1) / (mid << 1));
-        if (type == -1)set_bp(), wn = qPow(wn, MOD - 2);
+        if (type == -1)wn = qPow(wn, MOD - 2);
         for (len = mid << 1, j = 0; j < l; j += len) {
             int w = 1;
             for (k = 0; k < mid; k++, w = qMul(w, wn)) {
