@@ -15,7 +15,7 @@ make_helper(concat(call_rm_, SUFFIX)) {
 	int len = concat(decode_rm_, SUFFIX)(eip + 1);
 	reg_l(R_ESP) -= DATA_BYTE;
 	MEM_W(reg_l(R_ESP), cpu.eip + len + 1);
-	cpu.eip += (DATA_TYPE_S)op_src->val;
+	cpu.eip = op_src->val - len - 1;
 	print_asm("call %s", op_src->str);
 	return len + 1;
 }
