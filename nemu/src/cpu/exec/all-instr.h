@@ -50,6 +50,7 @@
 #include "lyh/adc.h"
 #include "lyh/movzb.h"
 #include "lyh/movsb.h"
+#include "lyh/movs.h"
 #include "lyh/setne.h"
 #include "lyh/nop.h"
 
