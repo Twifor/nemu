@@ -35,6 +35,7 @@
 #include "lyh/add.h"
 #include "lyh/cmp.h"
 #include "lyh/sub.h"
+#include "lyh/sbb.h"
 #include "lyh/jmp.h"
 #include "lyh/jbe.h"
 #include "lyh/jle.h"
