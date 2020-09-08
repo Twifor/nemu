@@ -55,5 +55,5 @@
 #include "lyh/nop.h"
 #include "lyh/lods.h"
 #include "lyh/scas.h"
-
+#include "lyh/stos.h"
 
