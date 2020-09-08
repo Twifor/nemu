@@ -54,4 +54,6 @@
 #include "lyh/setne.h"
 #include "lyh/nop.h"
 #include "lyh/lods.h"
+#include "lyh/scas.h"
+
 
