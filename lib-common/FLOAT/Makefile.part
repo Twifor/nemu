@@ -12,7 +12,7 @@ $(FLOAT): $(FLOAT_A_OBJ)
 
 $(FLOAT_O): FLOAT.c
 	echo 'assad'
-	$(CC) -I$(LIB_COMMON_DIR) -o FLOAT.o FLOAT.c
+#	$(CC) -I$(LIB_COMMON_DIR) -o FLOAT.o FLOAT.c
 
 $(FLOAT_VFPRINTF_O):
 
