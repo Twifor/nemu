@@ -2,9 +2,18 @@
 
 .PHONY: nemu entry testcase kernel run gdb test submit clean
 
+
+
 CC := gcc
 LD := ld
 CFLAGS := -MMD -Wall -Werror -c
+
+
+include nemu/Makefile.part
+include testcase/Makefile.part
+include lib-common/FLOAT/Makefile.part
+include kernel/Makefile.part
+include game/Makefile.part
 
 LIB_COMMON_DIR := lib-common
 LIBC_INC_DIR := $(LIB_COMMON_DIR)/uclibc/include
@@ -20,11 +29,7 @@ all: nemu
 
 ##### rules for building the project #####
 
-include nemu/Makefile.part
-include testcase/Makefile.part
-include lib-common/FLOAT/Makefile.part
-include kernel/Makefile.part
-include game/Makefile.part
+
 
 nemu: $(nemu_BIN)
 testcase: $(testcase_BIN)
