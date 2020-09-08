@@ -1,6 +1,6 @@
-//#include <stdio.h>
 #include <string.h>
-#include <myheader.h>
+#include <stdio.h>
+//#include <myheader.h>
 #include "trap.h"
 
 char buf[128];
