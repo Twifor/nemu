@@ -51,6 +51,7 @@
 #include "lyh/lea.h"
 #include "lyh/adc.h"
 #include "lyh/movzb.h"
+#include "lyh/movzw.h"
 #include "lyh/movsb.h"
 #include "lyh/movsw.h"
 #include "lyh/movs.h"
