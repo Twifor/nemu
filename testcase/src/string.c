@@ -17,7 +17,7 @@ char str[20];
 
 int main() {
 	//strcat(str, "H");
-	nemu_assert(str[0]=='a');
+	//nemu_assert(str[0]=='a');
 	nemu_assert(strcmp(s[0], s[2]) == 0);
 	nemu_assert(strcmp(s[0], s[1]) == -1);
 	nemu_assert(strcmp(s[0] + 1, s[1] + 1) == -1);
