@@ -399,7 +399,7 @@ char * strcat(char * dest, const char * src)
 char buf[128];
 
 int main() {
-	sprintf(buf, "%s", "Hello world\n");
+	sprintf(buf, "%s", "Hello world!\n");
 	//set_bp();
 	nemu_assert(strcmp(buf, "Hello world!\n") == 0);
 
