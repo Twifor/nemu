@@ -13,7 +13,7 @@ char *s[] = {
 };
 
 char str1[20] = "Hello";
-char str[20]="a";
+char str[20];
 
 int main() {
 	//strcat(str, "H");
