@@ -75,11 +75,13 @@ void multiple(Pol *ans, Pol *a, Pol *b) {
 int main() {
 	int i;
 	a.l = b.l = 10;
-	for(i = 0; i <= 10; i++)a.op[i] = b.op[i] = 1;
+	for(i = 0; i <= 10; i++) a.op[i] = b.op[i] = 1;
 	multiple(&a, &a, &b);
 	nemu_assert(a.l == 20);
+	for(i = 0; i <= 10; i++) a.op[i] -= i;
+	for(i = 11; i <= 20; i++) a.op[i] += i;
 	for(i = 0;i <= a.l; i++) a.op[i] = (a.op[i] + MOD) % MOD;
-	for(i = 0; i <= 10; i++) nemu_assert(a.op[i] == i + 1);
-	for(i = 11; i<= 20; i++) nemu_assert(a.op[i] == 21 - i);
+	for(i = 0; i <= 10; i++) nemu_assert(a.op[i] == 1);
+	for(i = 11; i<= 20; i++) nemu_assert(a.op[i] == 21);
 	return 0;
 }
