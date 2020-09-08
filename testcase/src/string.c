@@ -23,10 +23,10 @@ int main() {
 	//nemu_assert(strcmp(s[0] + 1, s[1] + 1) == -1);
 	//nemu_assert(strcmp(s[0] + 2, s[1] + 2) == -1);
 	//nemu_assert(strcmp(s[0] + 3, s[1] + 3) == -1);
-	strcat(str1, s[3]);
+	//strcat(str1, s[3]);
 	//set_bp();
-	nemu_assert(strcmp(str1, s[4]) == 0);
-	strcpy(str, str1);
+	//nemu_assert(strcmp(str1, s[4]) == 0);
+	strcpy(str, "Hello, World!\n");
 	nemu_assert(strcmp(str, s[3]) == 0);
 
 	//nemu_assert(strcmp( strcat(strcpy(str, str1), s[3]), s[4]) == 0);
