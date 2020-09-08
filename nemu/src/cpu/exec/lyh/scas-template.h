@@ -11,8 +11,6 @@ make_helper(concat(scas_, SUFFIX)) {
 	int len = (DATA_BYTE << 3) - 1;
 	cpu.CF = s1 < s2;
     cpu.OF = ((s1 >> len) != (s2 >> len) && (s2 >> len) == cpu.SF);
-	printf("%d\n",cpu.ZF);
-	assert(cpu.ZF == 1);
 	print_asm("scas%s", str(SUFFIX));
 
 	return 1;
