@@ -12,7 +12,7 @@ Pol a, b;
 
 int qMul(int a, int b)
 {
-	if(b < 0) b = (b + MOD) % MOD;
+	if(b < 0) b = (b % MOD + MOD) % MOD;
     int ans = 0;
     while(b) {
         if(b & 1) ans = (ans % MOD + a % MOD) % MOD;
@@ -42,7 +42,6 @@ void NTT(int l, int *c, int type) {
     for (i = 0; i < l; i++)if (i < tr[i])swap(&c[i], &c[tr[i]]);
     for (mid = 1; mid < l; mid <<= 1) {
         int wn = qPow(G, (MOD - 1) / (mid << 1));
-		set_bp();
         if (type == -1)wn = qPow(wn, MOD - 2);
         for (len = mid << 1, j = 0; j < l; j += len) {
             int w = 1;
