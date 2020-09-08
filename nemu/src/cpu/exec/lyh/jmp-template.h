@@ -11,7 +11,7 @@ make_helper(concat(jmp_i_, SUFFIX)) {
 
 make_helper(concat(jmp_rm_, SUFFIX)) {
 	int len = concat(decode_rm_, SUFFIX)(eip + 1);
-	cpu.eip += (DATA_TYPE_S)op_src->val;
+	cpu.eip = (DATA_TYPE_S)op_src->val - len - 1;
 	print_asm("jmp %s", op_src->str);
 	return len + 1;
 }
