@@ -56,7 +56,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/fib
+USERPROG := obj/testcase/gotbaha
 ENTRY := $(USERPROG)
 
 entry: $(ENTRY)
