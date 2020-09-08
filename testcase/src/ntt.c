@@ -1,3 +1,6 @@
+/*
+* A program to test NEMU.
+*/
 #include "trap.h"
 
 #define N 20
