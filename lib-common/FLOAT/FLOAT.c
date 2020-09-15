@@ -60,7 +60,7 @@ FLOAT f2F(float a) {
 	if(exp == 0) return 0;//0, ignore another one
 	last |= 1 << 23;
 	exp -= 134;	//guess why?
-	if (exp < 0) last >>= exp;
+	if (exp < 0) last >>= -exp;
 	if (exp > 0) last <<= exp;
 
 	return sign ? -last : last;
