@@ -147,6 +147,7 @@ bool check_parentheses(int l, int r, bool *success) {//Check the parentheses, us
 }
 	
 uint32_t eval(int l, int r, bool *success) {
+	printf("%d\n", tokens[l].type);
 	*success = true;
 	if(l > r) return *success = false;// Bad Expression !!
 	if(l == r){				//It's a number or reg, otherwise bad expression
