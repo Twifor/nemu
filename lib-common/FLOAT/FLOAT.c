@@ -69,7 +69,16 @@ FLOAT f2F(float a) {
 FLOAT Fabs(FLOAT a) {
 	return a < 0 ? -a : a;
 }
-
+//Debug Use
+float toFloat(FLOAT s) {
+	int sign = 1, i;
+	if(s < 0)sign = -1,s = -s;
+	float a = 0, as = 0.5;
+	for(i = 15;i >= 0;i--) a += ((s & (1 << i)) >> i) * as, as /= 2;
+	as = 1;
+	for(i = 16;i < 32;i++) a += ((s & (1 << i)) >> i) * as,as *= 2;
+	return sign * a;
+}
 /* Functions below are already implemented */
 
 FLOAT sqrt(FLOAT x) {

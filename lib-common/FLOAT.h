@@ -27,6 +27,7 @@ FLOAT F_div_F(FLOAT, FLOAT);
 FLOAT Fabs(FLOAT);
 FLOAT sqrt(FLOAT);
 FLOAT pow(FLOAT, FLOAT);
+float toFloat(FLOAT s);
 
 // used when calling printf/sprintf to format a FLOAT argument
 #define FLOAT_ARG(f) (long long)f

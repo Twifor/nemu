@@ -9,8 +9,8 @@ int main() {
 	FLOAT c = f2F(-0.5);
 
 	FLOAT dt = F_mul_F(b, b) - F_mul_F(F_mul_int(a, 4), c);
-	FLOAT sqrt_dt = sqrt(dt);
 	set_bp();
+	FLOAT sqrt_dt = sqrt(dt);
 
 	FLOAT x1 = F_div_F(-b + sqrt_dt, F_mul_int(a, 2));
 	FLOAT x2 = F_div_F(-b - sqrt_dt, F_mul_int(a, 2));
