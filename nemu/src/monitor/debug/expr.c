@@ -5,6 +5,7 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+#include <elf.h>
 
 enum {
 	NOTYPE = 0, PLUS, MINUS, STAR, DIV,
@@ -147,7 +148,6 @@ bool check_parentheses(int l, int r, bool *success) {//Check the parentheses, us
 }
 	
 uint32_t eval(int l, int r, bool *success) {
-	printf("%d\n", tokens[l].type);
 	*success = true;
 	if(l > r) return *success = false;// Bad Expression !!
 	if(l == r){				//It's a number or reg, otherwise bad expression
@@ -169,8 +169,19 @@ uint32_t eval(int l, int r, bool *success) {
 			if(strcmp(tokens[l].str + 1, "edi") == 0) return cpu.edi;
 			if(strcmp(tokens[l].str + 1, "eip") == 0) return cpu.eip;
 			return *success = false; 
-		} else if(tokens[l].type == MARK) {
-			printf("%s\n", tokens[l].str);
+		} else if(tokens[l].type == MARK) {		//find mark
+			//int i = 0;
+			//load_table();
+			/*
+			for(i = 0; i < nr_symtab_entry; i++) {
+				if ((symtab[i].st_info & 0xf) == STT_OBJECT) {
+					char makeName[30];	//bu hui ba, bu hui ba, bu hui there are some people use 30+ mark name ba
+					strncpy(makeName, strtab + symtab[i].st_name, symtab[i+1].st_name - symtab[i].st_name - 1);
+					makeName[symtab[i+1].st_name - symtab[i].st_name - 1] = '\0'; 	//add '\0'
+					if (strcmp(makeName, token[l].str) == 0) return symtab[i].st_value;//found
+				}
+			}
+			*/
 			return *success = false;
 		}
 		return *success = false;
