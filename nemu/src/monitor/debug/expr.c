@@ -42,7 +42,7 @@ static struct rule {
 	{"0[xX][0-9a-zA-Z]+", HEX},		//hex
 	{"[0-9]+", DEC},				//dec
 	{"\\$[a-z]+", REG},				//reg
-	{"[a-zA-Z][A-Za-z0-9_]*"},		//mark
+	{"[a-zA-Z][A-Za-z0-9_]*", MARK},		//mark
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
