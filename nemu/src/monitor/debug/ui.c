@@ -156,6 +156,7 @@ static int cmd_bt(char *args) {
 		}
 		now_ret = swaddr_read(now_ebp + 4, 4);
 		now_ebp = swaddr_read(now_ebp, 4);
+		printf("\n");
 	}
 	return 0;
 }
