@@ -48,6 +48,8 @@ void load_elf_tables(int argc, char *argv[]) {
 	/* The first several bytes contain the ELF header. */
 	Elf32_Ehdr *elf = (void *)buf;
 	char magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
+	int cnm=0;
+	for(cnm=0;cnm<4;cnm++)printf("%d",magic[cnm]);
 
 	/* Check ELF header */
 	assert(memcmp(elf->e_ident, magic, 4) == 0);		// magic number
