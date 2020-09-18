@@ -146,7 +146,9 @@ bool check_parentheses(int l, int r, bool *success) {//Check the parentheses, us
 	if(cnt != 0) return *success = false;
 	return flag;
 }
-	
+
+void load_elf_tables(int, char *[]);
+
 uint32_t eval(int l, int r, bool *success) {
 	*success = true;
 	if(l > r) return *success = false;// Bad Expression !!
@@ -170,6 +172,9 @@ uint32_t eval(int l, int r, bool *success) {
 			if(strcmp(tokens[l].str + 1, "eip") == 0) return cpu.eip;
 			return *success = false; 
 		} else if(tokens[l].type == MARK) {		//find mark
+			int x=2;
+			char *s[50]={"fuck you"};
+			load_elf_tables(x,s);
 			//int i = 0;
 			//load_table();
 			/*
