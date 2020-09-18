@@ -147,7 +147,7 @@ bool check_parentheses(int l, int r, bool *success) {//Check the parentheses, us
 	return flag;
 }
 
-void load_elf_tables(int, char *[]);
+uint32_t getAddressFromMark(char *mark, bool *success);
 
 uint32_t eval(int l, int r, bool *success) {
 	*success = true;
@@ -172,22 +172,7 @@ uint32_t eval(int l, int r, bool *success) {
 			if(strcmp(tokens[l].str + 1, "eip") == 0) return cpu.eip;
 			return *success = false; 
 		} else if(tokens[l].type == MARK) {		//find mark
-			int x=2;
-			char *s[50]={"fuck you"};
-			load_elf_tables(x,s);
-			//int i = 0;
-			//load_table();
-			/*
-			for(i = 0; i < nr_symtab_entry; i++) {
-				if ((symtab[i].st_info & 0xf) == STT_OBJECT) {
-					char makeName[30];	//bu hui ba, bu hui ba, bu hui there are some people use 30+ mark name ba
-					strncpy(makeName, strtab + symtab[i].st_name, symtab[i+1].st_name - symtab[i].st_name - 1);
-					makeName[symtab[i+1].st_name - symtab[i].st_name - 1] = '\0'; 	//add '\0'
-					if (strcmp(makeName, token[l].str) == 0) return symtab[i].st_value;//found
-				}
-			}
-			*/
-			return *success = false;
+			return getAddressFromMark(tokens[l].str, success);
 		}
 		return *success = false;
 	}
