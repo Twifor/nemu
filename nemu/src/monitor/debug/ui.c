@@ -147,9 +147,10 @@ static int cmd_bt(char *args) {
 	int cnt = 0, i;
 	char name[50];
 	while(now_ebp) {
-		printf("#%d 0x%x: ", ++cnt, now_ret);
 		getFunctionFromAddress(now_ret, name);
-		printf("%s (\n", name);
+		if(name[0] == '\0') break;
+		printf("#%d 0x%x: ", ++cnt, now_ret);
+		printf("%s (", name);
 		for(i = 0; i < 4; i++) {
 			printf("%d", swaddr_read(now_ebp + 8 + i * 4, 4));
 			printf("%c", i == 3 ? ')' : ',');

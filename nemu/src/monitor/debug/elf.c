@@ -30,6 +30,7 @@ void getFunctionFromAddress(swaddr_t addr, char *s) {
 			return;
 		}
 	}
+	s[0] = '\0';
 }
 
 void load_elf_tables(int argc, char *argv[]) {
