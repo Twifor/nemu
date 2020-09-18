@@ -32,7 +32,8 @@ uint32_t loader() {
 
 	/* TODO: fix the magic number with the correct one */
 	const uint32_t elf_magic = 0x7f454c46;
-	uint32_t *p_magic = (void *)buf;	
+	uint32_t *p_magic = (void *)buf;
+	set_bp();
 	nemu_assert(*p_magic == elf_magic);
 	set_bp();
 
