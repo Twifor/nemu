@@ -4,9 +4,7 @@
 
 void do_execute() {
 	DATA_TYPE ans = op_dest->val - op_src->val;
-	printf("0x%x 0x%x\n", op_dest->val, op_src->val);
 	concat(updateCPU_, SUFFIX) (ans);
-	printf("%d\n", cpu.ZF);
 	int len = (DATA_BYTE << 3) - 1;
 	cpu.CF = op_dest->val < op_src->val;
 	cpu.OF = ((op_dest->val >> len) != (op_src->val >> len) && (op_src->val >> len) == cpu.SF);
