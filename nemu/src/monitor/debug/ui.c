@@ -149,7 +149,7 @@ static int cmd_bt(char *args) {
 	while(now_ebp) {
 		printf("#%d 0x%x: ", ++cnt, now_ret);
 		getFunctionFromAddress(now_ret, name);
-		printf("%s (\n", name);
+		printf("%s (", name);
 		for(i = 0; i < 4; i++) {
 			printf("%d", swaddr_read(now_ebp + 8 + i * 4, 4));
 			printf("%c", i == 3 ? ')' : ',');
