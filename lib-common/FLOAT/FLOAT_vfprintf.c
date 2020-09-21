@@ -25,7 +25,7 @@ static void modify_vfprintf() {
 	int *p = 0x8048de8;	//call 
 	
 //	*p += (int)format_FLOAT - (int)(&_fpmaxtostr);
-	printf("%d\n",(int)format_FLOAT - (int)(&_fpmaxtostr));
+	printf("%x %x %d\n",(int)format_FLOAT,(int)(&_fpmaxtostr),(int)format_FLOAT - (int)(&_fpmaxtostr));
 	/* TODO: Implement this function to hijack the formating of "%f"
 	 * argument during the execution of `_vfprintf_internal'. Below
 	 * is the code section in _vfprintf_internal() relative to the
