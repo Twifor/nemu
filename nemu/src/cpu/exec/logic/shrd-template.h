@@ -17,6 +17,7 @@ static void do_execute () {
 	}
 
 	OPERAND_W(op_src2, out);
+	concat(updateCPU_, SUFFIX) (out);
 
 	print_asm("shrd" str(SUFFIX) " %s,%s,%s", op_src->str, op_dest->str, op_src2->str);
 }
