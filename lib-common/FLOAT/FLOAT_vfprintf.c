@@ -4,6 +4,7 @@
 
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
+//extern ssize_t _fpmaxtostr(FILE *, __fpmax_t, struct printf_info *, __fp_outfunc_t) attribute_hidden;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 
 __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
@@ -21,6 +22,10 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 }
 
 static void modify_vfprintf() {
+	int *p = 0x8048de8;	//call 
+	
+//	*p += (int)format_FLOAT - (int)(&_fpmaxtostr);
+	printf("%d\n",(int)format_FLOAT - (int)(&_fpmaxtostr));
 	/* TODO: Implement this function to hijack the formating of "%f"
 	 * argument during the execution of `_vfprintf_internal'. Below
 	 * is the code section in _vfprintf_internal() relative to the
