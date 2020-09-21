@@ -8,7 +8,7 @@ int main() {
 	FLOAT b = f2F(0.5);
 	FLOAT c = f2F(-0.5);
 	FLOAT dt = F_mul_F(b, b) - F_mul_F(F_mul_int(a, 4), c);
-	set_bp();
+	//set_bp();
 	FLOAT sqrt_dt = sqrt(dt);
 
 	FLOAT x1 = F_div_F(-b + sqrt_dt, F_mul_int(a, 2));
