@@ -18,7 +18,19 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 */
 
 	char buf[80];
-	int len = (sprintf) (buf, "%d.%06d", ((int)(f) >> 16), (uint32_t)(f & 0x0000ffff));
+	int sign = f & 0x80000000, len, cd = 0;
+	if(sign) f = (~f) + 1;
+	int hehe = 500000000, i = 15;
+	for(i = 15; i >= 0; i--) {
+		if(f & (1 << i)) cd += hehe;
+		hehe >>= 1;
+	}
+	while(cd > 999999) cd /= 10;
+	if(sign) {
+		len = (sprintf) (buf, "-%d.%06d", ((int)(f) >> 16), cd);
+	} else {
+		len = (sprintf) (buf, "%d.%06d", ((int)(f) >> 16), cd);
+	}
 	return __stdio_fwrite(buf, len, stream);
 }
 
