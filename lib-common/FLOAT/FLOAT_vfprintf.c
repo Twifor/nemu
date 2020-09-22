@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "FLOAT.h"
+#include <sys/mman.h>
 
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
-//extern ssize_t _fpmaxtostr(FILE *, __fpmax_t, struct printf_info *, __fp_outfunc_t) attribute_hidden;
+extern char _ppfs_setargs;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 
 __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
@@ -17,15 +18,39 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 */
 
 	char buf[80];
-	int len = (sprintf) (buf, "0x%08x", f);
+	int len = (sprintf) (buf, "%d.%06d", ((int)(f) >> 16), (uint32_t)(f & 0x0000ffff));
 	return __stdio_fwrite(buf, len, stream);
 }
 
 static void modify_vfprintf() {
-	int *p = 0x8048de8;	//call 
+	int addr = &_vfprintf_internal;	//begin
+
+	//mprotect((void *)((addr + 0x306 - 0x64) & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
+
+	// guess what?
+	char *sub = (char *)(addr + 0x306 - 0xb);	//guess what?
+	*sub = 0x8;		//guess what?
+	sub = (char *)(addr + 0x306 - 0xa);
+	*sub = 0xff;	//guess what?
+	sub = (char *)(addr + 0x306 - 0x9);
+	*sub = 0x32;	//guess what?
+	sub = (char *)(addr + 0x306 - 0x8);
+	*sub = 0x90;	//guess what?
+
+	sub = (char *)(addr + 0x306 - 30);
+	*sub = 0x90;
+	sub = (char *)(addr + 0x306 - 29);
+	*sub = 0x90;
+	sub = (char *)(addr + 0x306 - 33);
+	*sub = 0x90;
+	sub = (char *)(addr + 0x306 - 34);
+	*sub = 0x90; 
+
+	int *pos = (int *)(addr + 0x307);
+
+	*pos += (int)format_FLOAT - (int)(&_fpmaxtostr);
 	
-//	*p += (int)format_FLOAT - (int)(&_fpmaxtostr);
-	printf("%x %x %d\n",(int)format_FLOAT,(int)(&_fpmaxtostr),(int)format_FLOAT - (int)(&_fpmaxtostr));
+	//printf("%x %x %d\n",(int)format_FLOAT,(int)(&_fpmaxtostr),(int)format_FLOAT - (int)(&_fpmaxtostr));
 	/* TODO: Implement this function to hijack the formating of "%f"
 	 * argument during the execution of `_vfprintf_internal'. Below
 	 * is the code section in _vfprintf_internal() relative to the
@@ -72,6 +97,19 @@ static void modify_vfprintf() {
 }
 
 static void modify_ppfs_setargs() {
+	int addr = &_ppfs_setargs;
+
+	//mprotect((void *)((addr + 0x73 - 0x64) & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
+
+	char *pos = (char *)(addr + 0x71);
+	*pos = 0xeb;
+	pos = (char *)(addr + 0x72);
+	*pos = 0x30;
+	pos = (char *)(addr + 0x73);
+	*pos = 0x90;
+	//guess guess guess what???
+
+	
 	/* TODO: Implement this function to modify the action of preparing
 	 * "%f" arguments for _vfprintf_internal() in _ppfs_setargs().
 	 * Below is the code section in _vfprintf_internal() relative to
@@ -80,14 +118,14 @@ static void modify_ppfs_setargs() {
 
 #if 0
 	enum {                          /* C type: */
-		PA_INT,                       /* int */
+		PA_INT,  0                     /* int */
 		PA_CHAR,                      /* int, cast to char */
 		PA_WCHAR,                     /* wide char */
 		PA_STRING,                    /* const char *, a '\0'-terminated string */
 		PA_WSTRING,                   /* const wchar_t *, wide character string */
 		PA_POINTER,                   /* void * */
 		PA_FLOAT,                     /* float */
-		PA_DOUBLE,                    /* double */
+		PA_DOUBLE, 7                   /* double */
 		__PA_NOARG,                   /* non-glibc -- signals non-arg width or prec */
 		PA_LAST
 	};
