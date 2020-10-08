@@ -13,15 +13,6 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  * cpu.gpr[1]._8[1], we will get the 'ch' register. Hint: Use `union'.
  * For more details about the register encoding scheme, see i386 manual.
  */
-typedef struct {
-	uint32_t PG : 1;
-	uint32_t UNDEFINED : 26;
-	uint32_t ET : 1;
-	uint32_t TS : 1;
-	uint32_t EM : 1;
-	uint32_t MP : 1;
-	uint32_t PE : 1;
-} CR0;
 
 typedef struct {
 	uint32_t base_addr;
@@ -60,7 +51,18 @@ typedef struct {
 			uint32_t VM:	1;
 			uint32_t :	14;
 	};
-	CR0 cr0;
+	union {
+		struct {
+			uint32_t PG : 1;
+			uint32_t UNDEFINED : 26;
+			uint32_t ET : 1;
+			uint32_t TS : 1;
+			uint32_t EM : 1;
+			uint32_t MP : 1;
+			uint32_t PE : 1;
+		};
+		uint32_t cr0;
+	};
 	GDTR_STRUCT GDTR;
 	uint32_t CS, DS, ES, SS;
 	//uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;

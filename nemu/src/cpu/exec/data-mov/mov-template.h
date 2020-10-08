@@ -28,4 +28,17 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 	return 5;
 }
 
+#if DATA_BYTE == 4
+make_helper(mov_cr2r) {
+	//WARNING!!
+	//NOW WE HAVE CR0 ONLY !!!
+	OPERAND_W(op_dest, cpu.cr0);
+	print_asm("mov %s,cr0", op_dest->str);
+	return 2;
+}
+make_helper(mov_r2cr) {
+	return 2;
+}
+#endif
+
 #include "cpu/exec/template-end.h"
