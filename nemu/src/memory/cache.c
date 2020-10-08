@@ -112,7 +112,6 @@ void writeCache2(hwaddr_t addr, size_t len, uint32_t data) {
 				//dram_write(addr, CACHE2_BLOCK_SIZE - offset, data);	//write through
 				memcpy(cache2[i].data + offset, &data, CACHE2_BLOCK_SIZE - offset);
 				writeCache2(addr + CACHE2_BLOCK_SIZE - offset, len - CACHE2_BLOCK_SIZE + offset, data >> (CACHE2_BLOCK_SIZE - offset));
-				printf("x\n");
 			} else {
 				//dram_write(addr, len, data);	//write through
 				memcpy(cache2[i].data + offset, &data, len);
@@ -120,9 +119,9 @@ void writeCache2(hwaddr_t addr, size_t len, uint32_t data) {
 			return;
 		}
 	}
-	dram_write(addr, len, data);
+	//dram_write(addr, len, data);
 	//write back
-	//i = readCache2(addr);
-	//cache2[i].dirty = true;
-	//memcpy(cache2[i].data + offset, &data, len);
+	i = readCache2(addr);
+	cache2[i].dirty = true;
+	memcpy(cache2[i].data + offset, &data, len);
 }
