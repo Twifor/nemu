@@ -31,7 +31,7 @@ int readCache(hwaddr_t addr) {
 
 	j = readCache2(addr);
 	srand(i);
-	i = CACHE_WAY_SIZE * set + 0;// rand() % CACHE_WAY_SIZE;//random
+	i = CACHE_WAY_SIZE * set + rand() % CACHE_WAY_SIZE;//random
 	memcpy(cache[i].data, cache2[j].data, CACHE_BLOCK_SIZE);//CACHE2_BLOCK_SIZE=CACHE_BLOCK_SIZE
 
 /*
@@ -57,7 +57,7 @@ int readCache2(hwaddr_t addr) {
 		if(cache2[i].tag == tag && cache2[i].valid) return i;
 	}
 	srand(i);
-	i = CACHE2_WAY_SIZE * set + 0;//rand() % CACHE2_WAY_SIZE;//random
+	i = CACHE2_WAY_SIZE * set + rand() % CACHE2_WAY_SIZE;//random
 	if(cache2[i].dirty && cache2[i].valid) {//write back
 		uint8_t mask[BURST_LEN * 2];
 		memset(mask, 1, BURST_LEN * 2);
@@ -97,6 +97,7 @@ void writeCache(hwaddr_t addr, size_t len, uint32_t data) {
 	//fail. write cache2
 	//dram_write(addr,len,data);
 	writeCache2(addr, len, data);
+	printf("x\n");
 }
 
 void writeCache2(hwaddr_t addr, size_t len, uint32_t data) {
