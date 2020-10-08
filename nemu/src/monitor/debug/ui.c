@@ -56,6 +56,14 @@ static int cmd_info(char *args){
 			printf("watchpoint %d : %s\n", h->NO, h->expr);
 			h = h->next;
 		}
+	} else if(opt == 's') {
+		printf("%%gdtr base:0x%x limit:0x%x\n", cpu.gdtr.base_addr, cpu.gdtr.seg_limit);
+		printf("%%es base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.es.base, cpu.es.limit, cpu.es.attribute, cpu.es.selector);
+		printf("%%cs base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.cs.base, cpu.cs.limit, cpu.cs.attribute, cpu.cs.selector);
+		printf("%%ss base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.ss.base, cpu.ss.limit, cpu.ss.attribute, cpu.ss.selector);
+		printf("%%ds base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.ds.base, cpu.ds.limit, cpu.ds.attribute, cpu.ds.selector);
+		printf("%%fs base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.fs.base, cpu.fs.limit, cpu.fs.attribute, cpu.fs.selector);
+		printf("%%gs base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.gs.base, cpu.gs.limit, cpu.gs.attribute, cpu.gs.selector);
 	}
 	return 0;
 }

@@ -24,7 +24,7 @@ typedef struct {
 	uint32_t base;
 	uint32_t limit;
 	uint16_t attribute;
-	uint16_t selecter;
+	uint16_t selector;
 } SREG;
 
 typedef struct {
