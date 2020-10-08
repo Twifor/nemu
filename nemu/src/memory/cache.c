@@ -121,6 +121,7 @@ void writeCache2(hwaddr_t addr, size_t len, uint32_t data) {
 	}
 	//dram_write(addr, len, data);
 	//write back
+	printf("x\n");
 	i = readCache2(addr);
 	cache2[i].dirty = true;
 	memcpy(cache2[i].data + offset, &data, len);
