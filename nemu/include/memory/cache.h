@@ -36,5 +36,6 @@ void resetCache();
 int readCache(hwaddr_t addr);
 void writeCache(hwaddr_t addr, size_t len, uint32_t data);
 void addMemoryTime(uint32_t t);
+int readCache2(hwaddr_t addr);
 
 #endif
