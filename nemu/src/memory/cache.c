@@ -58,11 +58,11 @@ int readCache2(hwaddr_t addr) {
 	}
 	srand(i);
 	i = CACHE2_WAY_SIZE * set + rand() % CACHE2_WAY_SIZE;//random
-	if(cache2[i].dirty && cache2[i].valid) {//write back
+	/*if(cache2[i].dirty && cache2[i].valid) {//write back
 		uint8_t mask[BURST_LEN * 2];
 		memset(mask, 1, BURST_LEN * 2);
 		for (j = 0; j < CACHE2_BLOCK_SIZE / BURST_LEN; j++) ddr3_write_public(block + j * BURST_LEN, cache2[i].data + j * BURST_LEN, mask);
-	}
+	}*/
 	for(j = 0; j < CACHE2_BLOCK_SIZE / BURST_LEN; j++) {
 		ddr3_read_public(block + j * BURST_LEN , cache2[i].data + j * BURST_LEN);
 	}
