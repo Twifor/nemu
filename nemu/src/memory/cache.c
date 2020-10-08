@@ -108,7 +108,6 @@ void writeCache2(hwaddr_t addr, size_t len, uint32_t data) {
 		if(cache2[i].tag == tag && cache2[i].valid) {
 			cache2[i].dirty = true;
 			if(offset + len > CACHE2_BLOCK_SIZE) {//across
-				printf("xx\n");
 				memcpy(cache2[i].data + offset, &data, CACHE2_BLOCK_SIZE - offset);
 				writeCache2(addr + CACHE2_BLOCK_SIZE - offset, len - CACHE2_BLOCK_SIZE + offset, data >> (CACHE2_BLOCK_SIZE - offset));
 			} else {
@@ -121,5 +120,6 @@ void writeCache2(hwaddr_t addr, size_t len, uint32_t data) {
 	i = readCache2(addr);
 	cache2[i].dirty = true;
 	memcpy(cache2[i].data + offset, &data, len);
+	printf("%d %d\n",(int)offset,(int)len);
 	assert(offset + len < CACHE2_BLOCK_SIZE);
 }
