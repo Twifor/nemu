@@ -17,7 +17,6 @@ void resetCache() {
 
 //return ID
 int readCache(hwaddr_t addr) {
-	addMemoryTime(10);
 	uint32_t tag = addr >> (CACHE_BLOCK_SIZE_BIT + CACHE_SET_BIT);
 	uint32_t set = (addr >> CACHE_BLOCK_SIZE_BIT) & (CACHE_SET_SIZE - 1);
 	uint32_t block = (addr >> CACHE_BLOCK_SIZE_BIT) << CACHE_BLOCK_SIZE_BIT;
@@ -37,7 +36,6 @@ int readCache(hwaddr_t addr) {
 }
 
 void writeCache(hwaddr_t addr, size_t len, uint32_t data) {
-	addMemoryTime(10);
 	uint32_t tag = addr >> (CACHE_BLOCK_SIZE_BIT + CACHE_SET_BIT);
 	uint32_t set = (addr >> CACHE_BLOCK_SIZE_BIT) & (CACHE_SET_SIZE - 1);
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
