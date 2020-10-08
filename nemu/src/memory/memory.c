@@ -44,6 +44,7 @@ uint32_t swaddr_read(swaddr_t addr, size_t len) {	//PAD1 USE
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
+	//lnaddr_t lnaddr = seg_translate(addr, len, sreg);
 	return lnaddr_read(addr, len);
 }
 
@@ -51,5 +52,6 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {	//virtual address
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
+//	lnaddr_t lnaddr = seg_translate(addr, len, sreg);
 	lnaddr_write(addr, len, data);
 }
