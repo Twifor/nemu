@@ -8,6 +8,8 @@
 #define CACHE_WAY_SIZE (1 << CACHE_WAY_BIT)
 #define CACHE_SET_SIZE (1 << CACHE_SET_BIT)
 
+uint64_t MEMORY_TIME;
+
 typedef struct {
 	uint8_t data[CACHE_BLOCK_SIZE];
 	uint32_t tag;
@@ -19,5 +21,6 @@ CacheBlock cache[CACHE_SET_SIZE * CACHE_WAY_SIZE];
 void resetCache();
 int readCache(hwaddr_t addr);
 void writeCache(hwaddr_t addr, size_t len, uint32_t data);
+void addMemoryTime(uint32_t t);
 
 #endif
