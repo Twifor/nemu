@@ -90,7 +90,7 @@ void restart() {
 	cpu.CF = 1;
 	cpu.PF = cpu.ZF = cpu.SF = cpu.IF = cpu.DF = cpu.OF = 0;
 	cpu.PG = cpu.ET = cpu.TS = cpu.EM = cpu.MP = 0;
-	cpu.PE = 1;
+//	cpu.PE = 1;
 
 	/* Initialize DRAM. */
 	init_ddr3();
