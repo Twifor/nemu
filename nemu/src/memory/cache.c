@@ -32,9 +32,7 @@ int readCache(hwaddr_t addr) {
 	}
 	cache[i].valid = true;
 	cache[i].tag = tag;
-	printf("%d\n",i);
-	for(j=0;j<CACHE_BLOCK_SIZE;j++)printf("%x ",cache[i].data[j]);
-	printf("\n");
+	printf("%x %d\n",addr,i);
 	return i;
 }
 

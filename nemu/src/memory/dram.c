@@ -71,7 +71,6 @@ static void ddr3_read(hwaddr_t addr, void *data) {
 
 	/* burst read */
 	memcpy(data, rowbufs[rank][bank].buf + col, BURST_LEN);
-	addMemoryTime(200);
 }
 
 void ddr3_read_public(hwaddr_t addr, void *data) {
@@ -100,7 +99,6 @@ static void ddr3_write(hwaddr_t addr, void *data, uint8_t *mask) {
 
 	/* write back to dram */
 	memcpy(dram[rank][bank][row], rowbufs[rank][bank].buf, NR_COL);
-	addMemoryTime(200);
 }
 
 uint32_t dram_read(hwaddr_t addr, size_t len) {
