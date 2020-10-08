@@ -80,7 +80,6 @@ void writeCache(hwaddr_t addr, size_t len, uint32_t data) {
 		if(cache[i].tag == tag && cache[i].valid) {
 			if(offset + len > CACHE_BLOCK_SIZE) {//across
 				dram_write(addr, CACHE_BLOCK_SIZE - offset, data);	//write through
-				printf("%d\n",CACHE_BLOCK_SIZE - offset);
 				memcpy(cache[i].data + offset, &data, CACHE_BLOCK_SIZE - offset);
 				//writeCache2(addr, CACHE_BLOCK_SIZE - offset, data);//update cache2
 				writeCache(addr + CACHE_BLOCK_SIZE - offset, len - CACHE_BLOCK_SIZE + offset, data >> (CACHE_BLOCK_SIZE - offset));
