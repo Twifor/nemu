@@ -58,12 +58,13 @@ static int cmd_info(char *args){
 		}
 	} else if(opt == 's') {
 		printf("%%gdtr base:0x%x limit:0x%x\n", cpu.gdtr.base_addr, cpu.gdtr.seg_limit);
-		printf("%%es base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.es.base, cpu.es.limit, cpu.es.attribute, cpu.es.selector);
-		printf("%%cs base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.cs.base, cpu.cs.limit, cpu.cs.attribute, cpu.cs.selector);
-		printf("%%ss base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.ss.base, cpu.ss.limit, cpu.ss.attribute, cpu.ss.selector);
-		printf("%%ds base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.ds.base, cpu.ds.limit, cpu.ds.attribute, cpu.ds.selector);
-		printf("%%fs base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.fs.base, cpu.fs.limit, cpu.fs.attribute, cpu.fs.selector);
-		printf("%%gs base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", cpu.gs.base, cpu.gs.limit, cpu.gs.attribute, cpu.gs.selector);
+		const char *S[] = {"es", "cs", "ss", "ds", "fs", "gs"};
+		int i;
+		for(i = 0; i < 6; i++) {
+			printf("%%%s base0x%x limit:0x%x attribute:0x%x selector:0x%x\n", S[i], cpu.sr[i].base, cpu.sr[i].limit, cpu.sr[i].attribute, cpu.sr[i].selector);
+		}
+	} else if(opt == 'c') {
+		printf("%%cr0 0x%x\n", cpu.cr0);
 	}
 	return 0;
 }
