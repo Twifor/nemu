@@ -22,13 +22,27 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	//hehe
 	int zero = 0;
 	uint32_t tmp = unalign_rw(temp + zero, 4) & (~0u >> ((4 - len) << 3));
-	uint32_t fk = dram_read(addr, len) & (~0u >> ((4 - len) << 3));
-	printf("%d %d\n",tmp,fk);
-	if(tmp!=fk)assert(0);
+//	uint32_t fk = dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+//	printf("%d %d\n",tmp,fk);
+//	if(tmp!=fk)assert(0);
 	return tmp;
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
+	bool success;
+	int first_id = writeCache(addr, &success);//get cache id
+	if(!success) {
+		//not write allocate
+		dram_write(addr, len, data);
+		return;
+	}
+	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
+	if(offset + len > CACHE_BLOCK_SIZE) {
+
+	} else {
+		memcpy(cache[first_id].data + offset, (uint8_t*)(&data), len);
+	}
+	//write through
 	dram_write(addr, len, data);
 }
 

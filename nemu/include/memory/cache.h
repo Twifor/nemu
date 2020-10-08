@@ -18,5 +18,6 @@ CacheBlock cache[CACHE_SET_SIZE * CACHE_WAY_SIZE];
 
 void resetCache();
 int readCache(hwaddr_t addr);
+int writeCache(hwaddr_t addr, bool *success);
 
 #endif
