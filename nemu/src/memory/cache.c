@@ -79,12 +79,12 @@ void writeCache(hwaddr_t addr, size_t len, uint32_t data) {
 	for(i = CACHE_WAY_SIZE * set; i < CACHE_WAY_SIZE * (set + 1); i++) {
 		if(cache[i].tag == tag && cache[i].valid) {
 			if(offset + len > CACHE_BLOCK_SIZE) {//across
-				//dram_write(addr, CACHE_BLOCK_SIZE - offset, data);	//write through
+				dram_write(addr, CACHE_BLOCK_SIZE - offset, data);	//write through
 				memcpy(cache[i].data + offset, &data, CACHE_BLOCK_SIZE - offset);
 				//writeCache2(addr, CACHE_BLOCK_SIZE - offset, data);//update cache2
 				writeCache(addr + CACHE_BLOCK_SIZE - offset, len - CACHE_BLOCK_SIZE + offset, data >> (CACHE_BLOCK_SIZE - offset));
 			} else {
-				//dram_write(addr, len, data);
+				dram_write(addr, len, data);
 				memcpy(cache[i].data + offset, &data, len);
 				//writeCache2(addr, len, data);
 			}
