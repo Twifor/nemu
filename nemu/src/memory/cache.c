@@ -120,6 +120,5 @@ void writeCache2(hwaddr_t addr, size_t len, uint32_t data) {
 	i = readCache2(addr);
 	cache2[i].dirty = true;
 	memcpy(cache2[i].data + offset, &data, len);
-	printf("%d %d\n",(int)offset,(int)len);
-	assert(offset + len < CACHE2_BLOCK_SIZE);
+	assert(offset + len <= CACHE2_BLOCK_SIZE);
 }
