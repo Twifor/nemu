@@ -61,4 +61,5 @@
 #include "lyh/lods.h"
 #include "lyh/scas.h"
 #include "lyh/stos.h"
+#include "lyh/lgdt.h"
 

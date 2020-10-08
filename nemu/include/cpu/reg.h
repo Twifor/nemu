@@ -22,6 +22,12 @@ typedef struct {
 	uint32_t MP : 1;
 	uint32_t PE : 1;
 } CR0;
+
+typedef struct {
+	uint32_t base_addr;
+	uint16_t seg_limit;
+} GDTR_STRUCT;
+
 typedef struct {
 	union {
 		union {
@@ -55,7 +61,7 @@ typedef struct {
 			uint32_t :	14;
 	};
 	CR0 cr0;
-	uint32_t GDTR;
+	GDTR_STRUCT GDTR;
 	uint32_t CS, DS, ES, SS;
 	//uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 
