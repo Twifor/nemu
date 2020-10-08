@@ -30,13 +30,21 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 
 #if DATA_BYTE == 4
 make_helper(mov_cr2r) {
-	//WARNING!!
-	//NOW WE HAVE CR0 ONLY !!!
-	OPERAND_W(op_dest, cpu.cr0);
-	print_asm("mov %s,cr0", op_dest->str);
+	uint8_t opcode = instr_fetch(eip + 1, 1);
+	//maybe just eax...
+	if(opcode == 0xc0) {
+		cpu.eax = cpu.cr0;
+		print_asm("mov %%%s,%%cr0", REG_NAME(R_EAX));
+	}
 	return 2;
 }
 make_helper(mov_r2cr) {
+	uint8_t opcode = instr_fetch(eip + 1, 1);
+	//maybe just eax...
+	if(opcode == 0xc0) {
+		cpu.cr0 = cpu.eax;
+		print_asm("mov %%cr0,%%%s", REG_NAME(R_EAX));
+	}
 	return 2;
 }
 #endif
