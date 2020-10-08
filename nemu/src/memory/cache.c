@@ -51,7 +51,6 @@ int readCache2(hwaddr_t addr) {
 	cache2[i].valid = true;
 	cache2[i].tag = tag;
 	cache2[i].dirty = false;
-	printf("x");
 	return i;
 }
 
