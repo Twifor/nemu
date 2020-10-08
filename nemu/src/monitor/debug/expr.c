@@ -162,9 +162,13 @@ uint32_t eval(int l, int r, bool *success) {
 			return tmp;
 		} else if(tokens[l].type == REG) {	//read register
 			const char *RE[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi", "eip"};
+			const char *SE[] = {"es", "cs", "ss", "ds", "fs", "gs"};
 			int i;
 			for(i = 0; i < 9; i++) {
 				if(strcmp(tokens[l].str + 1, RE[i]) == 0) return cpu.gpr[i]._32;
+			}
+			for(i = 0; i < 6; i++) {
+				if(strcmp(tokens[l].str + 1, SE[i]) == 0) return cpu.sr[i].base;
 			}
 			return *success = false; 
 		} else if(tokens[l].type == MARK) {		//find mark
