@@ -13,7 +13,7 @@ void do_execute() {
 		cpu.gdtr.seg_limit = swaddr_read(op_src->addr, 2);//16 bits
 		cpu.gdtr.base_addr = swaddr_read(op_src->addr + 2, 4);//32 bits
 	}
-	print_asm_template2();
+	print_asm_template1();
 }
 
 make_instr_helper(rm);
