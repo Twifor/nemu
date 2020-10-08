@@ -13,6 +13,7 @@ void resetCache() {
 	int i = 0;
 	MEMORY_TIME = 0;//debug use
 	for(i = 0; i < CACHE_SET_SIZE * CACHE_WAY_SIZE; i++) cache[i].valid = false;
+	for(i = 0; i < CACHE2_SET_SIZE * CACHE2_WAY_SIZE; i++) cache2[i].valid = false;
 }
 
 //return ID
@@ -30,6 +31,28 @@ int readCache(hwaddr_t addr) {
 	for(j = 0; j < CACHE_BLOCK_SIZE / BURST_LEN; j++) {
 		ddr3_read_public(block + j * BURST_LEN , cache[i].data + j * BURST_LEN);
 	}
+	cache[i].valid = true;
+	cache[i].tag = tag;
+	return i;
+}
+
+int readCache2(hwaddr_t addr) {
+	uint32_t tag = addr >> (CACHE2_BLOCK_SIZE_BIT + CACHE2_SET_BIT);
+	uint32_t set = (addr >> CACHE2_BLOCK_SIZE_BIT) & (CACHE2_SET_SIZE - 1);
+	uint32_t block = (addr >> CACHE2_BLOCK_SIZE_BIT) << CACHE2_BLOCK_SIZE_BIT;
+	//not offset
+	int i = 0, j;
+	for(i = CACHE2_WAY_SIZE * set; i < CACHE2_WAY_SIZE * (set + 1); i++) {
+		if(cache2[i].tag == tag && cache2[i].valid) return i;
+	}
+	srand(i);
+	i = CACHE2_WAY_SIZE * set + rand() % CACHE2_WAY_SIZE;//random
+	for(j = 0; j < CACHE2_BLOCK_SIZE / BURST_LEN; j++) {
+		ddr3_read_public(block + j * BURST_LEN , cache2[i].data + j * BURST_LEN);
+	}
+	cache2[i].valid = true;
+	cache2[i].tag = tag;
+	cache2[i].dirty = false;
 	return i;
 }
 
@@ -41,7 +64,12 @@ void writeCache(hwaddr_t addr, size_t len, uint32_t data) {
 	int i = 0;
 	for(i = CACHE_WAY_SIZE * set; i < CACHE_WAY_SIZE * (set + 1); i++) {
 		if(cache[i].tag == tag && cache[i].valid) {
-			memcpy(cache[i].data + offset, &data, len);
+			if(offset + len > CACHE_BLOCK_SIZE) {//across
+				memcpy(cache[i].data + offset, &data, CACHE_BLOCK_SIZE - offset);
+				writeCache(addr + CACHE_BLOCK_SIZE - offset, len - CACHE_BLOCK_SIZE + offset, data >> (CACHE_BLOCK_SIZE - offset));
+			} else {
+				memcpy(cache[i].data + offset, &data, len);
+			}
 			return;
 		}
 	}
