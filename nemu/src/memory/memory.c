@@ -8,8 +8,6 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-	printf("%d\n",addr);
-	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 	int first_id = readCache(addr);	//get cache id
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
 	uint8_t temp[2 * BURST_LEN];
@@ -23,7 +21,10 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	}
 	//hehe
 	int zero = 0;
-	uint32_t tmp = unalign_rw(temp + zero, 4) & (~0u >> ((4 - len) << 3)); 
+	uint32_t tmp = unalign_rw(temp + zero, 4) & (~0u >> ((4 - len) << 3));
+	uint32_t fk = dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	printf("%d %d\n",tmp,fk);
+	if(tmp!=fk)assert(0);
 	return tmp;
 }
 
