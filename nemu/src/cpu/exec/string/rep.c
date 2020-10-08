@@ -15,6 +15,7 @@ make_helper(rep) {
 			exec(eip + 1);
 			count ++;
 			cpu.ecx --;
+			printf("%x\n",ops_decoded.opcode);
 			assert(ops_decoded.opcode == 0xa4	// movsb
 				|| ops_decoded.opcode == 0xa5	// movsw
 				|| ops_decoded.opcode == 0xaa	// stosb
