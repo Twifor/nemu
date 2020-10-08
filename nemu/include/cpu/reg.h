@@ -55,6 +55,8 @@ typedef struct {
 			uint32_t :	14;
 	};
 	CR0 cr0;
+	uint32_t GDTR;
+	uint32_t CS, DS, ES, SS;
 	//uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 
 	swaddr_t eip;
