@@ -22,13 +22,10 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	//hehe
 	int zero = 0;
 	uint32_t tmp = unalign_rw(temp + zero, 4) & (~0u >> ((4 - len) << 3));
-	//uint32_t fk = dram_read(addr,len)  & (~0u >> ((4 - len) << 3));
-	//printf("%x %x\n",tmp,fk);
 	return tmp;
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
-	//dram_write(addr,len,data);
 	writeCache(addr, len, data);
 }
 

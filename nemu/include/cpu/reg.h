@@ -59,6 +59,7 @@ typedef struct {
 			uint32_t VM:	1;
 			uint32_t :	14;
 	};
+
 	union {
 		struct {
 			uint32_t PE : 1;
@@ -71,15 +72,15 @@ typedef struct {
 		};
 		uint32_t cr0;
 	};
-	GDTR_STRUCT gdtr;
+
 	union {
 		SREG sr[6];
 		struct {
 			SREG es, cs, ss, ds, fs, gs;
 		};
 	};
-	//uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 
+	GDTR_STRUCT gdtr;
 	swaddr_t eip;
 
 } CPU_state;
