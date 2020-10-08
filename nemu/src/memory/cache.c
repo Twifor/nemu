@@ -30,14 +30,17 @@ int readCache(hwaddr_t addr) {
 	return i;
 }
 
-int writeCache(hwaddr_t addr, bool *success) {
-	*success = true;
+void writeCache(hwaddr_t addr, size_t len, uint32_t data) {
 	uint32_t tag = addr >> (CACHE_BLOCK_SIZE_BIT + CACHE_SET_BIT);
 	uint32_t set = (addr >> CACHE_BLOCK_SIZE_BIT) & (CACHE_SET_SIZE - 1);
+	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
 	//not offset
 	int i = 0;
 	for(i = CACHE_WAY_SIZE * set; i < CACHE_WAY_SIZE * (set + 1); i++) {
-		if(cache[i].tag == tag && cache[i].valid) return i;
+		if(cache[i].tag == tag && cache[i].valid) {
+			memcpy(cache[i].data + offset, &data, len);
+			return;
+		}
 	}
-	return *success = false;//fail
+	
 }

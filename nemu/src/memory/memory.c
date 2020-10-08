@@ -29,21 +29,8 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
-	bool success;
-	int first_id = writeCache(addr, &success);//get cache id
-	if(!success) {
-		//not write allocate
-		dram_write(addr, len, data);
-		return;
-	}
-	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
-	if(offset + len > CACHE_BLOCK_SIZE) {
-
-	} else {
-		memcpy(cache[first_id].data + offset, (uint8_t*)(&data), len);
-	}
-	//write through
-	dram_write(addr, len, data);
+	dram_write(addr, len, data);//write through
+	writeCache(addr, len, data);
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
