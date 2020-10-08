@@ -91,6 +91,7 @@ void writeCache(hwaddr_t addr, size_t len, uint32_t data) {
 			return;
 		}
 	}
+	dram_write(addr, len, data);
 	//fail. write cache2
 	//writeCache2(addr, len, data);
 }
