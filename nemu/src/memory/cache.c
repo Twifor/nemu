@@ -30,9 +30,6 @@ int readCache(hwaddr_t addr) {
 	for(j = 0; j < CACHE_BLOCK_SIZE / BURST_LEN; j++) {
 		ddr3_read_public(block + j * BURST_LEN , cache[i].data + j * BURST_LEN);
 	}
-	cache[i].valid = true;
-	cache[i].tag = tag;
-	printf("%x %d\n",addr,i);
 	return i;
 }
 
