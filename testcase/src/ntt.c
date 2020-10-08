@@ -73,6 +73,7 @@ void multiple(Pol *ans, Pol *a, Pol *b) {
 }
 
 int main() {
+	set_bp();
 	int i;
 	a.l = b.l = 10;
 	for(i = 0; i <= 10; i++) a.op[i] = b.op[i] = 1;
