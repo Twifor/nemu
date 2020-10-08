@@ -23,7 +23,6 @@ int readCache(hwaddr_t addr) {
 	srand(i);
 	i = CACHE_WAY_SIZE * set + rand() % CACHE_WAY_SIZE;//random
 	for(j = 0; j < CACHE_BLOCK_SIZE / BURST_LEN; j++) {
-		printf("%d %d %d\n",block + j * BURST_LEN,addr,(1 << (10 + 10 + 3 + (27 - 10 - 10 - 3))));
 		ddr3_read_public(block + j * BURST_LEN , cache[i].data + j * BURST_LEN);
 	}
 	cache[i].valid = true;
