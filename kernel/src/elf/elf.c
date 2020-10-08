@@ -53,7 +53,6 @@ uint32_t loader() {
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
 			memset((void *)(ph->p_vaddr + ph->p_filesz), 0, ph->p_memsz - ph->p_filesz);
-			set_bp();
 
 
 #ifdef IA32_PAGE
@@ -67,6 +66,7 @@ uint32_t loader() {
 
 	volatile uint32_t entry = elf->e_entry;
 
+	set_bp();
 #ifdef IA32_PAGE
 	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
 
