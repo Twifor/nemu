@@ -61,7 +61,7 @@ static int cmd_info(char *args){
 		const char *S[] = {"es", "cs", "ss", "ds", "fs", "gs"};
 		int i;
 		for(i = 0; i < 6; i++) {
-			printf("%%%s 0x%x base: 0x%x limit 0x%x\n", S[i], cpu.sr[i].index, cpu.sr[i].cache.base, cpu.sr[i].cache.limit);
+			printf("%%%s 0x%x base: 0x%x limit: 0x%x\n", S[i], cpu.sr[i].index, cpu.sr[i].cache.base, cpu.sr[i].cache.limit);
 		}
 	} else if(opt == 'c') {
 		printf("%%cr0 0x%x\n", cpu.cr0);
