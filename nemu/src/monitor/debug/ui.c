@@ -90,7 +90,7 @@ static int cmd_x(char *args) {
 	while(num) {
 		printf("address 0x%x:", addr);
 		int i;
-		for(i = 0;i < 4; i++)printf(" 0x%x", swaddr_read(addr + i, 1));
+		for(i = 0;i < 4; i++)printf(" 0x%x", swaddr_read(addr + i, 1, R_DS));
 		printf("\n");
 		addr += 4;
 		--num;
@@ -161,11 +161,11 @@ static int cmd_bt(char *args) {
 		printf("#%d 0x%x: ", ++cnt, now_ret);
 		printf("%s (", name);
 		for(i = 0; i < 4; i++) {
-			printf("%d", swaddr_read(now_ebp + 8 + i * 4, 4));
+			printf("%d", swaddr_read(now_ebp + 8 + i * 4, 4, R_SS));
 			printf("%c", i == 3 ? ')' : ',');
 		}
-		now_ret = swaddr_read(now_ebp + 4, 4);
-		now_ebp = swaddr_read(now_ebp, 4);
+		now_ret = swaddr_read(now_ebp + 4, 4, R_SS);
+		now_ebp = swaddr_read(now_ebp, 4, R_SS);
 		printf("\n");
 	}
 	return 0;
