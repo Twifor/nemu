@@ -41,7 +41,7 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) { //linear address
 lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg) {
 	if(cpu.PE) {//protected mode
 		uint32_t gdt = cpu.gdtr.base_addr;//base
-		gdt += 64 * cpu.sr[sreg].index;//offset
+		gdt += 8 * cpu.sr[sreg].index;//offset
 		SegmentDescriptor sdp;
 		sdp.val = (uint64_t)lnaddr_read(gdt, 4) | (((uint64_t)(lnaddr_read(gdt + 32, 4))) << 32);
 		uint32_t base = (sdp.base2 << 24) | sdp.base1;
