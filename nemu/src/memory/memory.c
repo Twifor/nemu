@@ -40,7 +40,7 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) { //linear address
 
 void loadSregCache(uint8_t sreg) {
 	uint32_t gdt = cpu.gdtr.base_addr;//base
-	gdt += 8 * cpu.sr[sreg].index;//offset
+	gdt += cpu.sr[sreg].index << 3;//offset
 	SegmentDescriptor sdp;
 	sdp.first = lnaddr_read(gdt, 4);
 	sdp.second = lnaddr_read(gdt + 4, 4);
