@@ -44,7 +44,7 @@ lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg) {
 		gdt += 8 * cpu.sr[sreg].index;//offset
 		SegmentDescriptor sdp;
 		sdp.val = (uint64_t)lnaddr_read(gdt, 4) | (((uint64_t)(lnaddr_read(gdt + 4, 4))) << 32);
-		sdp.base1 = 0x1;
+		sdp.limit1=sdp.base1 = 0x1;
 		printf("%x %x %x %x\n",sdp.base2,sdp.val32[0],sdp.val32[1],sdp.type);
 		uint32_t base = (((uint32_t)sdp.base2) << 24) | sdp.base1;
 		addr += base;
