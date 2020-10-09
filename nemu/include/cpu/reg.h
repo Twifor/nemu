@@ -41,6 +41,7 @@ typedef union {
 		uint8_t g : 1;
 		uint8_t base2 : 8;
 	};
+	uint32_t val32[2];
 	uint64_t val;
 } SegmentDescriptor;
 
