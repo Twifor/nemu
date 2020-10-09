@@ -23,7 +23,7 @@ make_helper(ljmp) {
 	cpu.eip = op1;		//modify eip
 	cpu.cs.val = op2;	//modify CS segment register
 
-	loadSregCache(R_CS);
+	//loadSregCache(R_CS);
 
 	print_asm("ljmp %x,0x%x", op2, op1 + 7);
 	return 7;
