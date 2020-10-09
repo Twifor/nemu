@@ -49,14 +49,14 @@ hwaddr_t page_translate(lnaddr_t addr) {
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
 	hwaddr_t hwaddr = page_translate(addr); 
-	Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
+	//Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
 	return hwaddr_read(hwaddr, len);
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) { //linear address
 	assert(len == 1 || len == 2 || len == 4);
 	hwaddr_t hwaddr = page_translate(addr); 
-	Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
+	//Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
 	hwaddr_write(hwaddr, len, data);
 }
 
