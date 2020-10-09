@@ -60,7 +60,7 @@ typedef struct {
 			uint32_t :	14;
 	};
 
-	union {
+	union {//32 bits
 		struct {
 			uint32_t PE : 1;
 			uint32_t MP : 1;
