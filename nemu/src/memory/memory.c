@@ -39,8 +39,6 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) { //linear address
 }
 
 void loadSregCache(uint8_t sreg) {
-	//It's better to check the boundary.
-	//You should check SEGMENT FAULT here
 	uint32_t gdt = cpu.gdtr.base_addr;//base
 	gdt += cpu.sr[sreg].index << 3;//offset
 	SegmentDescriptor sdp;
@@ -54,6 +52,7 @@ void loadSregCache(uint8_t sreg) {
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg) {
 	if(cpu.PE) {//protected mode
+		Assert(addr + len < cpu.sr[sreg].cache.limit, "Segment Fault");
 		return addr + cpu.sr[sreg].cache.base;
 	} else {
 		return addr;//real mode
