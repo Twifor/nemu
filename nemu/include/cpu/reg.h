@@ -24,7 +24,11 @@ typedef struct {
 	uint8_t RPL : 2;
 	uint8_t TL : 1;
 	uint16_t index : 13;
-} SREG;//16 bits
+	struct {//cache
+		uint32_t base;
+		uint32_t limit;
+	} cache;
+} SREG;//16 bits + 32 bits(cache)
 
 typedef union {
 	union {

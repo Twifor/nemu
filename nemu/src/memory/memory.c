@@ -38,18 +38,21 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) { //linear address
 	hwaddr_write(addr, len, data);
 }
 
+void loadSregCache(uint8_t sreg) {
+	uint32_t gdt = cpu.gdtr.base_addr;//base
+	gdt += 8 * cpu.sr[sreg].index;//offset
+	SegmentDescriptor sdp;
+	sdp.first = lnaddr_read(gdt, 4);
+	sdp.second = lnaddr_read(gdt + 4, 4);
+	uint32_t base = (((uint32_t)sdp.base2) << 16) | sdp.base1 | (((uint32_t)sdp.base3) << 24);
+	uint32_t limit = (((uint32_t)sdp.limit2) << 16) | sdp.limit1;
+	cpu.sr[sreg].cache.limit = limit;
+	cpu.sr[sreg].cache.base = base;
+}
+
 lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg) {
 	if(cpu.PE) {//protected mode
-		uint32_t gdt = cpu.gdtr.base_addr;//base
-		gdt += 8 * cpu.sr[sreg].index;//offset
-		SegmentDescriptor sdp;
-		sdp.first = lnaddr_read(gdt, 4);
-		sdp.second = lnaddr_read(gdt + 4, 4);
-		//printf("%x %x %x %llx\n",sdp.base2,sdp.val32[0],sdp.val32[1],(long long)sdp.val);
-		uint32_t base = (((uint32_t)sdp.base2) << 16) | sdp.base1 | (((uint32_t)sdp.base3) << 24);
-		addr += base;
-		printf("%x\n",base);
-		return addr;
+		return addr + cpu.sr[sreg].cache.base;
 	} else {
 		return addr;//real mode
 	}
