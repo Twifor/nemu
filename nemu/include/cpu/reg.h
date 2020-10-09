@@ -21,9 +21,14 @@ typedef struct {	//48 bits
 } GDTR;
 
 typedef struct {
-	uint8_t RPL : 2;
-	uint8_t TL : 1;
-	uint16_t index : 13;
+	union {
+		struct {
+			uint8_t RPL : 2;
+			uint8_t TL : 1;
+			uint16_t index : 13;
+		};
+		uint16_t val;
+	};
 	struct {//cache
 		uint32_t base;
 		uint32_t limit;
