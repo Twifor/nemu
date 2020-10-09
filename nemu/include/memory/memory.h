@@ -24,4 +24,6 @@ void swaddr_write(swaddr_t, size_t, uint32_t, uint8_t);
 void lnaddr_write(lnaddr_t, size_t, uint32_t);
 void hwaddr_write(hwaddr_t, size_t, uint32_t);
 
+void loadSregCache(uint8_t sreg);
+
 #endif
