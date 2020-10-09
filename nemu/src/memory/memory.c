@@ -30,12 +30,34 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
 	writeCache(addr, len, data);
 }
 
+hwaddr_t page_translate(lnaddr_t addr) {
+	if(cpu.PE && cpu.PG) {
+		PageEntry dir, page;
+		uint32_t dir_offset = addr >> 22;
+		uint32_t page_offset = ((addr >> 12) & 0x3ff);
+		uint32_t offset = addr & 0xfff;
+		dir.val = hwaddr_read((cpu.page_base << 12) + (dir_offset << 2), 4);
+		Assert(dir.p, "Invalid page.");
+		page.val = hwaddr_read((dir.base << 12) + (page_offset << 2), 4);
+		Assert(page.p, "Invalid page.");
+		return (page.base << 12) + offset;
+	} else {
+		return addr;
+	}
+}
+
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
-	return hwaddr_read(addr, len);
+	assert(len == 1 || len == 2 || len == 4);
+	hwaddr_t hwaddr = page_translate(addr); 
+	Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
+	return hwaddr_read(hwaddr, len);
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) { //linear address
-	hwaddr_write(addr, len, data);
+	assert(len == 1 || len == 2 || len == 4);
+	hwaddr_t hwaddr = page_translate(addr); 
+	Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
+	hwaddr_write(hwaddr, len, data);
 }
 
 void loadSregCache(uint8_t sreg) {

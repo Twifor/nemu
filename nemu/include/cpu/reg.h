@@ -60,6 +60,23 @@ typedef struct {
 	};	
 } SegmentDescriptor;
 
+typedef union {
+	struct {
+		uint8_t p : 1;
+		uint8_t rw : 1;
+		uint8_t us : 1;
+		uint8_t pwt : 1;
+		uint8_t pcd : 1;
+		uint8_t a : 1;
+		uint8_t d : 1;//WARNING: In Page dir entry, it's reserved;
+		uint8_t ps : 1;//WARNING: In Page Table entry, it's reserved;
+		uint8_t g : 1;
+		uint8_t avail : 3;
+		uint32_t base : 20;
+	};
+	uint32_t val;
+} PageEntry;
+
 typedef struct {
 	union {
 		union {
@@ -104,6 +121,17 @@ typedef struct {
 			uint8_t PG : 1;
 		};
 		uint32_t cr0;
+	};
+
+	union {
+		struct {
+			uint8_t : 3;
+			uint8_t PWT : 1;
+			uint8_t PCD : 1;
+			uint8_t : 7;
+			uint32_t page_base : 20;
+		};
+		uint32_t cr3;
 	};
 
 	union {//16 bits
