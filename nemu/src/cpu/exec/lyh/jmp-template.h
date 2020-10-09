@@ -25,7 +25,7 @@ make_helper(ljmp) {
 
 	loadSregCache(R_CS);
 
-	print_asm("ljmp %x,%x", op2, op1 + 7);
+	print_asm("ljmp %x,0x%x", op2, op1 + 7);
 	return 7;
 }
 #endif
