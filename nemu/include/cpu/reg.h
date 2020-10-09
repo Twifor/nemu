@@ -15,10 +15,10 @@ enum { R_ES, R_CS, R_SS, R_DS, R_FS, R_GS };
  * For more details about the register encoding scheme, see i386 manual.
  */
 
-typedef struct {
+typedef struct {	//48 bits
 	uint32_t base_addr;
 	uint16_t seg_limit;
-} GDTR_STRUCT;
+} GDTR;
 
 typedef uint16_t SREG;//16 bits
 
@@ -68,14 +68,14 @@ typedef struct {
 		uint32_t cr0;
 	};
 
-	union {
+	union {//16 bits
 		SREG sr[6];
 		struct {
 			SREG es, cs, ss, ds, fs, gs;
 		};
 	};
 
-	GDTR_STRUCT gdtr;
+	GDTR gdtr;
 	swaddr_t eip;
 
 } CPU_state;
