@@ -46,7 +46,7 @@ lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg) {
 		sdp.val = (uint64_t)lnaddr_read(gdt, 4) | (((uint64_t)(lnaddr_read(gdt + 32, 4))) << 32);
 		uint32_t base = (sdp.base2 << 24) | sdp.base1;
 		addr += base;
-		printf("%x %x %x\n",cpu.gdtr.base_addr, gdt, base);
+		printf("%x %x %x\n",cpu.gdtr.base_addr, gdt, sdp.base1);
 		return addr;
 	} else {
 		return addr;//real mode
