@@ -39,7 +39,7 @@ typedef union {
 		uint8_t ZERO : 1;
 		uint8_t db : 1;
 		uint8_t g : 1;
-		uint8_t base2 : 7;
+		uint8_t base2 : 8;
 	};
 	uint64_t val;
 } SegmentDescriptor;
