@@ -62,4 +62,5 @@
 #include "lyh/scas.h"
 #include "lyh/stos.h"
 #include "lyh/lgdt.h"
+#include "lyh/std.h"
 
