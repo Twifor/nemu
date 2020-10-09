@@ -35,7 +35,7 @@ typedef struct {
 	} cache;
 } SREG;//16 bits + 32 bits(cache)
 
-typedef union {
+typedef struct {
 	union {
 		struct {
 			uint16_t limit1;
