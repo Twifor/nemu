@@ -26,6 +26,21 @@ typedef struct {
 	uint16_t index : 13;
 } SREG;//16 bits
 
+typedef struct {//64 bits
+	uint16_t limit1 : 16;
+	uint32_t base1 : 24;
+	uint8_t type : 4;
+	uint8_t s : 1;
+	uint8_t dpl : 2;
+	uint8_t p : 1;
+	uint8_t limit2 : 4;
+	uint8_t avl : 1;
+	uint8_t ZERO : 1;
+	uint8_t db : 1;
+	uint8_t g : 1;
+	uint8_t base2 : 8;
+} SegmentDescriptor;
+
 typedef struct {
 	union {
 		union {

@@ -1,6 +1,7 @@
 #include "common.h"
 #include "memory/cache.h"
 #include "burst.h"
+#include "cpu/reg.h"
 
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
@@ -37,18 +38,32 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) { //linear address
 	hwaddr_write(addr, len, data);
 }
 
-uint32_t swaddr_read(swaddr_t addr, size_t len) {	//PAD1 USE
-#ifdef DEBUG
-	assert(len == 1 || len == 2 || len == 4);
-#endif
-	//lnaddr_t lnaddr = seg_translate(addr, len, sreg);
-	return lnaddr_read(addr, len);
+lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg) {
+	if(cpu.cr0.PE) {//protected mode
+		uint32_t gdt = cpu.gdtr.base_addr;//base
+		gdt += 64 * cpu.sr[sreg].index;//offset
+		uint64_t sd = (uint64_t)lnaddr_read(gdt, 4) | (((uint64_t)(lnaddr_read(gdt + 32, 4))) << 32);
+		SegmentDescriptor *sdp = (SegmentDescriptor*) (&sd);
+		uint32_t base = (sdp->base2 << 24) | sdp->base1;
+		addr += base;
+		return addr;
+	} else {
+		return addr;//real mode
+	}
 }
 
-void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {	//virtual address
+uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-	//lnaddr_t lnaddr = seg_translate(addr, len, sreg);
-	lnaddr_write(addr, len, data);
+	lnaddr_t lnaddr = seg_translate(addr, len, sreg);
+	return lnaddr_read(lnaddr, len);
+}
+
+void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint8_t sreg) {	//virtual address
+#ifdef DEBUG
+	assert(len == 1 || len == 2 || len == 4);
+#endif
+	lnaddr_t lnaddr = seg_translate(addr, len, sreg);
+	lnaddr_write(lnaddr, len, data);
 }
