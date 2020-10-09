@@ -80,13 +80,13 @@ typedef struct {
 
 	union {//32 bits
 		struct {
-			uint32_t PE : 1;
-			uint32_t MP : 1;
-			uint32_t EM : 1;
-			uint32_t TS : 1;
-			uint32_t ET : 1;
+			uint8_t PE : 1;
+			uint8_t MP : 1;
+			uint8_t EM : 1;
+			uint8_t TS : 1;
+			uint8_t ET : 1;
 			uint32_t UNDEFINED : 26;
-			uint32_t PG : 1;
+			uint8_t PG : 1;
 		};
 		uint32_t cr0;
 	};
