@@ -52,7 +52,6 @@ void loadSregCache(uint8_t sreg) {
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg) {
 	if(cpu.PE) {//protected mode
-		printf("%x %x\n",addr,cpu.sr[sreg].cache.base);
 		return addr + cpu.sr[sreg].cache.base;
 	} else {
 		return addr;//real mode
