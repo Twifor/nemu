@@ -44,7 +44,7 @@ void loadSregCache(uint8_t sreg) {
 	SegmentDescriptor sdp;
 	sdp.first = lnaddr_read(gdt, 4);
 	sdp.second = lnaddr_read(gdt + 4, 4);
-	printf("%x %x %x\n",sdp.base1,sdp.base2,sdp.base3);
+	//printf("%x %x %x\n",sdp.base1,sdp.base2,sdp.base3);
 	uint32_t base = (((uint32_t)sdp.base2) << 16) | sdp.base1 | (((uint32_t)sdp.base3) << 24);
 	uint32_t limit = (((uint32_t)sdp.limit2) << 16) | sdp.limit1;
 	cpu.sr[sreg].cache.limit = limit;
