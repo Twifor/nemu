@@ -25,6 +25,7 @@ typedef struct {
 	uint8_t TL : 1;
 	uint16_t index : 13;
 } SREG;//16 bits
+
 typedef union {
 	struct {//64 bits
 		uint16_t limit1 : 16;
