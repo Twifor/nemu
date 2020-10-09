@@ -168,7 +168,7 @@ uint32_t eval(int l, int r, bool *success) {
 				if(strcmp(tokens[l].str + 1, RE[i]) == 0) return cpu.gpr[i]._32;
 			}
 			for(i = 0; i < 6; i++) {
-				if(strcmp(tokens[l].str + 1, SE[i]) == 0) return cpu.sr[i].base;
+				if(strcmp(tokens[l].str + 1, SE[i]) == 0) return cpu.sr[i];
 			}
 			if(strcmp(tokens[l].str + 1, "gdtr") == 0) return cpu.gdtr.base_addr;
 			return *success = false; 
