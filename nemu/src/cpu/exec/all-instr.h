@@ -63,4 +63,5 @@
 #include "lyh/stos.h"
 #include "lyh/lgdt.h"
 #include "lyh/std.h"
+#include "lyh/cld.h"
 
