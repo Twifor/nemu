@@ -20,7 +20,11 @@ typedef struct {	//48 bits
 	uint16_t seg_limit;
 } GDTR;
 
-typedef uint16_t SREG;//16 bits
+typedef struct {
+	uint8_t RPL : 2;
+	uint8_t TL : 1;
+	uint16_t index : 13;
+} SREG;//16 bits
 
 typedef struct {
 	union {
