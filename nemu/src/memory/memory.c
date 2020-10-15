@@ -31,6 +31,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
 }
 
 hwaddr_t page_translate(lnaddr_t addr, size_t len) {
+	printf("%x\n",addr);
 	if(cpu.PE && cpu.PG) {
 		PageEntry dir, page;
 		uint32_t dir_offset = addr >> 22;
@@ -42,7 +43,7 @@ hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 		Assert(page.p, "Invalid page.");
 		hwaddr_t hwaddr = (page.base << 12) + offset;
 		Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
-		printf("%x %x\n",addr, (page.base << 12) + offset);
+
 		return (page.base << 12) + offset;
 	} else {
 		return addr;
