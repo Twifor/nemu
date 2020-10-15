@@ -69,7 +69,6 @@ void init_cond() {
 #ifdef IA32_PAGE
 	/* Initialize the memory manager. */
 	init_mm();
-	set_bp();
 #endif
 
 	/* Output a welcome message.
@@ -82,7 +81,7 @@ void init_cond() {
 	/* Write some test data to the video memory. */
 	video_mapping_write_test();
 #endif
-
+	set_bp();
 	/* Load the program. */
 	uint32_t eip = loader();
 	
