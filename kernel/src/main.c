@@ -83,6 +83,7 @@ void init_cond() {
 
 	/* Load the program. */
 	uint32_t eip = loader();
+	set_bp();
 	
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Read data in the video memory to check whether 
@@ -103,7 +104,7 @@ void init_cond() {
 	/* Keep the `bt' command happy. */
 	asm volatile("movl $0, %ebp");
 	asm volatile("subl $16, %esp");
-	set_bp();
+
 	/* Here we go! */
 	((void(*)(void))eip)();
 
