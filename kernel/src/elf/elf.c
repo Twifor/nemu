@@ -39,7 +39,6 @@ uint32_t loader() {
 	//panic("please implement me");	
 
 	int i = 0;
-	set_bp();
 	ph = (void *)(buf + elf->e_phoff);	//goto header table
 	for(; i < elf->e_phnum; i++, ph++) {
 		/* Scan the program header table, load each segment into memory */
@@ -64,6 +63,7 @@ uint32_t loader() {
 #endif
 		}
 	}
+	set_bp();
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
