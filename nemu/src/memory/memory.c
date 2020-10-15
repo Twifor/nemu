@@ -43,6 +43,7 @@ hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 		Assert(page.p, "Invalid page.");
 	//	hwaddr_t hwaddr = (page.base << 12) + offset;
 		//Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
+		printf("0x%x 0x%x\n",addr,(page.base << 12) + offset );
 		return (page.base << 12) + offset;
 	} else {
 		return addr;
