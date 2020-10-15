@@ -1,5 +1,6 @@
 #include "nemu.h"
 #include "memory/cache.h"
+#include "memory/tlb.h"
 
 #define ENTRY_START 0x100000
 
@@ -102,4 +103,5 @@ void restart() {
 
 	/* Initialize Cache. */
 	resetCache();
+	resetTLB();
 }
