@@ -31,6 +31,7 @@ void init_page(void) {
 	/* We use inline assembly here to fill PTEs for efficiency.
 	 * If you do not understand it, refer to the C code below.
 	 */
+	set_bp();
 
 	asm volatile ("std;\
 	 1: stosl;\
@@ -52,7 +53,6 @@ void init_page(void) {
 			ptable --;
 		}
 	*/
-	set_bp();
 
 	/* make CR3 to be the entry of page directory */
 	cr3.val = 0;
