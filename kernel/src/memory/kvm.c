@@ -38,7 +38,6 @@ void init_page(void) {
 		jge 1b;\
 		cld" : :
 		"i"(PAGE_SIZE), "a"((PHY_MEM - PAGE_SIZE) | 0x7), "D"(ptable - 1));
-		set_bp();
 	/*
 		===== referenced code for the inline assembly above =====
 
@@ -61,6 +60,7 @@ void init_page(void) {
 	cr0.val = read_cr0();
 	cr0.paging = 1;
 	write_cr0(cr0.val);
+	set_bp();
 }
 
 /* GDT in the kernel's memory, whose virtual memory is greater than 0xC0000000. */

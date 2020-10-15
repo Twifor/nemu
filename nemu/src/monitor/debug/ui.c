@@ -177,7 +177,10 @@ static int cmd_page(char *args) {
 	lnaddr_t lnaddr;
 	sscanf(args, "%x", &lnaddr);
 	hwaddr_t hwaddr = page_translate(lnaddr, 1);
-	printf("%x -> %x\n", lnaddr, hwaddr);
+	if(!cpu.cr0.protect_enable || !cpu.cr0.paging) {
+		printf("Page address convertion is invalid.\n");
+	}
+	printf("0x%x -> 0x%x\n", lnaddr, hwaddr);
 	return 0;
 }
 
