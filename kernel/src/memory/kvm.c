@@ -10,6 +10,7 @@ PDE* get_kpdir() { return kpdir; }
 
 /* set up page tables for kernel */
 void init_page(void) {
+	set_bp();
 	CR0 cr0;
 	CR3 cr3;
 	PDE *pdir = (PDE *)va_to_pa(kpdir);
