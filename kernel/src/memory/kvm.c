@@ -10,7 +10,6 @@ PDE* get_kpdir() { return kpdir; }
 
 /* set up page tables for kernel */
 void init_page(void) {
-	set_bp();
 	CR0 cr0;
 	CR3 cr3;
 	PDE *pdir = (PDE *)va_to_pa(kpdir);
@@ -65,6 +64,7 @@ void init_page(void) {
 	cr0.val = read_cr0();
 	cr0.paging = 1;
 	write_cr0(cr0.val);
+	set_bp();
 }
 
 /* GDT in the kernel's memory, whose virtual memory is greater than 0xC0000000. */
