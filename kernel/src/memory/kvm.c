@@ -21,7 +21,7 @@ void init_page(void) {
 
 	/* fill PDEs */
 	for (pdir_idx = 0; pdir_idx < PHY_MEM / PT_SIZE; pdir_idx ++) {
-		//pdir[pdir_idx].val = make_pde(ptable);
+		pdir[pdir_idx].val = make_pde(ptable);
 		pdir[pdir_idx + KOFFSET / PT_SIZE].val = make_pde(ptable);
 
 		ptable += NR_PTE;
@@ -38,7 +38,6 @@ void init_page(void) {
 		jge 1b;\
 		cld" : :
 		"i"(PAGE_SIZE), "a"((PHY_MEM - PAGE_SIZE) | 0x7), "D"(ptable - 1));
-	set_bp();
 	/*
 		===== referenced code for the inline assembly above =====
 
