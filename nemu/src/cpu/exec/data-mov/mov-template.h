@@ -30,6 +30,7 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 
 #if DATA_BYTE == 4
 make_helper(mov_cr2r) {
+	printf("x\n");
 	uint8_t opcode = instr_fetch(eip + 1, 1);
 	//maybe just eax...
 	if(opcode == 0xc0) {
