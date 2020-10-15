@@ -40,6 +40,7 @@ make_helper(mov_cr2r) {
 		cpu.eax = cpu.cr3;
 		print_asm("mov %%%s,%%cr3", REG_NAME(R_EAX));
 	}
+	printf("x\n");
 	return 2;
 }
 make_helper(mov_r2cr) {
