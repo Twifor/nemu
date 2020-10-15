@@ -26,7 +26,6 @@ void init_page(void) {
 
 		ptable += NR_PTE;
 	}
-	set_bp();
 	/* fill PTEs */
 
 	/* We use inline assembly here to fill PTEs for efficiency.
@@ -53,7 +52,7 @@ void init_page(void) {
 			ptable --;
 		}
 	*/
-
+	set_bp();
 
 	/* make CR3 to be the entry of page directory */
 	cr3.val = 0;
