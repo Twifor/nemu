@@ -50,7 +50,7 @@ void init_cond() {
 	 */
 	init_idt();
 #endif
-	set_bp();
+
 
 #ifdef HAS_DEVICE
 	/* Initialize the intel 8259 PIC (Programmable interrupt controller). */
@@ -69,6 +69,7 @@ void init_cond() {
 #ifdef IA32_PAGE
 	/* Initialize the memory manager. */
 	init_mm();
+	set_bp();
 #endif
 
 	/* Output a welcome message.
