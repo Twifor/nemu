@@ -32,7 +32,7 @@ void init() {
 #endif
 
 	/* Jump to init_cond() to continue initialization. */
-	asm volatile("jmp *%0" : : "r"(init_cond));
+//	asm volatile("jmp *%0" : : "r"(init_cond));
 //	set_bp();
 	init_cond();
 
@@ -103,7 +103,7 @@ void init_cond() {
 	/* Keep the `bt' command happy. */
 	asm volatile("movl $0, %ebp");
 	asm volatile("subl $16, %esp");
-
+	set_bp();
 	/* Here we go! */
 	((void(*)(void))eip)();
 
