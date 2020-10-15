@@ -9,7 +9,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-	printf("pp : %x\n",addr);
+	//printf("pp : %x\n",addr);
 	int first_id = readCache(addr);	//get cache id
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
 	uint8_t temp[2 * BURST_LEN];
@@ -37,13 +37,14 @@ hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 		uint32_t dir_offset = addr >> 22;
 		uint32_t page_offset = ((addr >> 12) & 0x3ff);
 		uint32_t offset = addr & 0xfff;
+		printf("la : %x\n",addr);
+		printf("%x\n",(cpu.page_base << 12));
 		dir.val = hwaddr_read((cpu.page_base << 12) + (dir_offset << 2), 4);
 		Assert(dir.p, "Invalid page.");
 		page.val = hwaddr_read((dir.base << 12) + (page_offset << 2), 4);
 		Assert(page.p, "Invalid page.");
 		hwaddr_t hwaddr = (page.base << 12) + offset;
 		Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
-
 		return (page.base << 12) + offset;
 	} else {
 		return addr;
