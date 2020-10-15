@@ -65,7 +65,7 @@ static int cmd_info(char *args){
 		}
 	} else if(opt == 'c') {
 		printf("%%cr0 0x%x\n", cpu.cr0);
-		printf("%%cr3 0x%x 0x%x\n", cpu.cr3, cpu.UNDEFINDED2);
+		printf("%%cr3 0x%x 0x%x 0x%x 0x%x\n", cpu.cr3, cpu.UNDEFINDED2,cpu.PCD,cpu.PWT);
 	}
 	return 0;
 }
