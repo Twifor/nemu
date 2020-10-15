@@ -124,14 +124,14 @@ typedef struct {
 	};
 
 	union {
-		uint32_t cr3;
 		struct {
-			uint8_t UNDEFINDED1: 1;
+			uint8_t UNDEFINDED1 : 3;
 			uint8_t PWT : 1;
 			uint8_t PCD : 1;
-			uint8_t UNDEFINDED2: 7;
+			uint8_t UNDEFINDED2 : 7;
 			uint32_t page_base : 20;
 		};
+		uint32_t cr3;
 	};
 
 	union {//16 bits
