@@ -125,10 +125,10 @@ typedef struct {
 
 	union {
 		struct {
-			uint8_t : 3;
+			uint8_t UNDEFINDED1: 3;
 			uint8_t PWT : 1;
 			uint8_t PCD : 1;
-			uint8_t : 7;
+			uint8_t UNDEFINDED2: 7;
 			uint32_t page_base : 20;
 		};
 		uint32_t cr3;
