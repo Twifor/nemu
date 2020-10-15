@@ -1,6 +1,7 @@
 #include "common.h"
 #include "memory/cache.h"
 #include "burst.h"
+#include "memory/tlb.h"
 #include "cpu/reg.h"
 
 uint32_t dram_read(hwaddr_t, size_t);
@@ -33,17 +34,20 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
 
 hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 	if(cpu.cr0.protect_enable && cpu.cr0.paging) {
+		hwaddr_t tmpad;
+		if((tmpad = readTLB(addr & 0xfffff000)) != -1) return tmpad;
 		PageEntry dir, page;
 		uint32_t dir_offset = addr >> 22;
 		uint32_t page_offset = ((addr >> 12) & 0x3ff);
 		uint32_t offset = addr & 0xfff;
 		dir.val = hwaddr_read((cpu.cr3.page_directory_base << 12) + (dir_offset << 2), 4);
-		//printf("%x %x %x\n",dir_offset,page_offset,offset);
 		Assert(dir.p, "Invalid page.");
 		page.val = hwaddr_read((dir.base << 12) + (page_offset << 2), 4);
 		Assert(page.p, "Invalid page.");
 	//	hwaddr_t hwaddr = (page.base << 12) + offset;
 		//Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
+		tmpad = (page.base << 12) + offset;
+		writeTLB(addr & 0xfffff000, tmpad);
 		return (page.base << 12) + offset;
 	} else {
 		return addr;
