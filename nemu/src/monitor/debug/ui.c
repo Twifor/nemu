@@ -1,6 +1,7 @@
 #include "monitor/monitor.h"
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
+#include "memory.h"
 #include "nemu.h"
 
 #include <stdlib.h>
@@ -172,6 +173,15 @@ static int cmd_bt(char *args) {
 	return 0;
 }
 
+static int cmd_page(char *args) {
+	if(args == NULL) return 0;
+	lnaddr_t lnaddr;
+	sscanf(args, "%x", &lnaddr);
+	hwaddr_t hwaddr = page_translate(lnaddr, 1);
+	printf("%x -> %x\n", lnaddr, hwaddr);
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -190,6 +200,7 @@ static struct {
 	{ "d", "Delete a watchpoint", cmd_d },
 	{ "goto", "Goto address", cmd_goto },
 	{ "bt", "Print backtrace", cmd_bt },
+	{ "page", "Convert virtual address to physical address", cmd_page },
 	/* TODO: Add more commands */
 
 };
