@@ -31,7 +31,6 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
 }
 
 hwaddr_t page_translate(lnaddr_t addr, size_t len) {
-//	printf("%d %d\n",cpu.PE,cpu.PG);
 	if(cpu.PE && cpu.PG) {
 		PageEntry dir, page;
 		uint32_t dir_offset = addr >> 22;
