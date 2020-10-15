@@ -77,14 +77,14 @@ void init_cond() {
 	 */
 	Log("Hello, NEMU world!");
 
-//#if defined(IA32_PAGE) && defined(HAS_DEVICE)
+#if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Write some test data to the video memory. */
 	video_mapping_write_test();
-//#endif
+#endif
 	/* Load the program. */
 	uint32_t eip = loader();
 	
-//#if defined(IA32_PAGE) && defined(HAS_DEVICE)
+#if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Read data in the video memory to check whether 
 	 * the test data is written sucessfully.
 	 */
@@ -92,7 +92,7 @@ void init_cond() {
 
 	/* Clear the test data we just written in the video memory. */
 	video_mapping_clear();
-//#endif
+#endif
 
 #ifdef IA32_PAGE
 	/* Set the %esp for user program, which is one of the
