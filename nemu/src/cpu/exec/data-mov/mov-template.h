@@ -50,7 +50,6 @@ make_helper(mov_r2cr) {
 	} else if(opcode == 0xd8) {
 		cpu.cr3 = cpu.eax;
 		print_asm("mov %%%s,%%cr3", REG_NAME(R_EAX));
-		printf("%x %x\n",cpu.cr3, cpu.page_base);
 	}
 	return 2;
 }
