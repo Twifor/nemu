@@ -94,7 +94,7 @@ void restart() {
 	cpu.cs.cache.base = 0;
 	cpu.cs.cache.limit = 0xffffffff;
 
-	cpu.cr3.page_write_through = 1;
+	cpu.cr3.page_directory_base = 1;
 //	cpu.PE = 1;
 
 	/* Initialize DRAM. */
