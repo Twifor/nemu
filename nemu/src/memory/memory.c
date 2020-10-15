@@ -35,7 +35,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
 hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 	if(cpu.cr0.protect_enable && cpu.cr0.paging) {
 		hwaddr_t tmpad;
-		if((tmpad = readTLB(addr & 0xfffff000)) != -1) return tmpad + (addr & 0xfff);
+		if((tmpad = readTLB(addr & 0xfffff000)) != -1) return (tmpad << 12) + (addr & 0xfff);
 		PageEntry dir, page;
 		uint32_t dir_offset = addr >> 22;
 		uint32_t page_offset = ((addr >> 12) & 0x3ff);
@@ -46,8 +46,7 @@ hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 		Assert(page.p, "Invalid page.");
 	//	hwaddr_t hwaddr = (page.base << 12) + offset;
 		//Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
-		tmpad = (page.base << 12) + offset;
-		writeTLB(addr & 0xfffff000, tmpad);
+		writeTLB(addr & 0xfffff000, page.base);
 		return (page.base << 12) + offset;
 	} else {
 		return addr;
