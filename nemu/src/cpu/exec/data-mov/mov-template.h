@@ -32,7 +32,6 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 make_helper(mov_cr2r) {
 	uint8_t opcode = instr_fetch(eip + 1, 1);
 	//maybe just eax...
-	printf("s1\n");
 	if(opcode == 0xc0) {
 		cpu.eax = cpu.cr0;
 		print_asm("mov %%%s,%%cr0", REG_NAME(R_EAX));
@@ -40,7 +39,6 @@ make_helper(mov_cr2r) {
 		cpu.eax = cpu.cr3;
 		print_asm("mov %%%s,%%cr3", REG_NAME(R_EAX));
 	}
-	printf("s2\n");
 	return 2;
 }
 make_helper(mov_r2cr) {
