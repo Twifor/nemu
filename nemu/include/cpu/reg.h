@@ -2,6 +2,7 @@
 #define __REG_H__
 
 #include "common.h"
+#include "../../../lib-common/x86-inc/cpu.h"
 
 enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
 enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
@@ -110,29 +111,9 @@ typedef struct {
 			uint32_t :	14;
 	};
 
-	union {//32 bits
-		struct {
-			uint8_t PE : 1;
-			uint8_t MP : 1;
-			uint8_t EM : 1;
-			uint8_t TS : 1;
-			uint8_t ET : 1;
-			uint32_t UNDEFINED : 26;
-			uint8_t PG : 1;
-		};
-		uint32_t cr0;
-	};
+	CR0 cr0;
 
-	union {
-		struct {
-			uint8_t UNDEFINDED1 : 3;
-			uint8_t PWT : 1;
-			uint8_t PCD : 1;
-			uint8_t UNDEFINDED2 : 7;
-			uint32_t page_base : 20;
-		};
-		uint32_t cr3;
-	};
+	CR3 cr3;
 
 	union {//16 bits
 		SREG sr[6];

@@ -89,11 +89,12 @@ void restart() {
 	cpu.eip = ENTRY_START;
 	cpu.CF = 1;
 	cpu.PF = cpu.ZF = cpu.SF = cpu.IF = cpu.DF = cpu.OF = 0;
-	cpu.PG = cpu.ET = cpu.TS = cpu.EM = cpu.MP = 0;
+	cpu.cr0.val = cpu.cr3.val = 0;
 
 	cpu.cs.cache.base = 0;
 	cpu.cs.cache.limit = 0xffffffff;
-	cpu.PWT = 1;
+
+	cpu.cr3.page_write_through = 1;
 //	cpu.PE = 1;
 
 	/* Initialize DRAM. */

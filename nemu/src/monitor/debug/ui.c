@@ -64,8 +64,8 @@ static int cmd_info(char *args){
 			printf("%%%s 0x%x base: 0x%x limit: 0x%x\n", S[i], cpu.sr[i].index, cpu.sr[i].cache.base, cpu.sr[i].cache.limit);
 		}
 	} else if(opt == 'c') {
-		printf("%%cr0 0x%x\n", cpu.cr0);
-		printf("%%cr3 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n", cpu.cr3, cpu.page_base,cpu.UNDEFINDED2,cpu.PCD,cpu.PWT,cpu.UNDEFINDED1);
+		printf("%%cr0 0x%x\n", cpu.cr0.val);
+		printf("%%cr3 0x%x 0x%x\n", cpu.cr3.val, cpu.cr3.page_directory_base);
 	}
 	return 0;
 }

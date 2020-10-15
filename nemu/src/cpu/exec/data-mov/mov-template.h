@@ -33,10 +33,10 @@ make_helper(mov_cr2r) {
 	uint8_t opcode = instr_fetch(eip + 1, 1);
 	//maybe just eax...
 	if(opcode == 0xc0) {
-		cpu.eax = cpu.cr0;
+		cpu.eax = cpu.cr0.val;
 		print_asm("mov %%cr0,%%%s", REG_NAME(R_EAX));
 	} else if(opcode == 0xd8) {
-		cpu.eax = cpu.cr3;
+		cpu.eax = cpu.cr3.val;
 		print_asm("mov %%cr3,%%%s", REG_NAME(R_EAX));
 	}
 	return 2;
@@ -45,10 +45,10 @@ make_helper(mov_r2cr) {
 	uint8_t opcode = instr_fetch(eip + 1, 1);
 	//maybe just eax...
 	if(opcode == 0xc0) {
-		cpu.cr0 = cpu.eax;
+		cpu.cr0.val = cpu.eax;
 		print_asm("mov %%%s,%%cr0", REG_NAME(R_EAX));
 	} else if(opcode == 0xd8) {
-		cpu.cr3 = cpu.eax;
+		cpu.cr3.val = cpu.eax;
 		print_asm("mov %%%s,%%cr3", REG_NAME(R_EAX));
 	}
 	return 2;

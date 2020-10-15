@@ -32,14 +32,14 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
 }
 
 hwaddr_t page_translate(lnaddr_t addr, size_t len) {
-	if(cpu.PE && cpu.PG) {
+	if(cpu.cr0.protect_enable && cpu.cr0.paging) {
 		PageEntry dir, page;
 		uint32_t dir_offset = addr >> 22;
 		uint32_t page_offset = ((addr >> 12) & 0x3ff);
 		uint32_t offset = addr & 0xfff;
 		printf("la : %x\n",addr);
-		printf("%x %x\n",(cpu.page_base << 12),(dir_offset << 2));
-		dir.val = hwaddr_read((cpu.page_base << 12) + (dir_offset << 2), 4);
+		printf("%x %x\n",(cpu.cr3.page_directory_base << 12),(dir_offset << 2));
+		dir.val = hwaddr_read((cpu.cr3.page_directory_base << 12) + (dir_offset << 2), 4);
 		Assert(dir.p, "Invalid page.");
 		page.val = hwaddr_read((dir.base << 12) + (page_offset << 2), 4);
 		Assert(page.p, "Invalid page.");
@@ -77,7 +77,7 @@ void loadSregCache(uint8_t sreg) {
 }
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg) {
-	if(cpu.PE) {//protected mode
+	if(cpu.cr0.protect_enable) {//protected mode
 		Assert(addr + len < cpu.sr[sreg].cache.limit, "Segment Fault.");
 		return addr + cpu.sr[sreg].cache.base;
 	} else {
