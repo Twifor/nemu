@@ -123,7 +123,7 @@ typedef struct {
 		uint32_t cr0;
 	};
 
-	struct {
+	union {
 		struct {
 			uint8_t UNDEFINDED1 : 3;
 			uint8_t PWT : 1;
@@ -131,9 +131,7 @@ typedef struct {
 			uint8_t UNDEFINDED2 : 7;
 			uint32_t page_base : 20;
 		};
-		struct {
-			uint32_t cr3;
-		};
+		uint32_t cr3;
 	};
 
 	union {//16 bits
