@@ -13,10 +13,7 @@ void ramdisk_read(uint8_t *, uint32_t, uint32_t);
 
 #define STACK_SIZE (1 << 20)
 
-void create_video_mapping() {
-
-
-}
+void create_video_mapping();
 
 uint32_t get_ucr3();
 
