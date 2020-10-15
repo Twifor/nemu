@@ -26,7 +26,7 @@ void init_page(void) {
 
 		ptable += NR_PTE;
 	}
-
+	set_bp();
 	/* fill PTEs */
 
 	/* We use inline assembly here to fill PTEs for efficiency.
@@ -64,7 +64,6 @@ void init_page(void) {
 	cr0.val = read_cr0();
 	cr0.paging = 1;
 	write_cr0(cr0.val);
-	set_bp();
 }
 
 /* GDT in the kernel's memory, whose virtual memory is greater than 0xC0000000. */
