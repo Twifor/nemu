@@ -93,7 +93,7 @@ void restart() {
 
 	cpu.cs.cache.base = 0;
 	cpu.cs.cache.limit = 0xffffffff;
-	cpu.page_base = 0x137;
+	cpu.page_base = 0x13132;
 //	cpu.PE = 1;
 
 	/* Initialize DRAM. */
