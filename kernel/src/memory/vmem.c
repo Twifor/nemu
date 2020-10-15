@@ -22,7 +22,7 @@ void create_video_mapping() {
 	pdp[0].present = 1;
 	int i;
 	for(i = VMEM_ADDR / PAGE_SIZE; i < (VMEM_ADDR + SCR_SIZE) / PAGE_SIZE + 1; i++) {
-		vmem_pt[i].page_frame = i << 12;
+		vmem_pt[i].page_frame = i;
 		vmem_pt[i].present = 1;
 	}
 }
