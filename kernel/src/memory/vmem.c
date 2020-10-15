@@ -18,8 +18,8 @@ void create_video_mapping() {
 	 * some page tables to create this mapping.
 	 */
 	PDE *pdp = (PDE *)va_to_pa(get_updir());
-	pdp[VMEM_ADDR / PT_SIZE].page_frame = (uint32_t) va_to_pa(vmem_pt) >> 12;
-	pdp[VMEM_ADDR / PT_SIZE].present = 1;
+	pdp[0].page_frame = (uint32_t) va_to_pa(vmem_pt) >> 12;
+	pdp[0].present = 1;
 	int i;
 	for(i = VMEM_ADDR / PAGE_SIZE; i < (VMEM_ADDR + SCR_SIZE) / PAGE_SIZE + 1; i++) {
 		vmem_pt[i].page_frame = i << 12;
