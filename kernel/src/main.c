@@ -19,7 +19,7 @@ void init_cond();
 /* Initialization phase 1
  * The assembly code in start.S will finally jump here.
  */
-volatile int x = 1;
+int x = 1;
 void init() {
 #ifdef IA32_PAGE
 	/* We must set up kernel virtual memory first because our kernel thinks it 
