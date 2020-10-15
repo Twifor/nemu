@@ -50,6 +50,7 @@ void init_cond() {
 	 */
 	init_idt();
 #endif
+	set_bp();
 
 #ifdef HAS_DEVICE
 	/* Initialize the intel 8259 PIC (Programmable interrupt controller). */
@@ -83,7 +84,6 @@ void init_cond() {
 
 	/* Load the program. */
 	uint32_t eip = loader();
-	set_bp();
 	
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Read data in the video memory to check whether 
