@@ -9,6 +9,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
+	printf("%x\n",addr);
 	int first_id = readCache(addr);	//get cache id
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
 	uint8_t temp[2 * BURST_LEN];
@@ -31,7 +32,6 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
 }
 
 hwaddr_t page_translate(lnaddr_t addr, size_t len) {
-	printf("%x\n",addr);
 	if(cpu.PE && cpu.PG) {
 		PageEntry dir, page;
 		uint32_t dir_offset = addr >> 22;
