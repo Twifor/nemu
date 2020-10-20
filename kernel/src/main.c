@@ -77,6 +77,7 @@ void init_cond() {
 	 */
 	Log("Hello, NEMU world!");
 
+//In PA3-3
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Write some test data to the video memory. */
 	video_mapping_write_test();
