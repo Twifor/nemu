@@ -74,7 +74,7 @@ uint32_t loader() {
 	create_video_mapping();
 #endif
 
-	set_bp();
+	//set_bp();
 	write_cr3(get_ucr3());
 
 #endif
