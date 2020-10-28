@@ -51,6 +51,7 @@ make_helper(mov_r2cr) {
 	} else if(opcode == 0xd8) {
 		cpu.cr3.val = cpu.eax;
 		resetTLB();
+		printf("xxxxx\n");
 		print_asm("mov %%%s,%%cr3", REG_NAME(R_EAX));
 	}
 	return 2;
