@@ -22,7 +22,7 @@ void init_page(void) {
 	/* fill PDEs */
 	for (pdir_idx = 0; pdir_idx < PHY_MEM / PT_SIZE; pdir_idx ++) {
 		pdir[pdir_idx].val = make_pde(ptable);
-		pdir[pdir_idx + KOFFSET / PT_SIZE].val = make_pde(ptable);
+		//pdir[pdir_idx + KOFFSET / PT_SIZE].val = make_pde(ptable);
 
 		ptable += NR_PTE;
 	}
