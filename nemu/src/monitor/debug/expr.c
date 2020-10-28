@@ -192,6 +192,7 @@ uint32_t eval(int l, int r, bool *success) {
 		}
 	}
 	assert(now != -1);
+
 	uint32_t a, b;
 	//solve '!'
 	if(tokens[now].type >= NOT) {
