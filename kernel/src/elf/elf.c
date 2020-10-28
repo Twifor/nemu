@@ -78,6 +78,6 @@ uint32_t loader() {
 
 #endif
 
-	nemu_assert(entry);
+	nemu_assert(entry==0x100000);
 	return entry;
 }
