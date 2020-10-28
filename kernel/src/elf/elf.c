@@ -78,6 +78,5 @@ uint32_t loader() {
 
 #endif
 
-	nemu_assert(entry==0xc0100000);
 	return entry;
 }
