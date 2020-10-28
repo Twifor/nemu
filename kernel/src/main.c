@@ -35,7 +35,7 @@ void init() {
 
 	/* Jump to init_cond() to continue initialization. */
 //	
-	set_bp();
+	//set_bp();
 	asm volatile("jmp *%0" : : "r"(init_cond));
 	//init_cond();
 
