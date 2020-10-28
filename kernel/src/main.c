@@ -22,8 +22,8 @@ void init_cond();
 
 void init() {
 #ifdef IA32_PAGE
-	int x;
-	x=0x23333;
+	int x=0,i;
+	for(i=0;i<2;i++)x+=2*i;
 	if(x>1)set_bp();
 	/* We must set up kernel virtual memory first because our kernel thinks it 
 	 * is located at 0xc0100000, which is set by the linking options in Makefile.
