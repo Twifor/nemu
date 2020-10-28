@@ -161,10 +161,11 @@ uint32_t eval(int l, int r, bool *success) {
 			sscanf(tokens[l].str, "%d", &tmp);
 			return tmp;
 		} else if(tokens[l].type == REG) {	//read register
-			const char *RE[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi", "eip"};
+			const char *RE[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
 			const char *SE[] = {"es", "cs", "ss", "ds", "fs", "gs"};
 			int i;
-			for(i = 0; i < 9; i++) {
+			if(strcmp(tokens[l].str + 1, "eip") == 0) return cpu.eip;//fix bug
+			for(i = 0; i < 8; i++) {
 				if(strcmp(tokens[l].str + 1, RE[i]) == 0) return cpu.gpr[i]._32;
 			}
 			for(i = 0; i < 6; i++) {
