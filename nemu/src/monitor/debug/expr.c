@@ -191,7 +191,7 @@ uint32_t eval(int l, int r, bool *success) {
 			if(type >= PRE[tokens[i].type]) type = PRE[tokens[i].type], now = i;
 		}
 	}
-	assert(now != -1);
+	if(now == -1) return *success = false;
 
 	uint32_t a, b;
 	//solve '!'
