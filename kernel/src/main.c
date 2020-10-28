@@ -22,9 +22,6 @@ void init_cond();
 
 void init() {
 #ifdef IA32_PAGE
-	int x=0,i;
-	for(i=0;i<1000;i++)x+=1;
-	nemu_assert(x==1000);
 	/* We must set up kernel virtual memory first because our kernel thinks it 
 	 * is located at 0xc0100000, which is set by the linking options in Makefile.
 	 * Before setting up correct paging, no global variable can be used. */
