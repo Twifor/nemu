@@ -67,4 +67,5 @@
 #include "lyh/PA4/lidt.h"
 #include "lyh/PA4/pusha.h"
 #include "lyh/PA4/popa.h"
+#include "lyh/PA4/cli.h"
 
