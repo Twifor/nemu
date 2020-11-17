@@ -9,6 +9,7 @@ make_helper(my_int) {
 	raise_intr(NO);
 
 	return 0;
+	//add 2 to cpu.eip just now
 }
 
 #include "cpu/exec/template-end.h"
