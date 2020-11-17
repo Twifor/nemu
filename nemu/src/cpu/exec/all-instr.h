@@ -64,5 +64,5 @@
 #include "lyh/lgdt.h"
 #include "lyh/std.h"
 #include "lyh/cld.h"
-#include "lyh/lidt.h"
+#include "lyh/PA4/lidt.h"
 
