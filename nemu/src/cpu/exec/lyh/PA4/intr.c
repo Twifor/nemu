@@ -21,7 +21,6 @@ void raise_intr(uint8_t NO) {
 	gate.val1 = lnaddr_read(idx, 4);//linear address
 	gate.val2 = lnaddr_read(idx + 4, 4);
 
-	printf("%x %x\n", gate.val1, gate.val2);
 	cpu.cs.val = gate.selector;
 	loadSregCache(R_CS);//load segment
 
