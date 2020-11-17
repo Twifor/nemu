@@ -8,6 +8,8 @@ void tmp_push_l (uint32_t val);
 void raise_intr(uint8_t NO) {
 	printf("int %x\n", NO);//debug use
 
+	//Interrupt start
+
 	tmp_push_l(cpu.eflags);
 	tmp_push_l(cpu.cs.val);
 	tmp_push_l(cpu.eip);
@@ -19,7 +21,10 @@ void raise_intr(uint8_t NO) {
 	gate.val1 = lnaddr_read(idx, 4);//linear address
 	gate.val2 = lnaddr_read(idx + 4, 4);
 
-	//Interrupt start
+	cpu.cs.val = gate.selector;
+	loadSregCache(R_CS);//load segment
+
+
 	
 
 	
