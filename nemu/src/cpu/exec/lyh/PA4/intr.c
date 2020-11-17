@@ -3,13 +3,15 @@
 
 extern jmp_buf jbuf;
 
-void concat(tmp_push_, SUFFIX) (uint32_t val);
+void tmp_push_l (uint32_t val);
 
 void raise_intr(uint8_t NO) {
 	printf("int %x\n", NO);//debug use
 
+	tmp_push_l(cpu.eflags);
+	
 	//Interrupt start
-
+	
 
 	
 
