@@ -13,8 +13,12 @@ void raise_intr(uint8_t NO) {
 	tmp_push_l(cpu.eip);
 
 	uint32_t base_addr = cpu.idtr.base_addr;
-	printf("%x\n",base_addr);
-	
+	uint32_t idx = base_addr + (NO << 3);//offset
+
+	Gate gate;
+	gate.val1 = lnaddr_read(idx, 4);//linear address
+	gate.val2 = lnaddr_read(idx + 4, 4);
+
 	//Interrupt start
 	
 

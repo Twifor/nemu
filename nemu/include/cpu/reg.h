@@ -41,6 +41,27 @@ typedef struct {
 typedef struct {
 	union {
 		struct {
+			uint16_t offset1;
+			uint16_t selector;
+		};
+		uint32_t val1;
+	};
+	union {
+		struct {
+			uint8_t useless;
+			uint8_t type : 4;
+			uint8_t S : 1;
+			uint8_t DPL : 2;
+			uint8_t P : 1;
+			uint16_t offset2;
+		};
+		uint32_t val2;
+	};
+} Gate;
+
+typedef struct {
+	union {
+		struct {
 			uint16_t limit1;
 			uint16_t base1;
 		};
