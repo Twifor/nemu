@@ -27,8 +27,6 @@ void raise_intr(uint8_t NO) {
 
 	uint32_t addr = cpu.cs.cache.base + (gate.offset1 | (gate.offset2 << 16));
 
-	printf("%x\n",addr);
-
 	cpu.eip = addr;//go
 
 	longjmp(jbuf, 1);
