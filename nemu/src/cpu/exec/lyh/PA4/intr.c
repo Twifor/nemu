@@ -29,7 +29,7 @@ void raise_intr(uint8_t NO) {
 
 	printf("%x\n",addr);
 
-	
+	cpu.eip = addr;//go
 
 	longjmp(jbuf, 1);
 }
