@@ -161,15 +161,17 @@ uint32_t eval(int l, int r, bool *success) {
 			sscanf(tokens[l].str, "%d", &tmp);
 			return tmp;
 		} else if(tokens[l].type == REG) {	//read register
-			if(strcmp(tokens[l].str + 1, "eax") == 0) return cpu.eax;
-			if(strcmp(tokens[l].str + 1, "ecx") == 0) return cpu.ecx;
-			if(strcmp(tokens[l].str + 1, "edx") == 0) return cpu.edx;
-			if(strcmp(tokens[l].str + 1, "ebx") == 0) return cpu.ebx;
-			if(strcmp(tokens[l].str + 1, "esp") == 0) return cpu.esp;
-			if(strcmp(tokens[l].str + 1, "ebp") == 0) return cpu.ebp;
-			if(strcmp(tokens[l].str + 1, "esi") == 0) return cpu.esi;
-			if(strcmp(tokens[l].str + 1, "edi") == 0) return cpu.edi;
-			if(strcmp(tokens[l].str + 1, "eip") == 0) return cpu.eip;
+			const char *RE[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
+			const char *SE[] = {"es", "cs", "ss", "ds", "fs", "gs"};
+			int i;
+			if(strcmp(tokens[l].str + 1, "eip") == 0) return cpu.eip;//fix bug
+			for(i = 0; i < 8; i++) {
+				if(strcmp(tokens[l].str + 1, RE[i]) == 0) return cpu.gpr[i]._32;
+			}
+			for(i = 0; i < 6; i++) {
+				if(strcmp(tokens[l].str + 1, SE[i]) == 0) return cpu.sr[i].index;
+			}
+			if(strcmp(tokens[l].str + 1, "gdtr") == 0) return cpu.gdtr.base_addr;
 			return *success = false; 
 		} else if(tokens[l].type == MARK) {		//find mark
 			return getAddressFromMark(tokens[l].str, success);
@@ -189,7 +191,8 @@ uint32_t eval(int l, int r, bool *success) {
 			if(type >= PRE[tokens[i].type]) type = PRE[tokens[i].type], now = i;
 		}
 	}
-	assert(now != -1);
+	if(now == -1) return *success = false;
+
 	uint32_t a, b;
 	//solve '!'
 	if(tokens[now].type >= NOT) {
@@ -199,7 +202,7 @@ uint32_t eval(int l, int r, bool *success) {
 		if(!(*success)) return *success = false;
 		if(tokens[l].type == NOT) return !b;
 		if(tokens[l].type == NEG) return -b;
-		if(tokens[l].type == POINTER) return swaddr_read(b, 1);
+		if(tokens[l].type == POINTER) return swaddr_read(b, 1, R_DS);
 		return *success = false;
 	}
 	a = eval(l, now - 1, success);

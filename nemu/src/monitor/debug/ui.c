@@ -56,6 +56,16 @@ static int cmd_info(char *args){
 			printf("watchpoint %d : %s\n", h->NO, h->expr);
 			h = h->next;
 		}
+	} else if(opt == 's') {
+		printf("%%gdtr base:0x%x limit:0x%x\n", cpu.gdtr.base_addr, cpu.gdtr.seg_limit);
+		const char *S[] = {"es", "cs", "ss", "ds", "fs", "gs"};
+		int i;
+		for(i = 0; i < 6; i++) {
+			printf("%%%s 0x%x base: 0x%x limit: 0x%x\n", S[i], cpu.sr[i].index, cpu.sr[i].cache.base, cpu.sr[i].cache.limit);
+		}
+	} else if(opt == 'c') {
+		printf("%%cr0 0x%x\n", cpu.cr0.val);
+		printf("%%cr3 0x%x 0x%x\n", cpu.cr3.val, cpu.cr3.page_directory_base);
 	}
 	return 0;
 }
@@ -81,7 +91,7 @@ static int cmd_x(char *args) {
 	while(num) {
 		printf("address 0x%x:", addr);
 		int i;
-		for(i = 0;i < 4; i++)printf(" 0x%x", swaddr_read(addr + i, 1));
+		for(i = 0;i < 4; i++)printf(" 0x%x", swaddr_read(addr + i, 1, R_DS));
 		printf("\n");
 		addr += 4;
 		--num;
@@ -152,13 +162,25 @@ static int cmd_bt(char *args) {
 		printf("#%d 0x%x: ", ++cnt, now_ret);
 		printf("%s (", name);
 		for(i = 0; i < 4; i++) {
-			printf("%d", swaddr_read(now_ebp + 8 + i * 4, 4));
+			printf("%d", swaddr_read(now_ebp + 8 + i * 4, 4, R_SS));
 			printf("%c", i == 3 ? ')' : ',');
 		}
-		now_ret = swaddr_read(now_ebp + 4, 4);
-		now_ebp = swaddr_read(now_ebp, 4);
+		now_ret = swaddr_read(now_ebp + 4, 4, R_SS);
+		now_ebp = swaddr_read(now_ebp, 4, R_SS);
 		printf("\n");
 	}
+	return 0;
+}
+
+static int cmd_page(char *args) {
+	if(args == NULL) return 0;
+	lnaddr_t lnaddr;
+	sscanf(args, "%x", &lnaddr);
+	hwaddr_t hwaddr = page_translate(lnaddr, 1);
+	if(!cpu.cr0.protect_enable || !cpu.cr0.paging) {
+		printf("\033[1;33mPage address convertion is invalid.\n\033[0m");
+	}
+	printf("0x%x -> 0x%x\n", lnaddr, hwaddr);
 	return 0;
 }
 
@@ -180,6 +202,7 @@ static struct {
 	{ "d", "Delete a watchpoint", cmd_d },
 	{ "goto", "Goto address", cmd_goto },
 	{ "bt", "Print backtrace", cmd_bt },
+	{ "page", "Convert virtual address to physical address", cmd_page },
 	/* TODO: Add more commands */
 
 };
