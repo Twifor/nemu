@@ -21,6 +21,8 @@ typedef struct {	//48 bits
 	uint16_t seg_limit;
 } GDTR;
 
+typedef GDTR IDTR;//same thing
+
 typedef struct {
 	union {
 		struct {
