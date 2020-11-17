@@ -31,6 +31,7 @@ make_helper(nemu_trap) {
 			{
 				int i = 0;
 				for(i = 0; i < cpu.edx; i++) putchar(swaddr_read(cpu.ecx + i, 1, R_CS));
+				cpu.eax = cpu.edx;//return value
 		   		break;
 			}
 
