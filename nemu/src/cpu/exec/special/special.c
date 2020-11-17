@@ -26,9 +26,9 @@ make_helper(inv) {
 
 make_helper(nemu_trap) {
 	print_asm("nemu trap (eax = %d)", cpu.eax);
-	printf("trap!!\n");
 	switch(cpu.eax) {
 		case 2:
+			printf("%c\n", swaddr_read(cpu.ecx, 1, R_CS));
 		   	break;
 
 		default:
