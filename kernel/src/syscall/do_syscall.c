@@ -29,10 +29,13 @@ void do_syscall(TrapFrame *tf) {
 
 		case SYS_brk: sys_brk(tf); break;
 		case SYS_ioctl: sys_ioctl(tf); break;
-
+		
+		case 0x4://SYS_WRITE
+			asm volatile (".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
+			break;
 		/* TODO: Add more system calls. */
 
-		default: set_bp();panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
+		default: panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
 	}
 }
 
