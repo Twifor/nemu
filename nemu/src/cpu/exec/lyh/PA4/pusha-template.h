@@ -15,6 +15,7 @@ make_helper(concat(pusha_, SUFFIX)) {
 		concat(tmp_push_, SUFFIX) (reg_w(R_AX));
 		concat(tmp_push_, SUFFIX) (reg_w(R_CX));
 		concat(tmp_push_, SUFFIX) (reg_w(R_DX));
+		concat(tmp_push_, SUFFIX) (reg_w(R_BX));
 		concat(tmp_push_, SUFFIX) (tmp);
 		concat(tmp_push_, SUFFIX) (reg_w(R_BP));
 		concat(tmp_push_, SUFFIX) (reg_w(R_SI));
@@ -26,6 +27,7 @@ make_helper(concat(pusha_, SUFFIX)) {
 		concat(tmp_push_, SUFFIX) (reg_l(R_EAX));
 		concat(tmp_push_, SUFFIX) (reg_l(R_ECX));
 		concat(tmp_push_, SUFFIX) (reg_l(R_EDX));
+		concat(tmp_push_, SUFFIX) (reg_w(R_EBX));
 		concat(tmp_push_, SUFFIX) (tmp);
 		concat(tmp_push_, SUFFIX) (reg_l(R_EBP));
 		concat(tmp_push_, SUFFIX) (reg_l(R_ESI));
