@@ -24,8 +24,6 @@ void raise_intr(uint8_t NO) {
 	cpu.cs.val = gate.selector;
 	loadSregCache(R_CS);//load segment
 
-	printf("%x\n",NO);
-
 	uint32_t addr = cpu.cs.cache.base + (gate.offset1 | (gate.offset2 << 16));
 
 	cpu.eip = addr;//go
