@@ -3,7 +3,7 @@
 const char str[] = "Hello, world!\n";
 
 int main() {
-	set_bp();
+	//set_bp();
 	asm volatile (  "movl $4, %eax;"	// system call ID, 4 = SYS_write
 					"movl $1, %ebx;"	// file descriptor, 1 = stdout
 					"movl $str, %ecx;"	// buffer address
