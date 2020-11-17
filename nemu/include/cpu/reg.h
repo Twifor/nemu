@@ -125,6 +125,9 @@ typedef struct {
 	};
 
 	GDTR gdtr;
+
+	IDTR idtr;//idtr
+	
 	swaddr_t eip;
 
 } CPU_state;
