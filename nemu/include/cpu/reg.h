@@ -92,7 +92,8 @@ typedef struct {
 		};
 	};
 	/* Do NOT change the order of the GPRs' definitions. */
-	struct{
+	union {
+		struct{
 			uint32_t CF:	1;
 			uint32_t :	1;
 			uint32_t PF:	1;
@@ -111,6 +112,8 @@ typedef struct {
 			uint32_t RF:	1;
 			uint32_t VM:	1;
 			uint32_t :	14;
+		};
+		uint32_t eflags;
 	};
 
 	CR0 cr0;
