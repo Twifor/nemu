@@ -38,7 +38,7 @@ void do_syscall(TrapFrame *tf) {
 		 */
 		case 0: 
 			cli();
-			Log("New system call handler %x", tf->ebx);
+			Log("New handler %x", tf->ebx);
 			add_irq_handle(tf->ebx, (void*)tf->ecx);
 			sti();
 			break;
