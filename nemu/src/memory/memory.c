@@ -13,7 +13,6 @@ void mmio_write(hwaddr_t addr, size_t len, uint32_t data, int map_NO);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-
 	int port = is_mmio(addr);
 	if(~port) return mmio_read(addr, len, port);
 
@@ -32,15 +31,16 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	int zero = 0;
 	uint32_t tmp = unalign_rw(temp + zero, 4) & (~0u >> ((4 - len) << 3));
 	return tmp;
+
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
-	if(addr == 0x1280be)printf("\ndebug %x %x %x\n",addr,(uint32_t)len,data);
 	int port = is_mmio(addr);
 	if(~port) {
 		mmio_write(addr, len, data, port);
 		return;
 	}
+	if(addr == 0x1280be)printf("\ndebug %x %x %x\n",addr,(uint32_t)len,data);
 	writeCache(addr, len, data);
 }
 
