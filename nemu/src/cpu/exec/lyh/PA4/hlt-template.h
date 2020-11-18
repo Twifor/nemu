@@ -1,7 +1,9 @@
 #include "cpu/exec/template-start.h"
 
+void device_update();
+
 make_helper(hlt) {
-	while(!cpu.IF || !cpu.INTR);
+	while(!cpu.IF || !cpu.INTR) device_update();
 	print_asm("hlt");
 	return 1;
 }
