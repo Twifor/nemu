@@ -68,7 +68,8 @@ void init_cond() {
 	init_serial();
 
 	printk("");
-	set_bp();
+
+//	set_bp();
 
 	/* Initialize the IDE driver. */
 //	set_bp();
@@ -95,7 +96,7 @@ void init_cond() {
 
 	video_mapping_write_test();
 
-	Log("video mapping write test end.");
+	Log("video mapping write test..");
 
 #endif
 
@@ -109,6 +110,7 @@ void init_cond() {
 	 * the test data is written sucessfully.
 	 */
 	video_mapping_read_test();
+	Log("test end");
 
 	/* Clear the test data we just written in the video memory. */
 

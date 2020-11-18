@@ -24,13 +24,7 @@ uint32_t loader() {
 	uint8_t buf[4096];
 
 #ifdef HAS_DEVICE
-	//set_bp();
-	ide_read(buf, 0xba, 8);
-	//set_bp();
-//	nemu_assert(buf[0] == 0x1);
 	ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
-	//set_bp();
-
 #else
 	ramdisk_read(buf, ELF_OFFSET_IN_DISK, 4096);
 #endif
