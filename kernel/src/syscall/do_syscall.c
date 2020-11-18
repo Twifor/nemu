@@ -15,7 +15,6 @@ static void sys_ioctl(TrapFrame *tf) {
 }
 
 static void sys_write(TrapFrame *tf) {
-{
 #ifdef HAS_DEVICE
 	void serial_printc(char ch);
 	int i = 0;
