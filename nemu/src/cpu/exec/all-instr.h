@@ -79,4 +79,5 @@
 #include "lyh/PA4/jae.h"
 #include "lyh/PA4/jb.h"
 #include "lyh/PA4/cmove.h"
+#include "lyh/PA4/cmovle.h"
 
