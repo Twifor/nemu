@@ -116,6 +116,7 @@ void init_cond() {
 
 	//set_bp();
 	video_mapping_clear();
+	Log("clear end");
 	//set_bp();
 
 #endif
@@ -132,6 +133,7 @@ void init_cond() {
 
 	/* Here we go! */
 	((void(*)(void))eip)();
+	Log("running...");
 
 	HIT_GOOD_TRAP;
 
