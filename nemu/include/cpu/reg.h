@@ -151,6 +151,8 @@ typedef struct {
 	GDTR gdtr;
 
 	IDTR idtr;//idtr
+
+	bool INTR;
 	
 	swaddr_t eip;
 
