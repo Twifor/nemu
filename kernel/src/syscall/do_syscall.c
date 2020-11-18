@@ -14,6 +14,18 @@ static void sys_ioctl(TrapFrame *tf) {
 	tf->eax = fs_ioctl(tf->ebx, tf->ecx, (void *)tf->edx);
 }
 
+static void sys_write(TrapFrame *tf) {
+{
+#ifdef HAS_DEVICE
+	void serial_printc(char ch);
+	int i = 0;
+	for(i = 0; i < tf->edx; i++) serial_printc(*((char *)((char *)tf->ecx + i)));
+#else
+	asm volatile(".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
+#endif
+	tf->eax = tf->edx;
+}
+
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
 		/* The `add_irq_handle' system call is artificial. We use it to
@@ -30,18 +42,8 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_brk: sys_brk(tf); break;
 		case SYS_ioctl: sys_ioctl(tf); break;
 		
-		case SYS_write://SYS_WRITE
-			{
-//#ifdef HAS_DEVICE
-			//	void serial_printc(char ch);
-			//	int i = 0;
-			//	for(i = 0; i < tf->edx; i++) serial_printc(*((char *)((char *)tf->ecx + i)));
-//#else
-				asm volatile(".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
-//#endif
-				tf->eax = tf->edx;
-		   		break;
-			}
+		case SYS_write: sys_write(tf); break;
+			
 		/* TODO: Add more system calls. */
 
 		default: panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
