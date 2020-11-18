@@ -85,7 +85,7 @@ void init_cond() {
 	 * the serial port is available in NEMU.
 	 */
 	Log("Hello, NEMU world!");
-	panic("%d + %d= %d", 1,1,2);
+	Log("%d + %d= %d ", 1,1,2);
 
 //In PA3-3
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
