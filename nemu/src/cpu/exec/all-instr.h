@@ -74,4 +74,7 @@
 #include "lyh/PA4/sete.h"
 #include "lyh/PA4/in.h"
 #include "lyh/PA4/out.h"
+#include "lyh/PA4/hlt.h"
+
+
 
