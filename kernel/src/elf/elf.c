@@ -83,6 +83,6 @@ uint32_t loader() {
 	write_cr3(get_ucr3());
 
 #endif
-	set_bp();
+	//set_bp();
 	return entry;
 }
