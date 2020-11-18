@@ -30,7 +30,7 @@ typedef struct {
 			uint8_t TL : 1;
 			uint16_t index : 13;
 		};
-		uint16_t val;
+		uint32_t val;
 	};
 	struct {//cache
 		uint32_t base;
