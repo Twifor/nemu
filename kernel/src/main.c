@@ -88,6 +88,7 @@ void init_cond() {
 	 * Note that the output is actually performed only when
 	 * the serial port is available in NEMU.
 	 */
+	set_bp();
 	Log("Hello, NEMU world!");
 
 //In PA3-3
@@ -96,8 +97,6 @@ void init_cond() {
 
 	Log("video mapping write test..");
 	video_mapping_write_test();
-
-
 
 #endif
 
