@@ -15,13 +15,13 @@ static void sys_ioctl(TrapFrame *tf) {
 }
 
 static void sys_write(TrapFrame *tf) {
-//#ifdef HAS_DEVICE
-//	void serial_printc(char ch);
-//	int i = 0;
-//	for(i = 0; i < tf->edx; i++) serial_printc(*((char *)((char *)tf->ecx + i)));
-//#else
+#ifdef HAS_DEVICE
+	void serial_printc(char ch);
+	int i = 0;
+	for(i = 0; i < tf->edx; i++) serial_printc(*((char *)((char *)tf->ecx + i)));
+#else
 	asm volatile(".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
-//#endif
+#endif
 	tf->eax = tf->edx;
 }
 
