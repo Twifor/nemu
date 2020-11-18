@@ -90,6 +90,11 @@ make_group(group7,
 	inv, inv, lgdt_rm_v, lidt_rm_v, 
 	inv, inv, inv, inv)
 
+/* 0xba */
+make_group(group8,
+	inv, inv, inv, inv, 
+	bt_i2rm_v, inv, inv, inv)
+
 
 /* TODO: Add more instructions!!! */
 
@@ -201,13 +206,13 @@ helper_fun _2byte_opcode_table [256] = {
 /* 0x94 */	sete_rm_b, setne_rm_b, inv, inv,
 /* 0x98 */	inv, inv, inv, inv, 
 /* 0x9c */	inv, inv, inv, inv, 
-/* 0xa0 */	inv, inv, inv, inv, 
+/* 0xa0 */	inv, inv, inv, bt_r2rm_v, 
 /* 0xa4 */	inv, inv, inv, inv,
 /* 0xa8 */	inv, inv, inv, inv,
 /* 0xac */	shrdi_v, inv, inv, imul_rm2r_v,
 /* 0xb0 */	inv, inv, inv, inv, 
 /* 0xb4 */	inv, inv, movzb_rm2r_v, movzw_rm2r_v, 
-/* 0xb8 */	inv, inv, inv, inv,
+/* 0xb8 */	inv, inv, group8, inv,
 /* 0xbc */	inv, inv, movsb_rm2r_v, movsw_rm2r_v,
 /* 0xc0 */	inv, inv, inv, inv,
 /* 0xc4 */	inv, inv, inv, inv,
