@@ -25,6 +25,8 @@ uint32_t loader() {
 
 #ifdef HAS_DEVICE
 	set_bp();
+	ide_read(buf, 0xba, 1);
+	nemu_assert(buf[0] == 0x1);
 	ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
 	set_bp();
 #else
