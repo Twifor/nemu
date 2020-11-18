@@ -61,6 +61,7 @@ clean: clean-cpp
 ##### some convinient rules #####
 
 USERPROG := $(game_BIN)
+##obj/testcase/quick-sort
 ENTRY := $(kernel_BIN)
 
 entry: $(ENTRY)

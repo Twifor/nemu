@@ -76,5 +76,5 @@
 #include "lyh/PA4/out.h"
 #include "lyh/PA4/hlt.h"
 #include "lyh/PA4/sti.h"
-
+#include "lyh/PA4/jae.h"
 
