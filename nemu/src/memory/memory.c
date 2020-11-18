@@ -17,6 +17,9 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	if(~port) return mmio_read(addr, len, port) & (~0u >> ((4 - len) << 3));
 	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 /*
+PA4 Update:
+*/
+/*
 	int first_id = readCache(addr);	//get cache id
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
 	uint8_t temp[2 * BURST_LEN];
