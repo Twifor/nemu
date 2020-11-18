@@ -35,6 +35,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
+	if(addr == 0x1280be)printf("\ndebug %x %x %x\n",addr,(uint32_t)len,data);
 	int port = is_mmio(addr);
 	if(~port) {
 		mmio_write(addr, len, data, port);
