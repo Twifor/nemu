@@ -55,7 +55,6 @@ disk_do_read(void *buf, uint32_t sector) {
 	clear_ide_intr();
 #endif
 
-	printk("\naaa\n");
 	ide_prepare(sector);
 	issue_read();
 
