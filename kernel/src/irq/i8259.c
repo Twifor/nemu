@@ -11,6 +11,7 @@ void init_i8259(void) {
 	out_byte(PORT_PIC_MASTER + 1, 0xFF);
 	out_byte(PORT_PIC_SLAVE + 1 , 0xFF);
 	
+	set_bp();
 	/* start initialization */
 	out_byte(PORT_PIC_MASTER, 0x11);
 	out_byte(PORT_PIC_MASTER + 1, 32);
