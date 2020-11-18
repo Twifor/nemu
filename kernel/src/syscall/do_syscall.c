@@ -30,7 +30,7 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_brk: sys_brk(tf); break;
 		case SYS_ioctl: sys_ioctl(tf); break;
 		
-		case 0x4://SYS_WRITE
+		case SYS_write://SYS_WRITE
 			{
 				/*if(tf->ecx == 0x80480aa) {
 					set_bp();
