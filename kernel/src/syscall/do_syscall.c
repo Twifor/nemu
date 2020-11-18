@@ -23,7 +23,7 @@ static void sys_write(TrapFrame *tf) {
 	#else
 		asm volatile(".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
 	#endif
-	tf->eax = tf->edx;
+		tf->eax = tf->edx;
 	} else {
 		panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
 	}
