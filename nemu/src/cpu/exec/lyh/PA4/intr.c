@@ -36,7 +36,4 @@ void raise_intr(uint8_t NO) {
 	cpu.eip = addr;//go
 
 	longjmp(jbuf, 1);
-
-	printf("int end!!\n");
-	do_int3();
 }

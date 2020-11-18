@@ -8,6 +8,10 @@ make_helper(concat(iret_, SUFFIX)) {
 	cpu.eflags = concat(tmp_pop_, SUFFIX) ();
 	if(cpu.cr0.protect_enable) loadSregCache(R_CS);
 	print_asm("iret");
+
+	void do_int3();
+	printf("int end!!\n");
+	do_int3();
 	return 0;
 }
 
