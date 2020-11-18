@@ -5,6 +5,7 @@
 
 void
 init_serial(void) {
+	return;
 	out_byte(SERIAL_PORT + 1, 0x00);
 	out_byte(SERIAL_PORT + 3, 0x80);
 	out_byte(SERIAL_PORT + 0, 0x01);
