@@ -90,7 +90,7 @@ void init_cond() {
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Write some test data to the video memory. */
 
-	video_mapping_write_test();
+	//video_mapping_write_test();
 
 #endif
 	/* Load the program. */
