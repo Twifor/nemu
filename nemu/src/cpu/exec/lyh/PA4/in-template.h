@@ -4,12 +4,17 @@
 
 uint32_t pio_read(ioaddr_t, size_t);
 
-static void do_execute() {
-	OPERAND_W(op_dest, pio_read (op_src->addr, DATA_BYTE));
-	print_asm("in");
+make_helper(concat(in_i2a_, SUFFIX)) {
+	uint8_t imm = instr_fetch(eip + 1, 1);
+	concat(reg_, SUFFIX)(R_EAX) = pio_read(imm, DATA_BYTE);
+	print_asm("in %x", imm);
+	return 2;
 }
 
-make_instr_helper(i2a)
-make_instr_helper(r2rm)
+make_helper(concat(in_, SUFFIX)) {
+	concat(reg_, SUFFIX)(R_EAX) = pio_read(reg_w(R_DX), DATA_BYTE);
+	print_asm("in");
+	return 1;
+}
 
 #include "cpu/exec/template-end.h"
