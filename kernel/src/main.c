@@ -67,7 +67,7 @@ void init_cond() {
 	/* Initialize the serial port. After that, you can use printk() to output messages. */
 	init_serial();
 
-	printk("fuck you\n");
+	printk("");
 	set_bp();
 
 	/* Initialize the IDE driver. */
