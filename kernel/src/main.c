@@ -68,7 +68,9 @@ void init_cond() {
 	init_serial();
 
 	/* Initialize the IDE driver. */
+	set_bp();
 	init_ide();
+	set_bp();
 
 	/* Enable interrupts. */
 	sti();
