@@ -6,10 +6,15 @@
 
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
+int is_mmio(hwaddr_t addr);
+uint32_t mmio_read(hwaddr_t addr, size_t len, int map_NO);
+void mmio_write(hwaddr_t addr, size_t len, uint32_t data, int map_NO);
 
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
+	int port = is_mmio(addr);
+	if(~port) return mmio_read(addr, len, port);
 	//printf("pp : %x\n",addr);
 	int first_id = readCache(addr);	//get cache id
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
@@ -29,6 +34,11 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
+	int port = is_mmio(addr);
+	if(~port) {
+		mmio_write(addr, len, data, port);
+		return;
+	}
 	writeCache(addr, len, data);
 }
 
