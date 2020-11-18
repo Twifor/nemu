@@ -4,9 +4,7 @@ void device_update();
 
 make_helper(hlt) {
 	printf("hlt\n");
-	while(!cpu.IF || !cpu.INTR) {
-		printf("ss\n");
-	}
+	while(!cpu.IF || !cpu.INTR);
 	print_asm("hlt");
 	return 1;
 }
