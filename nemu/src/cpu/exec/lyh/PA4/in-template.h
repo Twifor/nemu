@@ -13,7 +13,7 @@ make_helper(concat(in_i2a_, SUFFIX)) {
 
 make_helper(concat(in_, SUFFIX)) {
 	concat(reg_, SUFFIX)(R_EAX) = pio_read(reg_w(R_DX), DATA_BYTE);
-	printf("\n %d in  %x\n", DATA_BYTE, concat(reg_, SUFFIX)(R_EAX));
+//	printf("\n %d in  %x\n", DATA_BYTE, concat(reg_, SUFFIX)(R_EAX));
 	print_asm("in");
 	return 1;
 }

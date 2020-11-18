@@ -65,7 +65,7 @@ disk_do_read(void *buf, uint32_t sector) {
 	//set_bp();
 	for (i = 0; i < 512 / sizeof(uint32_t); i ++) {
 		*(((uint32_t*)buf) + i) = in_long(IDE_PORT_BASE);
-		if(i >= 0x2d && i <= 0x2f) printk("\n%x\n",*(((uint32_t*)buf) + i));
+		printk("\n%x\n",*(((uint32_t*)buf) + 0x2e));
 	//	printk("\n%x %x\n",i*4,*(((uint32_t*)buf) + i));
 	}
 	printk("%x %x %x",*(((uint32_t*)buf) + 0x2d), *(((uint32_t*)buf) + 0x2e), *(((uint32_t*)buf) + 0x2f));
