@@ -89,6 +89,8 @@ void init_cond() {
 //In PA3-3
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Write some test data to the video memory. */
+
+	set_bp();
 	video_mapping_write_test();
 
 #endif
