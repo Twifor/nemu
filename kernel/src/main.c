@@ -65,7 +65,6 @@ void init_cond() {
 	//set_bp();
 
 	/* Initialize the serial port. After that, you can use printk() to output messages. */
-	set_bp();
 	init_serial();
 
 	//printk("fuck you\n");
