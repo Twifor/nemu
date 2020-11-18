@@ -66,7 +66,6 @@ void init_cond() {
 
 	/* Initialize the serial port. After that, you can use printk() to output messages. */
 	init_serial();
-	printk("%d + %d\n", 1, 1);
 
 	/* Initialize the IDE driver. */
 	init_ide();
@@ -79,7 +78,6 @@ void init_cond() {
 	/* Initialize the memory manager. */
 	init_mm();
 #endif
-
 	/* Output a welcome message.
 	 * Note that the output is actually performed only when
 	 * the serial port is available in NEMU.
@@ -93,6 +91,7 @@ void init_cond() {
 	//video_mapping_write_test();
 
 #endif
+
 	/* Load the program. */
 	uint32_t eip = loader();
 //	set_bp();
