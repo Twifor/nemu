@@ -64,6 +64,7 @@
 #include "lyh/lgdt.h"
 #include "lyh/std.h"
 #include "lyh/cld.h"
+
 #include "lyh/PA4/lidt.h"
 #include "lyh/PA4/pusha.h"
 #include "lyh/PA4/popa.h"
@@ -72,4 +73,5 @@
 #include "lyh/PA4/int.h"
 #include "lyh/PA4/sete.h"
 #include "lyh/PA4/in.h"
+#include "lyh/PA4/out.h"
 
