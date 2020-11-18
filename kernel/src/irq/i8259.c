@@ -6,7 +6,7 @@
 #define IRQ_SLAVE       2
 
 void init_i8259(void) {
-	set_bp();
+	//set_bp();
 	/* mask all interrupts */
 	out_byte(PORT_PIC_MASTER + 1, 0xFF);
 	out_byte(PORT_PIC_SLAVE + 1 , 0xFF);
@@ -27,7 +27,7 @@ void init_i8259(void) {
 	out_byte(PORT_PIC_SLAVE, 0x0A);
 
 
-	set_bp();
-	Log("success");
-	set_bp();
+	//set_bp();
+	//Log("success");
+	//set_bp();
 }
