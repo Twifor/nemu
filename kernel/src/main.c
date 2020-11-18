@@ -91,11 +91,13 @@ void init_cond() {
 	/* Write some test data to the video memory. */
 
 	video_mapping_write_test();
+
 	Log("video mapping write test end.");
 
 #endif
 
 	/* Load the program. */
+	Log("Loading...");
 	uint32_t eip = loader();
 //	set_bp();
 	
