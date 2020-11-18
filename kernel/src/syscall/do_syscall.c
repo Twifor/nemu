@@ -31,9 +31,13 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_ioctl: sys_ioctl(tf); break;
 		
 		case 0x4://SYS_WRITE
-			asm volatile (".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
-			tf->eax = tf->edx;
-			break;
+			{
+				void serial_printc(char ch);
+				int i = 0;
+				for(i = 0; i < cpu.edx; i++) serial_printc(*((char *)((char *)tf->ecx + i)));
+				tf->eax = tf->edx;
+		   		break;
+			}
 		/* TODO: Add more system calls. */
 
 		default: panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
