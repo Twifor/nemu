@@ -8,6 +8,7 @@
 #include <readline/history.h>
 
 void cpu_exec(uint32_t);
+lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -184,6 +185,18 @@ static int cmd_page(char *args) {
 	return 0;
 }
 
+static int cmd_seg(char *args) {
+	if(args == NULL) return 0;
+	swaddr_t swaddr;
+	sscanf(args, "%x", &swaddr);
+	lnaddr_t lnaddr = seg_translate(swaddr, 1, R_CS);
+	if(!cpu.cr0.protect_enable) {
+		printf("\033[1;33mSegment address convertion is invalid.\n\033[0m");
+	}
+	printf("0x%x -> 0x%x\n", swaddr, lnaddr);
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -203,6 +216,7 @@ static struct {
 	{ "goto", "Goto address", cmd_goto },
 	{ "bt", "Print backtrace", cmd_bt },
 	{ "page", "Convert virtual address to physical address", cmd_page },
+	{ "seg", "Convert logic address to linear addresss", cmd_seg}
 	/* TODO: Add more commands */
 
 };
