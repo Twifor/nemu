@@ -90,7 +90,6 @@ void init_cond() {
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Write some test data to the video memory. */
 
-	set_bp();
 	video_mapping_write_test();
 
 #endif
@@ -104,9 +103,11 @@ void init_cond() {
 	video_mapping_read_test();
 
 	/* Clear the test data we just written in the video memory. */
-	video_mapping_clear();
 
 	set_bp();
+	video_mapping_clear();
+	set_bp();
+
 #endif
 
 #ifdef IA32_PAGE
