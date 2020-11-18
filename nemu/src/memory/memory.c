@@ -13,9 +13,10 @@ void mmio_write(hwaddr_t addr, size_t len, uint32_t data, int map_NO);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
+
 	int port = is_mmio(addr);
 	if(~port) return mmio_read(addr, len, port);
-	//printf("pp : %x\n",addr);
+
 	int first_id = readCache(addr);	//get cache id
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
 	uint8_t temp[2 * BURST_LEN];
