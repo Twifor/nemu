@@ -1,15 +1,15 @@
 #include "cpu/exec/template-start.h"
 
-//#define instr in
+#define instr in
 
-make_helper(concat(in_i2a_, SUFFIX)) {
-	//uint8_t imm = instr_fetch(eip + 1, 1);
-	print_asm_template2();
-	return 2;
+uint32_t pio_read(ioaddr_t, size_t);
+
+static void do_execute() {
+	OPERAND_W(op_dest, pio_read (op_src->addr, DATA_BYTE));
+	print_asm("in %x", op_src->addr);
 }
 
-make_helper(concat(in_, SUFFIX)) {
-	return 1;
-}
+make_instr_helper(i2a)
+make_instr_helper(r2rm)
 
 #include "cpu/exec/template-end.h"
