@@ -50,7 +50,7 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
 #ifdef HAS_DEVICE
-			ide_read((void *)ph->p_vaddr,ph->p_offset,ph->p_filesz);
+			ide_read((void *)ph->p_vaddr, ph->p_offset, ph->p_filesz);
 #else
 			ramdisk_read((void *)ph->p_vaddr, ph->p_offset, ph->p_filesz);
 #endif		 
@@ -68,6 +68,7 @@ uint32_t loader() {
 #endif
 		}
 	}
+	set_bp();
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
