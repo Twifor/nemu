@@ -29,4 +29,5 @@ void init_i8259(void) {
 
 	set_bp();
 	Log("success");
+	set_bp();
 }
