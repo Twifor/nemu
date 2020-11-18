@@ -9,7 +9,7 @@ void raise_intr(uint8_t NO) {
 	//printf("\nint %x\n", NO);//debug use
 
 	void do_int3();
-	printf("int!!\n");
+	printf("int begin!!\n");
 	do_int3();
 
 	//Interrupt start
@@ -36,4 +36,7 @@ void raise_intr(uint8_t NO) {
 	cpu.eip = addr;//go
 
 	longjmp(jbuf, 1);
+
+	printf("int end!!\n");
+	do_int3();
 }
