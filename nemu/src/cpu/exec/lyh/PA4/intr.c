@@ -6,7 +6,7 @@ extern jmp_buf jbuf;
 void tmp_push_l (uint32_t val);
 
 void raise_intr(uint8_t NO) {
-	//printf("\nint %x\n", NO);//debug use
+	printf("\nint %x\n", NO);//debug use
 
 //	void do_int3();
 //	printf("int begin!!\n");
