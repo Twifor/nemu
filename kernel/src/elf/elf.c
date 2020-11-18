@@ -68,13 +68,16 @@ uint32_t loader() {
 #endif
 		}
 	}
+	write_cr3(get_ucr3());
+	set_bp();
+
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
 	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
 
 #ifdef HAS_DEVICE
-//	create_video_mapping();
+	create_video_mapping();
 #endif
 
 	//set_bp();
