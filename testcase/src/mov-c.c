@@ -22,5 +22,7 @@ int main() {
 	nemu_assert(b == 3);
 	nemu_assert(A[5] == 3);
 
+	set_bp();
+
 	return 0;
 }
