@@ -68,7 +68,9 @@ void init_cond() {
 	init_serial();
 
 	/* Initialize the IDE driver. */
+	set_bp();
 	init_ide();
+	set_bp();
 
 	/* Enable interrupts. */
 	sti();
@@ -88,7 +90,7 @@ void init_cond() {
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Write some test data to the video memory. */
 
-	//video_mapping_write_test();
+	video_mapping_write_test();
 
 #endif
 
