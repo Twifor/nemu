@@ -4,13 +4,15 @@
 
 uint32_t pio_write(ioaddr_t, size_t,  uint32_t);
 
-static void do_execute() {
-	printf("debug %x\n", op_dest->addr);
-	pio_write(op_dest->addr, DATA_BYTE, op_src->val);
-	print_asm("out");
+make_helper(concat(out_i2a_, SUFFIX)) {
+	uint8_t imm = instr_fetch(eip + 1, 1);
+	pio_write(imm, DATA_BYTE, (DATA_TYPE)reg_l(R_EAX));
+	return 2;
 }
 
-make_instr_helper(i2a)
-make_instr_helper(r2rm)
+make_helper(concat(out_, SUFFIX)) {
+	pio_write(reg_w(R_DX), DATA_BYTE, (DATA_TYPE)reg_l(R_EAX));
+	return 1;
+}
 
 #include "cpu/exec/template-end.h"
