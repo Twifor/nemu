@@ -38,7 +38,7 @@ void irq_handle(TrapFrame *tf) {
 	int irq = tf->irq;
 //	set_bp();
 	if (irq < 0) {
-		panic("Unhandled exception! %x", irq);
+		panic("Unhandled exception! #%d at eip = %x", irq, tf->eip);
 	} else if (irq == 0x80) {
 	//	set_bp();
 		do_syscall(tf);
