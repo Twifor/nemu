@@ -68,7 +68,6 @@ uint32_t loader() {
 #endif
 		}
 	}
-	set_bp();
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
@@ -82,6 +81,6 @@ uint32_t loader() {
 	write_cr3(get_ucr3());
 
 #endif
-
+	set_bp();
 	return entry;
 }
