@@ -39,7 +39,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
 		mmio_write(addr, len, data, port);
 		return;
 	}
-	if(addr == 0x1280be)printf("\ndebug %x %x %x\n",addr,(uint32_t)len,data);
+	//if(addr == 0x1280be)printf("\ndebug %x %x %x\n",addr,(uint32_t)len,data);
 	dram_write(addr, len, data);
 //	writeCache(addr, len, data);
 }
