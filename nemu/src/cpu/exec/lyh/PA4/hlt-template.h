@@ -3,7 +3,6 @@
 void device_update();
 
 make_helper(hlt) {
-	printf("hlt\n");
 	while(!cpu.IF || !cpu.INTR) {
 		device_update();
 	}
