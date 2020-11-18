@@ -85,13 +85,13 @@ void init_cond() {
 	 * the serial port is available in NEMU.
 	 */
 	Log("Hello, NEMU world!");
-	Log("%d + %d= %d ", 1,1,2);
 
 //In PA3-3
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Write some test data to the video memory. */
 
 	video_mapping_write_test();
+	Log("video mapping write test end.");
 
 #endif
 
