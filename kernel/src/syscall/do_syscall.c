@@ -32,7 +32,10 @@ void do_syscall(TrapFrame *tf) {
 		
 		case 0x4://SYS_WRITE
 			{
-				if(tf->ecx == 0x80480aa) set_bp();
+				if(tf->ecx == 0x80480aa) {
+					set_bp();
+					nemu_assert(tf->edx == 0xe);
+				}
 				void serial_printc(char ch);
 				int i = 0;
 				for(i = 0; i < tf->edx; i++) serial_printc(*((char *)((char *)tf->ecx + i)));
