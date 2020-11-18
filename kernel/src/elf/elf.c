@@ -24,7 +24,7 @@ uint32_t loader() {
 	uint8_t buf[4096];
 
 #ifdef HAS_DEVICE
-	set_bp();
+	//set_bp();
 	ide_read(buf, 0xba, 8);
 	//set_bp();
 //	nemu_assert(buf[0] == 0x1);
