@@ -54,7 +54,11 @@ hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 		uint32_t page_offset = ((addr >> 12) & 0x3ff);
 		uint32_t offset = addr & 0xfff;
 		dir.val = hwaddr_read((cpu.cr3.page_directory_base << 12) + (dir_offset << 2), 4);
-		Assert(dir.p, "Invalid page. %x", addr);
+		if(!dir.p) {
+			void do_int3();
+			do_int3();//debug use
+		}
+		//Assert(dir.p, "Invalid page. %x", addr);
 		page.val = hwaddr_read((dir.base << 12) + (page_offset << 2), 4);
 		if(!page.p) {
 			void do_int3();
