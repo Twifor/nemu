@@ -11,6 +11,9 @@ void raise_intr(uint8_t NO) {
 	//Interrupt start
 
 	tmp_push_l(cpu.eflags);
+
+	if(cpu.cr0.protect_enable == 0) cpu.IF = cpu.TF = 0;
+
 	tmp_push_l(cpu.cs.val);
 	tmp_push_l(cpu.eip);
 
