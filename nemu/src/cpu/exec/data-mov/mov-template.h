@@ -4,12 +4,7 @@
 #define instr mov
 
 static void do_execute() {
-	void do_int3();
 	OPERAND_W(op_dest, op_src->val);
-	if(cpu.ebx < 0xf0000) {
-		printf("special bp!!\n");
-		do_int3();
-	}
 	print_asm_template2();
 }
 
