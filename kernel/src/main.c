@@ -109,7 +109,7 @@ void init_cond() {
 	/* Read data in the video memory to check whether 
 	 * the test data is written sucessfully.
 	 */
-	set_bp();
+	//set_bp();
 	video_mapping_read_test();
 
 	Log("test end");
