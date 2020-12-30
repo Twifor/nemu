@@ -21,6 +21,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
 	uint8_t temp[2 * BURST_LEN];
 	if(offset + len > CACHE_BLOCK_SIZE) {
+		printf("xx\n");
 		int second_id = readCache(addr + CACHE_BLOCK_SIZE - offset);
 		memcpy(temp, cache[first_id].data + offset, CACHE_BLOCK_SIZE - offset);
 		memcpy(temp + CACHE_BLOCK_SIZE - offset, cache[second_id].data, len - CACHE_BLOCK_SIZE + offset);
@@ -57,7 +58,7 @@ hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 			void do_int3();
 			do_int3();//debug use
 		}
-		Assert(dir.p, "Invalid page. %x", addr);
+		Assert(dir.p, "Invalid dir. %x", addr);
 		page.val = hwaddr_read((dir.base << 12) + (page_offset << 2), 4);
 		if(!page.p) {
 			printf("Invalid page\n");
