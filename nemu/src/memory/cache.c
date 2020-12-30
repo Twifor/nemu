@@ -6,6 +6,7 @@
 void ddr3_read_public(hwaddr_t addr, void *data);
 void ddr3_write_public(hwaddr_t addr, void *data, uint8_t *mask);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
+uint32_t dram_read(hwaddr_t addr, size_t len);
 
 void addMemoryTime(uint32_t t) {
 	MEMORY_TIME += t;
@@ -69,8 +70,10 @@ int readCache2(hwaddr_t addr) {
 		//	ddr3_write_public(block2 + j * BURST_LEN, cache2[i].data + j * BURST_LEN, mask);
 		//}
 	}
-	for(j = 0; j < CACHE2_BLOCK_SIZE / BURST_LEN; j++) {
-		ddr3_read_public(block + j * BURST_LEN , cache2[i].data + j * BURST_LEN);
+	for(j = 0; j < (CACHE2_BLOCK_SIZE >> 2); j++) {
+		uint32_t dat = dram_read(block + (j << 2), 4);
+		memcpy(cache2[i].data + (j << 2), &dat, 4);
+		//ddr3_read_public(block + j * BURST_LEN , cache2[i].data + j * BURST_LEN);
 	}
 	cache2[i].valid = true;
 	cache2[i].tag = tag;
