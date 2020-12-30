@@ -15,11 +15,8 @@ void mmio_write(hwaddr_t addr, size_t len, uint32_t data, int map_NO);
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	int port = is_mmio(addr);
 	if(~port) return mmio_read(addr, len, port) & (~0u >> ((4 - len) << 3));
-	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
-/*
-PA4 Update:
-*/
-/*
+	//return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+
 	int first_id = readCache(addr);	//get cache id
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
 	uint8_t temp[2 * BURST_LEN];
@@ -33,7 +30,6 @@ PA4 Update:
 	int zero = 0;
 	uint32_t tmp = unalign_rw(temp + zero, 4) & (~0u >> ((4 - len) << 3));
 	return tmp;
-*/
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
@@ -42,9 +38,8 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
 		mmio_write(addr, len, data, port);
 		return;
 	}
-	//if(addr == 0x1280be)printf("\ndebug %x %x %x\n",addr,(uint32_t)len,data);
 	dram_write(addr, len, data);
-//	writeCache(addr, len, data);
+	writeCache(addr, len, data);
 }
 
 hwaddr_t page_translate(lnaddr_t addr, size_t len) {
@@ -70,6 +65,7 @@ hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 			do_int3();//debug use
 		}
 		Assert(page.p, "Invalid page. %x", addr);
+		//zan ye bu zhi dao, zan ye bu gan wen
 		//hwaddr_t hwaddr = (page.base << 12) + offset;
 		//Assert((hwaddr & 0xfff) + len == ((hwaddr + len) & 0xfff), "Fatal Error!!");
 		writeTLB(addr & 0xfffff000, page.base);
