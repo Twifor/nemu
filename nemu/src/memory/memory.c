@@ -16,7 +16,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	int port = is_mmio(addr);
 	if(~port) return mmio_read(addr, len, port) & (~0u >> ((4 - len) << 3));
 	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
-/*
+
 	int first_id = readCache(addr);	//get cache id
 	uint32_t offset = addr & (CACHE_BLOCK_SIZE - 1);
 	uint8_t temp[2 * BURST_LEN];
@@ -29,7 +29,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	}
 	int zero = 0;
 	uint32_t tmp = unalign_rw(temp + zero, 4) & (~0u >> ((4 - len) << 3));
-	return tmp;*/
+	return tmp;
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
@@ -38,8 +38,8 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {	//physical address
 		mmio_write(addr, len, data, port);
 		return;
 	}
-	dram_write(addr, len, data);
-//	writeCache(addr, len, data);
+//	dram_write(addr, len, data);
+	writeCache(addr, len, data);
 }
 
 hwaddr_t page_translate(lnaddr_t addr, size_t len) {
