@@ -100,6 +100,8 @@ void init_cond() {
 
 #endif
 
+	set_bp();
+
 	/* Load the program. */
 	Log("Loading...");
 	uint32_t eip = loader();
@@ -133,7 +135,6 @@ void init_cond() {
 	asm volatile("movl $0, %ebp");
 	asm volatile("subl $16, %esp");
 
-	set_bp();
 
 	/* Here we go! */
 	((void(*)(void))eip)();
