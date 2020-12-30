@@ -68,7 +68,6 @@ uint32_t loader() {
 #endif
 		}
 	}
-	set_bp();
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE

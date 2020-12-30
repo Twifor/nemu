@@ -60,7 +60,8 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := $(game_BIN)
+USERPROG := obj/testcase/quick-sort
+# $(game_BIN)
 ##obj/testcase/quick-sort
 ENTRY := $(kernel_BIN)
 
