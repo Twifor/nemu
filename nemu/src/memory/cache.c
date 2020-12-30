@@ -110,7 +110,7 @@ void writeCache2(hwaddr_t addr, size_t len, uint32_t data) {
 			if(offset + len > CACHE2_BLOCK_SIZE) {//across
 				//dram_write(addr, CACHE2_BLOCK_SIZE - offset, data);	//write through
 				memcpy(cache2[i].data + offset, &data, CACHE2_BLOCK_SIZE - offset);
-				writeCache2(addr + CACHE2_BLOCK_SIZE - offset, len - CACHE2_BLOCK_SIZE + offset, data >> (CACHE2_BLOCK_SIZE - offset));
+				writeCache2(addr + CACHE2_BLOCK_SIZE - offset, len - CACHE2_BLOCK_SIZE + offset, data >> ((CACHE2_BLOCK_SIZE - offset) << 3));
 			} else {
 				//dram_write(addr, len, data);	//write through
 				memcpy(cache2[i].data + offset, &data, len);
