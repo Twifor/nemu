@@ -104,7 +104,7 @@ void init_cond() {
 	/* Load the program. */
 	Log("Loading...");
 	uint32_t eip = loader();
-	set_bp();
+//	set_bp();
 	
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Read data in the video memory to check whether 
