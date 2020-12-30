@@ -1,7 +1,10 @@
 ### Update
-    除了仙剑之外的PA4部分。
-    PA4中解决了PA3中遗留的cache的bug，该问题在PA3中不会暴露（应该）。
-    master分支中未合并PA4。
+
+除了仙剑之外的PA4部分。
+
+PA4中解决了PA3中遗留的cache的bug，该问题在PA3中不会暴露（应该）。
+
+master分支中未合并PA4。
 
 # NEMU2020 Programming Assignment
 
